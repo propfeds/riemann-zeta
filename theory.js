@@ -90,9 +90,9 @@ var authors = 'propfeds, Eylanding\nMartin_mc, previous maintainer\n\n' +
 'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
 'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
 '繁體中文\nJooo#0529 - Español\npropfeds - Tiếng Việt';
-var version = 0.4;
+var version = 0.41;
 
-const versionName = 'v0.4';
+const versionName = 'v0.4.1';
 const workInProgress = false;
 
 let terms = 0;
