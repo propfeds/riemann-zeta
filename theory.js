@@ -120,8 +120,8 @@ const scale = 4;
 
 const derivRes = 100000;
 
-const resolution = 4;
-const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, 1/resolution);
+const resolution = 1/4;
+const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
 
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
@@ -503,7 +503,8 @@ let zetaSmall = (t) =>
     let offset = fullIndex - index;
     let re = zeta01Table[index][0]*(1-offset) + zeta01Table[index+1][0]*offset;
     let im = zeta01Table[index][1]*(1-offset) + zeta01Table[index+1][1]*offset;
-    return [re, im, Math.sqrt(re*re + im*im)];
+    return [re, im, -Math.sqrt(re*re + im*im)];
+    // Minus sign for the last element because of theta polarity
 }
 
 let even = (n) =>
@@ -706,7 +707,7 @@ let zeta = (T) =>
         z = [
             a[0]*(1-offset) + b[0]*offset,
             a[1]*(1-offset) + b[1]*offset,
-            a[2]*(1-offset) + Math.abs(b[2])*offset
+            a[2]*(1-offset) + b[2]*offset
         ];
     }
     if(T < 0)
@@ -947,7 +948,7 @@ var init = () =>
             foundZero = false;
             bhzTerm = null;
             bhdTerm = null;
-            if(lastZero)
+            if(lastZero >= 14)
                 t = lastZero;
         }
         blackholeMs.refunded = (_) =>
@@ -989,7 +990,7 @@ var tick = (elapsedTime, multiplier) =>
     pubTime += elapsedTime;
     if(!blackholeMs.level || t < 14)
     {
-        t_dot = 1 / resolution;
+        t_dot = resolution;
         t += t_dot * elapsedTime;
     }
 
@@ -1024,7 +1025,7 @@ var tick = (elapsedTime, multiplier) =>
                 // Not very accurate this way but eh (xdd)
                 if(searchingRewind && bhdt < 0)
                 {
-                    t_dot = 1 / resolution;
+                    t_dot = resolution;
                     t += t_dot * elapsedTime;
                 }
                 else
@@ -1250,6 +1251,8 @@ var postPublish = () =>
     lastZero = 0;
     searchingRewind = false;
     foundZero = false;
+    bhzTerm = null;
+    bhdTerm = null;
 
     theory.invalidatePrimaryEquation();
     theory.invalidateSecondaryEquation();
