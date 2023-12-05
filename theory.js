@@ -18,7 +18,7 @@ var getName = (language) =>
         en: 'Riemann Zeta Function',
         'zh-Hans': '黎曼ζ函数',
         'zh-Hant': '黎曼ζ函数',
-        es: 'Función de Riemann Zeta',
+        es: 'Función Zeta de Riemann',
         vi: 'Hàm zeta Riemann'
     };
 
