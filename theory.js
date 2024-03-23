@@ -983,8 +983,6 @@ var init = () =>
         blackholeMs.isAvailable = false;
     }
 
-    theory.primaryEquationScale = 0.96;
-    // theory.primaryEquationHeight = 84;
     // theory.secondaryEquationScale = 0.96;
     theory.secondaryEquationHeight = 72;
 
@@ -1112,12 +1110,14 @@ var getPrimaryEquation = () =>
     ${derivMs.level ? ` w_1`: ''}}{|\\zeta(\\frac{1}{2}+it)|/2^{b}+10^{-2}}`;
     if(!derivMs.level)
     {
-        theory.primaryEquationHeight = 66;
+        theory.primaryEquationScale = 0.96;
+        theory.primaryEquationHeight = 63;
         return rhoPart;
     }
     let omegaPart = `\\,\\dot{\\delta}=w_1
     ${w2Ms.level ? 'w_2' : ''}${w3Perma.level ? 'w_3' : ''}\\times
     |\\zeta '(\\textstyle\\frac{1}{2}+it)|^b`;
+    theory.primaryEquationScale = 0.92;
     theory.primaryEquationHeight = 75;
     return `\\begin{array}{c}${rhoPart}\\\\${omegaPart}\\end{array}`;
 }
