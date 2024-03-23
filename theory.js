@@ -89,7 +89,6 @@ var authors = 'propfeds, Eylanding\nMartin_mc, previous maintainer\n\n' +
 var version = 0.42;
 
 const versionName = 'v0.4.2';
-const workInProgress = false;
 
 let terms = 0;
 let pubTime = 0;
