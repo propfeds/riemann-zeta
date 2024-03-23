@@ -5,9 +5,6 @@ import { QuaternaryEntry, theory } from '../api/Theory';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
 import { ui } from '../api/ui/UI';
-import { Color } from '../api/ui/properties/Color';
-import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
-import { Thickness } from '../api/ui/properties/Thickness';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -1096,7 +1093,6 @@ var getEquationOverlay = () =>
         [
             ui.createLatexLabel
             ({
-                isVisible: () => overlayToggle.level,
                 verticalOptions: LayoutOptions.END,
                 margin: new Thickness(6, 4),
                 text: versionName,
