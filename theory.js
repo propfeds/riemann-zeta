@@ -186,7 +186,7 @@ const locStrings =
     en:
     {
         wip: '(WIP)\\\\{0}',
-        pubTime: 'Time: {0}',
+        pubTime: 'Publication time: {0}',
         terms: 'Riemann-Siegel terms: {0}',
         speed: '\\text{speed}',
         zExp: '{{{0}}}\\text{{ exponent}}',
@@ -253,7 +253,7 @@ const locStrings =
     es:
     {
         wip: '(TEP)\\\\{0}',
-        pubTime: 'Tiempo: {0}',
+        pubTime: 'Tiempo de publicación: {0}',
         terms: 'Terminos de Riemann-Siegel: {0}',
         blackhole: 'Desata un agujero negro',
         blackholeInfo: 'Atrae {0} hacia atrás al cero más cercano de {1}',
@@ -273,7 +273,7 @@ const locStrings =
     vi:
     {
         wip: '(Đang dở)\\\\{0}',
-        pubTime: 'Thời gian: {0}',
+        pubTime: 'Thời gian xuất bản: {0}',
         terms: 'Riemann-Siegel: {0} số hạng',
         speed: '\\text{tốc độ}',
         zExp: '{{{0}}}\\text{{ số mũ}}',
@@ -292,7 +292,7 @@ const locStrings =
             'Hiển thị thông tin',
             'Giấu thông tin',
         ],
-        overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian',
+        overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
         warpFive: 'Nhận 5 đồng nhưng có hậu quả',
         warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
