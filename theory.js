@@ -104,9 +104,11 @@ let bhzTerm = null;
 let bhdTerm = null;
 let quaternaryEntries =
 [
+    new QuaternaryEntry(null, ''),
     new QuaternaryEntry('\\dot{t}_{{}\\,_{{}\\,}}', null),
     new QuaternaryEntry('t_{{}\\,}', null),
-    new QuaternaryEntry('\\zeta \'_{{}\\,}', null)
+    new QuaternaryEntry('\\zeta \'_{{}\\,}', null),
+    new QuaternaryEntry(null, ''),
 ];
 
 const scale = 4;
@@ -984,7 +986,7 @@ var init = () =>
     theory.primaryEquationScale = 0.96;
     // theory.primaryEquationHeight = 84;
     // theory.secondaryEquationScale = 0.96;
-    theory.secondaryEquationHeight = 60;
+    theory.secondaryEquationHeight = 72;
 
     updateAvailability();
 }
@@ -1125,26 +1127,24 @@ var getSecondaryEquation = () =>
     return `\\begin{array}{c}\\zeta(s)=
     \\displaystyle\\sum_{n=1}^{\\infty}n^{-s},&
     ${theory.latexSymbol}=\\max\\rho ^{${tauRate}}\\end{array}`;
-    return `\\begin{array}{c}\\zeta(\\textstyle\\frac{1}{2}+it)=
-    \\displaystyle\\sum_{n=1}^{\\infty}
-    \\frac{(-1)^{n+1}}{n^{1/2+it}(1-2^{1/2-it})}\\\\\\\\
-    \\enspace${theory.latexSymbol}=\\max\\rho ^{${tauRate}}\\end{array}`;
 }
 
 var getTertiaryEquation = () =>
 {
-    return `|\\zeta(\\frac{1}{2}+it)|=${(bhzTerm ?? zTerm).toString(3)}`;
+    return `|\\zeta(\\textstyle\\frac{1}{2}+it)|=
+    ${(bhzTerm ?? zTerm).toString(3)}`;
 }
 
 var getQuaternaryEntries = () =>
 {
-    quaternaryEntries[0].value = t_dot.toFixed(2);
-    quaternaryEntries[1].value = t.toFixed(2);
+    quaternaryEntries[1].value = t_dot.toFixed(2);
+    quaternaryEntries[2].value = t.toFixed(2);
     if(derivMs.level)
-        quaternaryEntries[2].value = (bhdTerm ?? dTerm).toString(3);
+        quaternaryEntries[3].value = (bhdTerm ?? dTerm).toString(3);
     else
-        quaternaryEntries[2].value = null;
+        quaternaryEntries[3].value = null;
     return quaternaryEntries;
+    // return quaternaryEntries.slice(1, 4);
 }
 
 var getTau = () => normCurrency.value.pow(tauRate);
