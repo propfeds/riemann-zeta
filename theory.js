@@ -1,13 +1,12 @@
 import { BigNumber } from '../api/BigNumber';
-import { ConstantCost, ExponentialCost, FirstFreeCost, LinearCost, StepwiseCost, CustomCost, FreeCost } from '../api/Costs';
+import { ConstantCost, CustomCost, ExponentialCost, FirstFreeCost, FreeCost, StepwiseCost } from '../api/Costs';
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
-import { ui } from '../api/ui/UI';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
+import { ui } from '../api/ui/UI';
 import { Color } from '../api/ui/properties/Color';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
-import { TextAlignment } from '../api/ui/properties/TextAlignment';
 import { Thickness } from '../api/ui/properties/Thickness';
 
 var id = 'riemann_zeta_f';
@@ -90,9 +89,9 @@ var authors = 'propfeds, Eylanding\nMartin_mc, previous maintainer\n\n' +
 'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
 'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
 '繁體中文\nJooo#0529 - Español\npropfeds - Tiếng Việt';
-var version = 0.41;
+var version = 0.42;
 
-const versionName = 'v0.4.1';
+const versionName = 'v0.4.2';
 const workInProgress = false;
 
 let terms = 0;
@@ -109,9 +108,9 @@ let bhzTerm = null;
 let bhdTerm = null;
 let quaternaryEntries =
 [
-    new QuaternaryEntry('\\dot{t}', null),
-    new QuaternaryEntry('t', null),
-    new QuaternaryEntry('\\zeta \'', null)
+    new QuaternaryEntry('\\dot{t}_{{}\\,_{{}\\,}}', null),
+    new QuaternaryEntry('t_{{}\\,}', null),
+    new QuaternaryEntry('\\zeta \'_{{}\\,}', null)
 ];
 
 const scale = 4;
@@ -851,10 +850,33 @@ var init = () =>
     Look forward.
     */
     {
+        let getTimeString = () =>
+        {
+            let minutes = Math.floor(pubTime / 60);
+            let seconds = pubTime - minutes*60;
+            let timeString;
+            if(minutes >= 60)
+            {
+                let hours = Math.floor(minutes / 60);
+                minutes -= hours*60;
+                timeString = `${hours}:${
+                minutes.toString().padStart(2, '0')}:${
+                seconds.toFixed(1).padStart(4, '0')}`;
+            }
+            else
+            {
+                timeString = `${minutes.toString()}:${
+                seconds.toFixed(1).padStart(4, '0')}`;
+            }
+            return Localization.format(getLoc('pubTime'),
+            timeString);
+        };
+        let getTermsString = () => Localization.format(getLoc('terms'), terms);
         overlayToggle = theory.createPermanentUpgrade(11, normCurrency,
         new FreeCost);
-        overlayToggle.getDescription = () => getLoc('overlay')[
-        overlayToggle.level];
+
+        overlayToggle.getDescription = () => overlayToggle.level ?
+        getTermsString() : getTimeString();
         overlayToggle.info = getLoc('overlayInfo');
         overlayToggle.boughtOrRefunded = (_) =>
         {
@@ -1066,123 +1088,21 @@ var tick = (elapsedTime, multiplier) =>
 
 var getEquationOverlay = () =>
 {
-    const unicodeLangs =
-    {
-        'zh-Hans': true,
-        'zh-Hant': true
-    };
     let result = ui.createGrid
     ({
         inputTransparent: () => rotationLock.level ? true : false,
         cascadeInputTransparent: false,
         children:
         [
-            ui.createLabel
-            ({
-                isVisible: () => menuLang in unicodeLangs ? true : false,
-                verticalOptions: LayoutOptions.END,
-                margin: new Thickness(6, 4),
-                text: workInProgress ? Localization.format(getLoc('wip'),
-                versionName) : versionName,
-                fontSize: 11,
-                textColor: Color.TEXT_MEDIUM
-            }),
             ui.createLatexLabel
             ({
-                isVisible: () => !(menuLang in unicodeLangs) ? true : false,
+                isVisible: () => overlayToggle.level,
                 verticalOptions: LayoutOptions.END,
                 margin: new Thickness(6, 4),
-                text: workInProgress ? Localization.format(getLoc('wip'),
-                versionName) : versionName,
+                text: versionName,
                 fontSize: 9,
                 textColor: Color.TEXT_MEDIUM
             }),
-            ui.createLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                menuLang in unicodeLangs ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.END,
-                verticalTextAlignment: TextAlignment.START,
-                margin: new Thickness(6, 4),
-                text: () =>
-                {
-                    let minutes = Math.floor(pubTime / 60);
-                    let seconds = pubTime - minutes*60;
-                    let timeString;
-                    if(minutes >= 60)
-                    {
-                        let hours = Math.floor(minutes / 60);
-                        minutes -= hours*60;
-                        timeString = `${hours}:${
-                        minutes.toString().padStart(2, '0')}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    else
-                    {
-                        timeString = `${minutes.toString()}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    return Localization.format(getLoc('pubTime'),
-                    timeString);
-                },
-                fontSize: 11,
-                textColor: Color.TEXT_MEDIUM
-            }),
-            ui.createLatexLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                !(menuLang in unicodeLangs) ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.END,
-                verticalTextAlignment: TextAlignment.START,
-                margin: new Thickness(6, 4),
-                text: () =>
-                {
-                    let minutes = Math.floor(pubTime / 60);
-                    let seconds = pubTime - minutes*60;
-                    let timeString;
-                    if(minutes >= 60)
-                    {
-                        let hours = Math.floor(minutes / 60);
-                        minutes -= hours*60;
-                        timeString = `${hours}:${
-                        minutes.toString().padStart(2, '0')}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    else
-                    {
-                        timeString = `${minutes.toString()}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    return Localization.format(getLoc('pubTime'),
-                    timeString);
-                },
-                fontSize: 9,
-                textColor: Color.TEXT_MEDIUM
-            }),
-            ui.createLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                menuLang in unicodeLangs ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.START,
-                margin: new Thickness(6, 4),
-                text: () => Localization.format(getLoc('terms'), terms),
-                fontSize: 11,
-                textColor: Color.TEXT_MEDIUM
-            }),
-            ui.createLatexLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                !(menuLang in unicodeLangs) ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.START,
-                margin: new Thickness(6, 4),
-                text: () => Localization.format(getLoc('terms'), terms),
-                fontSize: 9,
-                textColor: Color.TEXT_MEDIUM
-            })
         ]
     });
     return result;
