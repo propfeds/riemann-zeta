@@ -8,10 +8,11 @@
 
 - [ ] BH saves last zero passed through for easier sucking
 
-- [ ] I didn’t knew black hole made the game much slower if idled so I lost time.
-- [x] Black hole reliance on activeness (gets weaker with offline progress)
+- [ ] Nerf min black hole speed from 0.04 -> 0.06? Doesn't feel good if slow
+- [ ] Black hole reliance on activeness (gets weaker with offline progress)
   - Idea: black hole no longer lets the particle go through it, but instead will suck the particle to the nearest zero, freezing time
   this will likely resolve tick length issues
+- [ ] Post-spiral swap doesn't feel engaging
 - [ ] Change w3 to be x^3 instead of 2^x?
 
 - [x] Drop zeta computation layers from 4 to 1
