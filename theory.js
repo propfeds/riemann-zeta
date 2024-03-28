@@ -18,7 +18,7 @@ var getName = (language) =>
         en: 'Riemann Zeta Function',
         'zh-Hans': '黎曼ζ函数',
         'zh-Hant': '黎曼ζ函数',
-        es: 'Función de Riemann Zeta',
+        es: 'Función Zeta de Riemann',
         vi: 'Hàm zeta Riemann'
     };
 
@@ -59,12 +59,12 @@ In this theory, we will be examining the zeta function on the line ` +
 
 在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上的 zeta 函數。 1859 年，黎曼自己假設，除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，函數的所有其他根都位於這條臨界線上。`,
         es:
-`Esta función conocida como Riemann Zeta fue definida por Euler para los integrales mayores a 1 como una serie de infinitos:
+`La función conocida como Función Zeta de Riemann fue definida por Euler para los números enteros mayores a 1 como una serie infinita:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-Su definición fue extendida a los números reales gracias a Chebyshev, y luego al plano complejo gracias a Riemann. Sin embargo, a medida que diverge a todo s con un componente real menor a 1, una versión especial de la función fue definida para hacer la función continua. Esta se le conoce como la continuación analítica, y está relacionada a su infame meme:
+Luego, su definición fue extendida a los números reales por Chebyshev, y al plano complejo por Riemann. Sin embargo, a medida que la función diverge para todo s con un componente real menor a 1, una versión especial de la misma habría que definirse para hacer la función continua. A esta se le conoce como la continuación analítica, y está relacionada al infame meme:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-En esta teoría, examinaremos la función de zeta en la línea perpendicular al axis-x cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos integrales par -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
+En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen en los enteros negativos pares -2, -4, -6, ..., toda raíz de la función yace sobre la ruta crítica.`,
         vi:
 `Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới ` +
 `dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
@@ -89,10 +89,10 @@ var authors = 'propfeds, Eylanding\nMartin_mc, previous maintainer\n\n' +
 'Thanks to:\nGlen Pugh, for the Riemann-Siegel formula implementation\nXLII, ' +
 'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
 'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
-'繁體中文\nJooo#0529 - Español\npropfeds - Tiếng Việt';
-var version = 0.41;
+'繁體中文\nJooo#0529 & Warzen User - Español\npropfeds - Tiếng Việt';
+var version = 0.42;
 
-const versionName = 'v0.4.1';
+const versionName = 'v0.4.2';
 const workInProgress = false;
 
 let terms = 0;
@@ -259,21 +259,21 @@ const locStrings =
     {
         wip: '(TEP)\\\\{0}',
         pubTime: 'Tiempo: {0}',
-        terms: 'Terminos de Riemann-Siegel: {0}',
+        terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desata un agujero negro',
-        blackholeInfo: 'Atrae {0} hacia atrás al cero más cercano de {1}',
+        blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
         rotationLock:
         [
             'Desbloquear gráfica',
             'Bloquear gráfica'
         ],
-        rotationLockInfo: 'Alterna la abilidad de rotar y acercar la gráfica 3D',
+        rotationLockInfo: 'Alterna la habilidad de rotar y acercar la gráfica 3D',
         overlay:
         [
             'Mostrar info',
             'Ocultar info',
         ],
-        overlayInfo: 'Alterna la presentación de Riemann-Siegel en los términos y tiempo de publicación',
+        overlayInfo: 'Alterna la presentación de los términos de Riemann-Siegel y tiempo desde publicación',
     },
     vi:
     {
