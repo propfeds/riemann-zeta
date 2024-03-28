@@ -1,14 +1,10 @@
 import { BigNumber } from '../api/BigNumber';
-import { ConstantCost, ExponentialCost, FirstFreeCost, LinearCost, StepwiseCost, CustomCost, FreeCost } from '../api/Costs';
+import { ConstantCost, CustomCost, ExponentialCost, FirstFreeCost, FreeCost, StepwiseCost } from '../api/Costs';
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
-import { ui } from '../api/ui/UI';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
-import { Color } from '../api/ui/properties/Color';
-import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
-import { TextAlignment } from '../api/ui/properties/TextAlignment';
-import { Thickness } from '../api/ui/properties/Thickness';
+import { ui } from '../api/ui/UI';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -18,6 +14,7 @@ var getName = (language) =>
         en: 'Riemann Zeta Function',
         'zh-Hans': '黎曼ζ函数',
         'zh-Hant': '黎曼ζ函数',
+        es: 'Función Zeta de Riemann',
         es: 'Función Zeta de Riemann',
         vi: 'Hàm zeta Riemann'
     };
@@ -109,9 +106,11 @@ let bhzTerm = null;
 let bhdTerm = null;
 let quaternaryEntries =
 [
-    new QuaternaryEntry('\\dot{t}', null),
-    new QuaternaryEntry('t', null),
-    new QuaternaryEntry('\\zeta \'', null)
+    new QuaternaryEntry(null, ''),
+    new QuaternaryEntry('\\dot{t}_{{}\\,_{{}\\,}}', null),
+    new QuaternaryEntry('t_{{}\\,}', null),
+    new QuaternaryEntry('\\zeta \'_{{}\\,}', null),
+    new QuaternaryEntry(null, ''),
 ];
 
 const scale = 4;
@@ -191,7 +190,7 @@ const locStrings =
     en:
     {
         wip: '(WIP)\\\\{0}',
-        pubTime: 'Time: {0}',
+        pubTime: 'Publication time: {0}',
         terms: 'Riemann-Siegel terms: {0}',
         speed: '\\text{speed}',
         zExp: '{{{0}}}\\text{{ exponent}}',
@@ -278,7 +277,7 @@ const locStrings =
     vi:
     {
         wip: '(Đang dở)\\\\{0}',
-        pubTime: 'Thời gian: {0}',
+        pubTime: 'Thời gian xuất bản: {0}',
         terms: 'Riemann-Siegel: {0} số hạng',
         speed: '\\text{tốc độ}',
         zExp: '{{{0}}}\\text{{ số mũ}}',
@@ -297,7 +296,7 @@ const locStrings =
             'Hiển thị thông tin',
             'Giấu thông tin',
         ],
-        overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian',
+        overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
         warpFive: 'Nhận 5 đồng nhưng có hậu quả',
         warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
@@ -851,10 +850,33 @@ var init = () =>
     Look forward.
     */
     {
+        let getTimeString = () =>
+        {
+            let minutes = Math.floor(pubTime / 60);
+            let seconds = pubTime - minutes*60;
+            let timeString;
+            if(minutes >= 60)
+            {
+                let hours = Math.floor(minutes / 60);
+                minutes -= hours*60;
+                timeString = `${hours}:${
+                minutes.toString().padStart(2, '0')}:${
+                seconds.toFixed(1).padStart(4, '0')}`;
+            }
+            else
+            {
+                timeString = `${minutes.toString()}:${
+                seconds.toFixed(1).padStart(4, '0')}`;
+            }
+            return Localization.format(getLoc('pubTime'),
+            timeString);
+        };
+        let getTermsString = () => Localization.format(getLoc('terms'), terms);
         overlayToggle = theory.createPermanentUpgrade(11, normCurrency,
         new FreeCost);
-        overlayToggle.getDescription = () => getLoc('overlay')[
-        overlayToggle.level];
+
+        overlayToggle.getDescription = () => overlayToggle.level ?
+        getTermsString() : getTimeString();
         overlayToggle.info = getLoc('overlayInfo');
         overlayToggle.boughtOrRefunded = (_) =>
         {
@@ -963,10 +985,8 @@ var init = () =>
         blackholeMs.isAvailable = false;
     }
 
-    theory.primaryEquationScale = 0.96;
-    // theory.primaryEquationHeight = 84;
     // theory.secondaryEquationScale = 0.96;
-    theory.secondaryEquationHeight = 60;
+    theory.secondaryEquationHeight = 72;
 
     updateAvailability();
 }
@@ -1066,123 +1086,20 @@ var tick = (elapsedTime, multiplier) =>
 
 var getEquationOverlay = () =>
 {
-    const unicodeLangs =
-    {
-        'zh-Hans': true,
-        'zh-Hant': true
-    };
     let result = ui.createGrid
     ({
         inputTransparent: () => rotationLock.level ? true : false,
         cascadeInputTransparent: false,
         children:
         [
-            ui.createLabel
-            ({
-                isVisible: () => menuLang in unicodeLangs ? true : false,
-                verticalOptions: LayoutOptions.END,
-                margin: new Thickness(6, 4),
-                text: workInProgress ? Localization.format(getLoc('wip'),
-                versionName) : versionName,
-                fontSize: 11,
-                textColor: Color.TEXT_MEDIUM
-            }),
             ui.createLatexLabel
             ({
-                isVisible: () => !(menuLang in unicodeLangs) ? true : false,
                 verticalOptions: LayoutOptions.END,
                 margin: new Thickness(6, 4),
-                text: workInProgress ? Localization.format(getLoc('wip'),
-                versionName) : versionName,
+                text: versionName,
                 fontSize: 9,
                 textColor: Color.TEXT_MEDIUM
             }),
-            ui.createLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                menuLang in unicodeLangs ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.END,
-                verticalTextAlignment: TextAlignment.START,
-                margin: new Thickness(6, 4),
-                text: () =>
-                {
-                    let minutes = Math.floor(pubTime / 60);
-                    let seconds = pubTime - minutes*60;
-                    let timeString;
-                    if(minutes >= 60)
-                    {
-                        let hours = Math.floor(minutes / 60);
-                        minutes -= hours*60;
-                        timeString = `${hours}:${
-                        minutes.toString().padStart(2, '0')}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    else
-                    {
-                        timeString = `${minutes.toString()}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    return Localization.format(getLoc('pubTime'),
-                    timeString);
-                },
-                fontSize: 11,
-                textColor: Color.TEXT_MEDIUM
-            }),
-            ui.createLatexLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                !(menuLang in unicodeLangs) ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.END,
-                verticalTextAlignment: TextAlignment.START,
-                margin: new Thickness(6, 4),
-                text: () =>
-                {
-                    let minutes = Math.floor(pubTime / 60);
-                    let seconds = pubTime - minutes*60;
-                    let timeString;
-                    if(minutes >= 60)
-                    {
-                        let hours = Math.floor(minutes / 60);
-                        minutes -= hours*60;
-                        timeString = `${hours}:${
-                        minutes.toString().padStart(2, '0')}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    else
-                    {
-                        timeString = `${minutes.toString()}:${
-                        seconds.toFixed(1).padStart(4, '0')}`;
-                    }
-                    return Localization.format(getLoc('pubTime'),
-                    timeString);
-                },
-                fontSize: 9,
-                textColor: Color.TEXT_MEDIUM
-            }),
-            ui.createLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                menuLang in unicodeLangs ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.START,
-                margin: new Thickness(6, 4),
-                text: () => Localization.format(getLoc('terms'), terms),
-                fontSize: 11,
-                textColor: Color.TEXT_MEDIUM
-            }),
-            ui.createLatexLabel
-            ({
-                isVisible: () => overlayToggle.level &&
-                !(menuLang in unicodeLangs) ? true : false,
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.START,
-                margin: new Thickness(6, 4),
-                text: () => Localization.format(getLoc('terms'), terms),
-                fontSize: 9,
-                textColor: Color.TEXT_MEDIUM
-            })
         ]
     });
     return result;
@@ -1195,12 +1112,14 @@ var getPrimaryEquation = () =>
     ${derivMs.level ? ` w_1`: ''}}{|\\zeta(\\frac{1}{2}+it)|/2^{b}+10^{-2}}`;
     if(!derivMs.level)
     {
-        theory.primaryEquationHeight = 66;
+        theory.primaryEquationScale = 0.96;
+        theory.primaryEquationHeight = 63;
         return rhoPart;
     }
     let omegaPart = `\\,\\dot{\\delta}=w_1
     ${w2Ms.level ? 'w_2' : ''}${w3Perma.level ? 'w_3' : ''}\\times
     |\\zeta '(\\textstyle\\frac{1}{2}+it)|^b`;
+    theory.primaryEquationScale = 0.92;
     theory.primaryEquationHeight = 75;
     return `\\begin{array}{c}${rhoPart}\\\\${omegaPart}\\end{array}`;
 }
@@ -1210,26 +1129,24 @@ var getSecondaryEquation = () =>
     return `\\begin{array}{c}\\zeta(s)=
     \\displaystyle\\sum_{n=1}^{\\infty}n^{-s},&
     ${theory.latexSymbol}=\\max\\rho ^{${tauRate}}\\end{array}`;
-    return `\\begin{array}{c}\\zeta(\\textstyle\\frac{1}{2}+it)=
-    \\displaystyle\\sum_{n=1}^{\\infty}
-    \\frac{(-1)^{n+1}}{n^{1/2+it}(1-2^{1/2-it})}\\\\\\\\
-    \\enspace${theory.latexSymbol}=\\max\\rho ^{${tauRate}}\\end{array}`;
 }
 
 var getTertiaryEquation = () =>
 {
-    return `|\\zeta(\\frac{1}{2}+it)|=${(bhzTerm ?? zTerm).toString(3)}`;
+    return `|\\zeta(\\textstyle\\frac{1}{2}+it)|=
+    ${(bhzTerm ?? zTerm).toString(3)}`;
 }
 
 var getQuaternaryEntries = () =>
 {
-    quaternaryEntries[0].value = t_dot.toFixed(2);
-    quaternaryEntries[1].value = t.toFixed(2);
+    quaternaryEntries[1].value = t_dot.toFixed(2);
+    quaternaryEntries[2].value = t.toFixed(2);
     if(derivMs.level)
-        quaternaryEntries[2].value = (bhdTerm ?? dTerm).toString(3);
+        quaternaryEntries[3].value = (bhdTerm ?? dTerm).toString(3);
     else
-        quaternaryEntries[2].value = null;
+        quaternaryEntries[3].value = null;
     return quaternaryEntries;
+    // return quaternaryEntries.slice(1, 4);
 }
 
 var getTau = () => normCurrency.value.pow(tauRate);
