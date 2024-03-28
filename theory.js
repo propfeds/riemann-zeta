@@ -257,7 +257,7 @@ const locStrings =
     es:
     {
         wip: '(TEP)\\\\{0}',
-        pubTime: 'Tiempo: {0}',
+        pubTime: 'Tiempo desde publicación: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desata un agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
