@@ -648,6 +648,12 @@ let C = (n, z) =>
 let logLookup = [];
 let sqrtLookup = [];
 
+for(let i = 1; i <= 1000; ++i)
+{
+    logLookup[i] = Math.log(i);
+    sqrtLookup[i] = Math.sqrt(i);
+}
+
 /**
  * Returns the Riemann zeta function evaluated at 0.5+it, with n layers of
  * precision. For general purposes, n=1 is smooth enough without compromising
@@ -668,11 +674,6 @@ let riemannSiegelZeta = (t, n) =>
 
     for(let j = 1; j <= N; ++j)
     {
-        if(typeof logLookup[j] === 'undefined')
-        {
-            logLookup[j] = Math.log(j);
-            sqrtLookup[j] = Math.sqrt(j);
-        }
         Z += Math.cos(th - t*logLookup[j]) / sqrtLookup[j];
     }
     Z *= 2;
