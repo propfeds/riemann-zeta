@@ -1019,7 +1019,7 @@ var tick = (elapsedTime, multiplier) =>
     theory.publicationMultiplier;
     let w1Term = derivMs.level ? getw1(w1.level) : BigNumber.ONE;
     let w2Term = w2Ms.level ? getw2(w2.level) : BigNumber.ONE;
-    let w3Term = w2Ms.level ? getw3(w3.level) : BigNumber.ONE;
+    let w3Term = getw3(w3.level);
     let c1Term = getc1(c1.level).pow(getc1Exp(c1ExpMs.level));
     let c2Term = getc2(c2.level);
     let bTerm = getb(b.level);
