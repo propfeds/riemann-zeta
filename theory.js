@@ -648,7 +648,7 @@ let C = (n, z) =>
 let logLookup = [];
 let sqrtLookup = [];
 
-for(let i = 1; i <= 1000; ++i)
+for(let i = 1; i <= 5000; ++i)
 {
     logLookup[i] = Math.log(i);
     sqrtLookup[i] = Math.sqrt(i);
@@ -685,6 +685,7 @@ let riemannSiegelZeta = (t, n) =>
     R *= even(N-1) * Math.pow(2*Math.PI/t, 0.25);
 
     Z += R;
+    // log(`N=${N}, Z=${Z}`);
     return [Z*Math.cos(th), -Z*Math.sin(th), Z];
 }
 /**
