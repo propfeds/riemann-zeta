@@ -1089,7 +1089,6 @@ var getEquationOverlay = () =>
     let result = ui.createGrid
     ({
         inputTransparent: () => rotationLock.level ? true : false,
-        cascadeInputTransparent: false,
         children:
         [
             ui.createLatexLabel
