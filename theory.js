@@ -166,8 +166,8 @@ const permaCosts =
     BigNumber.from('1e1000')
 ];
 
-const tauRate = 0.1;
-const pubExp = 2.102;
+const tauRate = 0.4;
+const pubExp = 0.2102 / tauRate;
 const pubMult = BigNumber.TWO;
 var getPublicationMultiplier = (tau) => tau.pow(pubExp) * pubMult;
 var getPublicationMultiplierFormula = (symbol) =>
