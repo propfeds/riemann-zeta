@@ -82,7 +82,7 @@ Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường th�
 
     return descs[language] || descs.en;
 }
-var authors = 'propfeds, Eylanding\nMartin_mc, previous maintainer\n\n' +
+var authors = 'propfeds, Eylanding\nMartin_mc, original idea\n\n' +
 'Thanks to:\nGlen Pugh, for the Riemann-Siegel formula implementation\nXLII, ' +
 'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
 'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
@@ -1137,10 +1137,19 @@ var getTertiaryEquation = () =>
     ${(bhzTerm ?? zTerm).toString(3)}`;
 }
 
+/**
+ * Returns a comma-formatted string.
+ * https://stackoverflow.com/questions/2254185/regular-expression-for-formatting-numbers-in-javascript
+ */
+let getCommaNumString = (str) =>
+{
+    return str.split(/(?=(?:\d{3})+(?:\.|$))/g).join( "," );
+}
+
 var getQuaternaryEntries = () =>
 {
     quaternaryEntries[1].value = t_dot.toFixed(2);
-    quaternaryEntries[2].value = t.toFixed(2);
+    quaternaryEntries[2].value = getCommaNumString(t.toFixed(2));
     if(derivMs.level)
         quaternaryEntries[3].value = (bhdTerm ?? dTerm).toString(3);
     else
