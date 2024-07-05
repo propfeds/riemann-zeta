@@ -648,7 +648,7 @@ let C = (n, z) =>
 let logLookup = [];
 let sqrtLookup = [];
 
-for(let i = 1; i <= 5000; ++i)
+for(let i = 1; i <= 50000; ++i)
 {
     logLookup[i] = Math.log(i);
     sqrtLookup[i] = Math.sqrt(i);
