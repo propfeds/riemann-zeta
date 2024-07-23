@@ -5,6 +5,7 @@ import { QuaternaryEntry, theory } from '../api/Theory';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
 import { ui } from '../api/ui/UI';
+import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -87,22 +88,28 @@ var authors = 'propfeds, Eylanding\nMartin_mc, original idea\n\n' +
 'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
 'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
 '繁體中文\nJooo#0529 & Warzen User - Español\npropfeds - Tiếng Việt';
-var version = 0.42;
+var version = 0.5;
 
-const versionName = 'v0.4.2';
+const versionName = 'v0.5 (WIP)';
 
 let terms = 0;
 let pubTime = 0;
+
 let t = 0;
 let t_dot = 0;
 let zResult = [-1.4603545088095868, 0, 1.4603545088095868];
 let zTerm = BigNumber.from(zResult[2]);
 let dTerm = BigNumber.ZERO;
+
 let lastZero = 0;
 let searchingRewind = false;
 let foundZero = false;
 let bhzTerm = null;
 let bhdTerm = null;
+
+let clipping_t = false;
+let tClipThreshold = 0;
+
 let quaternaryEntries =
 [
     new QuaternaryEntry(null, ''),
@@ -197,6 +204,7 @@ const locStrings =
         condition: '\\text{{if }}{{{0}}}',
         blackhole: 'Unleash a black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
+        blackholeMenu: 'Blackhole Settings',
         rotationLock:
         [
             'Unlock graph',
@@ -648,7 +656,7 @@ let C = (n, z) =>
 let logLookup = [];
 let sqrtLookup = [];
 
-for(let i = 1; i <= 50000; ++i)
+for(let i = 1; i <= 25000; ++i)
 {
     logLookup[i] = Math.log(i);
     sqrtLookup[i] = Math.sqrt(i);
@@ -724,6 +732,90 @@ let getCoordString = (x) => x.toFixed(x >= -0.01 ?
     (x <= 9.999 ? 3 : (x <= 99.99 ? 2 : 1)) :
     (x < -9.99 ? (x < -99.9 ? 0 : 1) : 2)
 );
+
+let getImageSize = (width) =>
+{
+    if(width >= 1080)
+        return 48;
+    if(width >= 720)
+        return 36;
+    if(width >= 360)
+        return 24;
+
+    return 20;
+}
+
+// let createImageBtn = (params: {[x: string]: any}, callback: () => void,
+// isAvailable: () => boolean, image: ImageSource): Frame
+let createImageBtn = (params, callback, isAvailable, image) =>
+{
+    let triggerable = true;
+    let borderColor = () => isAvailable() ? Color.BORDER : Color.TRANSPARENT;
+    let frame = ui.createFrame
+    ({
+        cornerRadius: 1,
+        margin: new Thickness(2),
+        padding: new Thickness(1),
+        hasShadow: isAvailable,
+        heightRequest: getImageSize(ui.screenWidth),
+        widthRequest: getImageSize(ui.screenWidth),
+        content: ui.createImage
+        ({
+            source: image,
+            aspect: Aspect.ASPECT_FIT,
+            useTint: true
+        }),
+        borderColor,
+        ...params
+    });
+    frame.onTouched = (e) =>
+    {
+        if(e.type == TouchType.PRESSED)
+        {
+            frame.borderColor = Color.TRANSPARENT;
+            // frame.hasShadow = false;
+        }
+        else if(e.type.isReleased())
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            if(triggerable && isAvailable())
+            {
+                Sound.playClick();
+                callback();
+            }
+            else
+                triggerable = true;
+        }
+        else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
+        e.x > frame.width || e.y > frame.height))
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            triggerable = false;
+        }
+    };
+    return frame;
+}
+
+const bhImage = game.settings.theme == Theme.LIGHT ?
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/lemmas-garden/perch/src/icons/dark/white-book.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/lemmas-garden/perch/src/icons/light/white-book.png');
+// const mainMenuLabel = ui.createLatexLabel
+// ({
+//     row: 0, column: 1,
+//     verticalTextAlignment: TextAlignment.START,
+//     margin: new Thickness(0, 9),
+//     text: getLoc('blackholeSettingsLabel'),
+//     fontSize: 10,
+//     textColor: Color.TEXT_MEDIUM
+// });
+const blackholeMenuFrame = createImageBtn
+({
+    row: 0, column: 0,
+    horizontalOptions: LayoutOptions.START
+},
+() => {/*createBlackholeMenu().show()*/}, () => blackholeMs?.isAvailable ?? false, bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
@@ -1014,6 +1106,12 @@ var tick = (elapsedTime, multiplier) =>
         t_dot = resolution;
         t += t_dot * elapsedTime;
     }
+    // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
+    if(clipping_t && !blackholeMs.level && lastZero <= t && t >= tClipThreshold)
+    {
+        t = tClipThreshold;
+        blackholeMs.buy(1);
+    }
 
     let tTerm = BigNumber.from(t);
     let bonus = BigNumber.from(elapsedTime * multiplier) *
@@ -1099,6 +1197,27 @@ var getEquationOverlay = () =>
                 text: versionName,
                 fontSize: 9,
                 textColor: Color.TEXT_MEDIUM
+            }),
+            ui.createGrid
+            ({
+                row: 0, column: 0,
+                margin: new Thickness(4),
+                horizontalOptions: LayoutOptions.END,
+                verticalOptions: LayoutOptions.END,
+                // rowDefinitions:
+                // [
+                //     'auto', 'auto'
+                // ],
+                // columnDefinitions:
+                // [
+                //     'auto', 'auto'
+                // ],
+                inputTransparent: true,
+                cascadeInputTransparent: false,
+                children:
+                [
+                    blackholeMenuFrame
+                ]
             }),
         ]
     });
@@ -1189,9 +1308,11 @@ var postPublish = () =>
 
 var getInternalState = () => JSON.stringify
 ({
-    version: version,
-    t: t,
-    pubTime: pubTime
+    version,
+    t,
+    pubTime,
+    clipping_t,
+    tClipThreshold
 })
 
 var setInternalState = (stateStr) =>
@@ -1200,10 +1321,10 @@ var setInternalState = (stateStr) =>
         return;
 
     let state = JSON.parse(stateStr);
-    if('t' in state)
-        t = state.t;
-    if('pubTime' in state)
-        pubTime = state.pubTime;
+    t = state.t ?? t;
+    pubTime = state.pubTime ?? pubTime;
+    clipping_t = state.clipping_t ?? clipping_t;
+    tClipThreshold = state.tClipThreshold ?? tClipThreshold;
 
     theory.invalidatePrimaryEquation();
     theory.invalidateTertiaryEquation();
