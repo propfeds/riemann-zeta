@@ -1156,14 +1156,12 @@ var tick = (elapsedTime, multiplier) =>
         let prevZ = zResult[2];
         zResult = zeta(t);
         if(zResult[2] * prevZ <= 0 && !game.isCalculatingOfflineProgress)
-        {
             lastZero = t;
-            // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
-            if(clipping_t && t >= lastZero && t >= tClipThreshold)
-            {
-                t = tClipThreshold;
-                blackholeMs.buy(1);
-            }
+        // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
+        if(clipping_t && t >= lastZero && t >= tClipThreshold)
+        {
+            t = tClipThreshold;
+            blackholeMs.buy(1);
         }
         if(derivMs.level)
         {
