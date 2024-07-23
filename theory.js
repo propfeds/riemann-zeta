@@ -84,11 +84,17 @@ Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường th�
 
     return descs[language] || descs.en;
 }
-var authors = 'propfeds, Eylanding\nMartin_mc, original idea\n\n' +
-'Thanks to:\nGlen Pugh, for the Riemann-Siegel formula implementation\nXLII, ' +
-'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
-'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
-'繁體中文\nJooo#0529 & Warzen User - Español\npropfeds - Tiếng Việt';
+var authors = 'propfeds, Eylanding\n' +
+'Martin_mc, original idea\n\n' +
+'Thanks to:\n' +
+'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
+'XLII, for teaching the ancient Sim language\n' +
+'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
+'game-icons.net\n\n' +
+'Translations:\n' +
+'Omega_3301 - 简体中文、繁體中文\n' +
+'Jooo#0529 & Warzen User - Español\n' +
+'propfeds - Tiếng Việt';
 var version = 0.5;
 
 const versionName = 'v0.5 wip';
@@ -295,6 +301,9 @@ const locStrings =
         condition: '\\text{{khi }}{{{0}}}',
         blackhole: 'Giải phóng hố đen',
         blackholeInfo: 'Kéo {0} ngược lại tới không điểm gần nhất của {1}',
+        menuBlackhole: 'Cài đặt hố đen',
+        blackholeThreshold: 'Giải phóng hố đen tại: ',
+        blackholeCopyt: 'Lấy t hiện tại',
         rotationLock:
         [
             'Mở khoá đồ thị',
