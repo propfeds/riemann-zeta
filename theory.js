@@ -6,6 +6,7 @@ import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
 import { ui } from '../api/ui/UI';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
+import { TextAlignment } from '../api/ui/properties/TextAlignment';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -204,7 +205,9 @@ const locStrings =
         condition: '\\text{{if }}{{{0}}}',
         blackhole: 'Unleash a black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
-        blackholeMenu: 'Blackhole Settings',
+        menuBlackhole: 'Black Hole Settings',
+        blackholeThreshold: 'Unleash black hole at: ',
+        blackholeCopyt: 'Take current t',
         rotationLock:
         [
             'Unlock graph',
@@ -798,6 +801,37 @@ let createImageBtn = (params, callback, isAvailable, image) =>
     return frame;
 }
 
+// params: {[x: string]: any}, callback: () => void,
+// isToggled: boolean | (() => boolean)
+let createHesitantSwitch = (params, callback, isToggled) =>
+{
+    let triggerable = true;
+    let element = ui.createSwitch
+    ({
+        horizontalOptions: LayoutOptions.CENTER,
+        onColor: Color.BORDER,
+        isToggled,
+        onTouched: (e) =>
+        {
+            if(e.type.isReleased())
+            {
+                if(triggerable)
+                {
+                    Sound.playClick();
+                    callback();
+                }
+                else
+                    triggerable = true;
+            }
+            else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
+            e.x > element.width || e.y > element.height))
+                triggerable = false;
+        },
+        ...params
+    });
+    return element;
+}
+
 const bhImage = game.settings.theme == Theme.LIGHT ?
 ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/black-hole-bolas.png') :
 ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/black-hole-bolas.png');
@@ -815,7 +849,7 @@ const blackholeMenuFrame = createImageBtn
     row: 0, column: 0,
     horizontalOptions: LayoutOptions.START
 },
-() => {/*createBlackholeMenu().show()*/}, () => blackholeMs?.isAvailable ?? false, bhImage);
+() => {createBlackholeMenu().show()}, () => blackholeMs?.isAvailable ?? false, bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
@@ -1106,12 +1140,6 @@ var tick = (elapsedTime, multiplier) =>
         t_dot = resolution;
         t += t_dot * elapsedTime;
     }
-    // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
-    if(clipping_t && !blackholeMs.level && lastZero <= t && t >= tClipThreshold)
-    {
-        t = tClipThreshold;
-        blackholeMs.buy(1);
-    }
 
     let tTerm = BigNumber.from(t);
     let bonus = BigNumber.from(elapsedTime * multiplier) *
@@ -1128,7 +1156,15 @@ var tick = (elapsedTime, multiplier) =>
         let prevZ = zResult[2];
         zResult = zeta(t);
         if(zResult[2] * prevZ <= 0 && !game.isCalculatingOfflineProgress)
+        {
             lastZero = t;
+            // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
+            if(clipping_t && t >= lastZero && t >= tClipThreshold)
+            {
+                t = tClipThreshold;
+                blackholeMs.buy(1);
+            }
+        }
         if(derivMs.level)
         {
             let tmpZ = zeta(t + 1 / derivRes);
@@ -1222,6 +1258,103 @@ var getEquationOverlay = () =>
         ]
     });
     return result;
+}
+
+
+let createBlackholeMenu = () =>
+{
+    let clippingSwitch = createHesitantSwitch
+    ({
+        row: 0, column: 1,
+        horizontalOptions: LayoutOptions.END
+    }, () =>
+    {
+        clipping_t = !clipping_t;
+        clippingSwitch.isToggled = clipping_t;
+        // paramSwitch.isToggled = !paramSwitch.isToggled;
+        // clipping_t = paramSwitch.isToggled;
+        if(!clipping_t)
+            blackholeMs.refund(1);
+    }, clipping_t);
+
+    let actuallyEditing = false;
+
+    let thresholdEntry = ui.createEntry
+    ({
+        row: 0, column: 1,
+        text: tClipThreshold.toString(),
+        fontSize: 14,
+        keyboard: Keyboard.NUMERIC,
+        horizontalTextAlignment: TextAlignment.END,
+        onTextChanged: (ot, nt) =>
+        {
+            if(!actuallyEditing)
+                return;
+            let tmpML = parseFloat(nt) ?? tClipThreshold;
+            if(isNaN(tmpML))
+                tmpML = tClipThreshold;
+            tClipThreshold = tmpML;
+        }
+    });
+    let copytBtn = ui.createButton
+    ({
+        row: 0, column: 2,
+        text: getLoc('blackholeCopyt'),
+        onClicked: () =>
+        {
+            Sound.playClick();
+            actuallyEditing = false;
+            tClipThreshold = t;
+            thresholdEntry.text = tClipThreshold.toString();
+            actuallyEditing = true;
+        }
+    })
+
+    actuallyEditing = true;
+
+    let menu = ui.createPopup
+    ({
+        isPeekable: true,
+        title: getLoc('menuBlackhole'),
+        content: ui.createStackLayout
+        ({
+            children:
+            [
+                ui.createGrid
+                ({
+                    heightRequest: getImageSize(ui.screenWidth),
+                    columnDefinitions: ['1*', 'auto'],
+                    children:
+                    [
+                        ui.createLatexLabel
+                        ({
+                            row: 0, column: 0,
+                            text: getLoc('blackholeThreshold'),
+                            verticalTextAlignment: TextAlignment.CENTER
+                        }),
+                        clippingSwitch
+                    ]
+                }),
+                ui.createGrid
+                ({
+                    columnDefinitions: ['auto', '1*', '1*'],
+                    children:
+                    [
+                        ui.createLatexLabel
+                        ({
+                            text: '\$t>=\$',
+                            row: 0, column: 0,
+                            horizontalTextAlignment: TextAlignment.START,
+                            verticalTextAlignment: TextAlignment.CENTER
+                        }),
+                        thresholdEntry,
+                        copytBtn
+                    ]
+                }),
+            ]
+        })
+    });
+    return menu;
 }
 
 var getPrimaryEquation = () =>
