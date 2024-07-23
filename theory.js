@@ -799,8 +799,8 @@ let createImageBtn = (params, callback, isAvailable, image) =>
 }
 
 const bhImage = game.settings.theme == Theme.LIGHT ?
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/concentration-orb.png') :
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/concentration-orb.png');
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/black-hole-bolas.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/black-hole-bolas.png');
 // const mainMenuLabel = ui.createLatexLabel
 // ({
 //     row: 0, column: 1,
