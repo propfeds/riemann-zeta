@@ -90,7 +90,7 @@ var authors = 'propfeds, Eylanding\nMartin_mc, original idea\n\n' +
 '繁體中文\nJooo#0529 & Warzen User - Español\npropfeds - Tiếng Việt';
 var version = 0.5;
 
-const versionName = 'v0.5 (WIP)';
+const versionName = 'v0.5 wip';
 
 let terms = 0;
 let pubTime = 0;
@@ -799,8 +799,8 @@ let createImageBtn = (params, callback, isAvailable, image) =>
 }
 
 const bhImage = game.settings.theme == Theme.LIGHT ?
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/lemmas-garden/perch/src/icons/dark/white-book.png') :
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/lemmas-garden/perch/src/icons/light/white-book.png');
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/concentration-orb.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/concentration-orb.png');
 // const mainMenuLabel = ui.createLatexLabel
 // ({
 //     row: 0, column: 1,
