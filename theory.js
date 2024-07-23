@@ -1155,14 +1155,12 @@ var tick = (elapsedTime, multiplier) =>
     {
         let prevZ = zResult[2];
         zResult = zeta(t);
-        if(zResult[2] * prevZ <= 0 && !game.isCalculatingOfflineProgress)
+        if(zResult[2] * prevZ <= 0)
             lastZero = t;
         // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
         if(clipping_t && t >= lastZero && t >= tClipThreshold)
-        {
-            t = tClipThreshold;
             blackholeMs.buy(1);
-        }
+
         if(derivMs.level)
         {
             let tmpZ = zeta(t + 1 / derivRes);
@@ -1442,6 +1440,7 @@ var getInternalState = () => JSON.stringify
     version,
     t,
     pubTime,
+    lastZero,
     clipping_t,
     tClipThreshold
 })
@@ -1454,6 +1453,7 @@ var setInternalState = (stateStr) =>
     let state = JSON.parse(stateStr);
     t = state.t ?? t;
     pubTime = state.pubTime ?? pubTime;
+    lastZero = state.lastZero ?? lastZero;
     clipping_t = state.clipping_t ?? clipping_t;
     tClipThreshold = state.tClipThreshold ?? tClipThreshold;
 
