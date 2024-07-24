@@ -5,6 +5,7 @@ import { QuaternaryEntry, theory } from '../api/Theory';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
 import { ui } from '../api/ui/UI';
+import { Color } from '../api/ui/properties/Color';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
 import { TextAlignment } from '../api/ui/properties/TextAlignment';
 
@@ -810,6 +811,57 @@ let createImageBtn = (params, callback, isAvailable, image) =>
     return frame;
 }
 
+let createActiveImageBtn = (params, callback, image) =>
+{
+    let triggerable = true;
+    let borderColor = Color.BORDER;
+    let frame = ui.createFrame
+    ({
+        cornerRadius: 1,
+        margin: new Thickness(2),
+        padding: new Thickness(1),
+        hasShadow: true,
+        heightRequest: getImageSize(ui.screenWidth),
+        widthRequest: getImageSize(ui.screenWidth),
+        content: ui.createImage
+        ({
+            source: image,
+            aspect: Aspect.ASPECT_FIT,
+            useTint: true
+        }),
+        borderColor,
+        ...params
+    });
+    frame.onTouched = (e) =>
+    {
+        if(e.type == TouchType.PRESSED)
+        {
+            frame.borderColor = Color.TRANSPARENT;
+            // frame.hasShadow = false;
+        }
+        else if(e.type.isReleased())
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            if(triggerable)
+            {
+                Sound.playClick();
+                callback();
+            }
+            else
+                triggerable = true;
+        }
+        else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
+        e.x > frame.width || e.y > frame.height))
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            triggerable = false;
+        }
+    };
+    return frame;
+}
+
 // params: {[x: string]: any}, callback: () => void,
 // isToggled: boolean | (() => boolean)
 let createHesitantSwitch = (params, callback, isToggled) =>
@@ -853,12 +905,13 @@ ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/bla
 //     fontSize: 10,
 //     textColor: Color.TEXT_MEDIUM
 // });
-const blackholeMenuFrame = createImageBtn
+const blackholeMenuFrame = createActiveImageBtn
 ({
     row: 0, column: 0,
+    isVisible: false,
     horizontalOptions: LayoutOptions.START
 },
-() => {createBlackholeMenu().show()}, () => blackholeMs?.isAvailable ?? false, bhImage);
+() => {createBlackholeMenu().show()}, bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
@@ -1134,6 +1187,7 @@ var updateAvailability = () =>
     w2.isAvailable = w2Ms.level > 0;
     w3.isAvailable = w3Perma.level > 0;
     blackholeMs.isAvailable = c1ExpMs.level == c1ExpMaxLevel && w2Ms.level > 0;
+    blackholeMenuFrame.isVisible = blackholeMs.isAvailable;
 }
 
 var isCurrencyVisible = (index) => (index && derivMs.level > 0) || !index;
