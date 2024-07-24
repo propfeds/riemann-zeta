@@ -1424,14 +1424,14 @@ var getPrimaryEquation = () =>
     if(!derivMs.level)
     {
         theory.primaryEquationScale = 0.96;
-        theory.primaryEquationHeight = 63;
+        theory.primaryEquationHeight = 60;
         return rhoPart;
     }
     let omegaPart = `\\,\\dot{\\delta}=w_1
     ${w2Ms.level ? 'w_2' : ''}${w3Perma.level ? 'w_3' : ''}\\times
     |\\zeta '(\\textstyle\\frac{1}{2}+it)|^b`;
     theory.primaryEquationScale = 0.92;
-    theory.primaryEquationHeight = 75;
+    theory.primaryEquationHeight = 72;
     return `\\begin{array}{c}${rhoPart}\\\\${omegaPart}\\end{array}`;
 }
 
