@@ -1437,6 +1437,8 @@ var postPublish = () =>
     bhzTerm = null;
     bhdTerm = null;
 
+    blackholeMs.refund(1);
+
     theory.invalidatePrimaryEquation();
     theory.invalidateSecondaryEquation();
     theory.invalidateTertiaryEquation();
