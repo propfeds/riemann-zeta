@@ -238,6 +238,9 @@ const locStrings =
         terms: '黎曼-西格尔项：{0}',
         blackhole: '释放一个黑洞',
         blackholeInfo: '将 {0} 拉至于离 {1} 最接近的零',
+        menuBlackhole: '黑洞设置',
+        blackholeThreshold: '黑洞释放的条件:',
+        blackholeCopyt: '利用现时的t值',
         rotationLock:
         [
             '解锁图形',
@@ -258,6 +261,9 @@ const locStrings =
         terms: '黎曼-西格爾項：{0}',
         blackhole: '釋放一個黑洞',
         blackholeInfo: '將 {0} 拉至於離 {1} 最接近的零',
+        menuBlackhole: '黑洞設置',
+        blackholeThreshold: '黑洞釋放的條件:',
+        blackholeCopyt: '利用現時的t值',
         rotationLock:
         [
             '解鎖圖形',
@@ -1401,7 +1407,7 @@ let createBlackholeMenu = () =>
                     [
                         ui.createLatexLabel
                         ({
-                            text: '\$t>=\$',
+                            text: '\$t\\ge\$',
                             row: 0, column: 0,
                             horizontalTextAlignment: TextAlignment.START,
                             verticalTextAlignment: TextAlignment.CENTER
