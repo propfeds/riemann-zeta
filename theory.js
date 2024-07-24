@@ -1460,7 +1460,8 @@ let getCommaNumString = (str) =>
 var getQuaternaryEntries = () =>
 {
     quaternaryEntries[1].value = t_dot.toFixed(2);
-    quaternaryEntries[2].value = getCommaNumString(t.toFixed(2));
+    quaternaryEntries[2].value = t >= 1000 ? getCommaNumString(t.toFixed(2)) :
+    t.toFixed(2);
     if(derivMs.level)
         quaternaryEntries[3].value = (bhdTerm ?? dTerm).toString(3);
     else
