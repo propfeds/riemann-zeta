@@ -100,7 +100,6 @@ var version = 0.5;
 
 const versionName = 'v0.5 wip';
 
-let terms = 0;
 let pubTime = 0;
 
 let t = 0;
@@ -674,12 +673,7 @@ let C = (n, z) =>
 
 let logLookup = [];
 let sqrtLookup = [];
-
-for(let i = 1; i <= 25000; ++i)
-{
-    logLookup[i] = Math.log(i);
-    sqrtLookup[i] = Math.sqrt(i);
-}
+let terms = 0;
 
 /**
  * Returns the Riemann zeta function evaluated at 0.5+it, with n layers of
@@ -697,6 +691,12 @@ let riemannSiegelZeta = (t, n) =>
     let N = Math.floor(fullN);
     let p = fullN - N;
     let th = theta(t);
+
+    for(let j = terms + 1; j <= N; ++j)
+    {
+        logLookup[j] = Math.log(j);
+        sqrtLookup[j] = Math.sqrt(j);
+    }
     terms = N;
 
     for(let j = 1; j <= N; ++j)
