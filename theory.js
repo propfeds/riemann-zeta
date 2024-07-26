@@ -917,7 +917,7 @@ const blackholeMenuFrame = createActiveImageBtn
     isVisible: false,
     horizontalOptions: LayoutOptions.START
 },
-() => {createBlackholeMenu().show()}, bhImage);
+() => createBlackholeMenu().show(), bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
