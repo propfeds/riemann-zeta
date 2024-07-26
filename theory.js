@@ -911,13 +911,13 @@ ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/bla
 //     fontSize: 10,
 //     textColor: Color.TEXT_MEDIUM
 // });
-const blackholeMenuFrame = createActiveImageBtn
-({
-    row: 0, column: 0,
-    isVisible: false,
-    horizontalOptions: LayoutOptions.START
-},
-() => {createBlackholeMenu().show()}, bhImage);
+// const blackholeMenuFrame = createActiveImageBtn
+// ({
+//     row: 0, column: 0,
+//     isVisible: false,
+//     horizontalOptions: LayoutOptions.START
+// },
+// () => {createBlackholeMenu().show()}, bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
@@ -1193,7 +1193,7 @@ var updateAvailability = () =>
     w2.isAvailable = w2Ms.level > 0;
     w3.isAvailable = w3Perma.level > 0;
     blackholeMs.isAvailable = c1ExpMs.level == c1ExpMaxLevel && w2Ms.level > 0;
-    blackholeMenuFrame.isVisible = blackholeMs.isAvailable;
+    // blackholeMenuFrame.isVisible = blackholeMs.isAvailable;
 }
 
 var isCurrencyVisible = (index) => (index && derivMs.level > 0) || !index;
@@ -1299,27 +1299,27 @@ var getEquationOverlay = () =>
                 fontSize: 9,
                 textColor: Color.TEXT_MEDIUM
             }),
-            ui.createGrid
-            ({
-                row: 0, column: 0,
-                margin: new Thickness(4),
-                horizontalOptions: LayoutOptions.END,
-                verticalOptions: LayoutOptions.END,
-                // rowDefinitions:
-                // [
-                //     'auto', 'auto'
-                // ],
-                // columnDefinitions:
-                // [
-                //     'auto', 'auto'
-                // ],
-                inputTransparent: true,
-                cascadeInputTransparent: false,
-                children:
-                [
-                    blackholeMenuFrame
-                ]
-            }),
+            // ui.createGrid
+            // ({
+            //     row: 0, column: 0,
+            //     margin: new Thickness(4),
+            //     horizontalOptions: LayoutOptions.END,
+            //     verticalOptions: LayoutOptions.END,
+            //     // rowDefinitions:
+            //     // [
+            //     //     'auto', 'auto'
+            //     // ],
+            //     // columnDefinitions:
+            //     // [
+            //     //     'auto', 'auto'
+            //     // ],
+            //     inputTransparent: true,
+            //     cascadeInputTransparent: false,
+            //     children:
+            //     [
+            //         // blackholeMenuFrame
+            //     ]
+            // }),
         ]
     });
     return result;
