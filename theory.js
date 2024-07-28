@@ -283,6 +283,9 @@ const locStrings =
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desata un agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
+        menuBlackhole: 'Configuraciónes del Agujero Negro',
+        blackholeThreshold: 'Desata el Agujero Negro en: ',
+        blackholeCopyt: 'Usar t actual',
         rotationLock:
         [
             'Desbloquear gráfica',
