@@ -98,7 +98,7 @@ var authors = 'propfeds, Eylanding\n' +
 'propfeds - Tiếng Việt';
 var version = 0.5;
 
-const versionName = 'v0.5 wip';
+const versionName = 'v0.5';
 
 let pubTime = 0;
 
