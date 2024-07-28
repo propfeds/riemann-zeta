@@ -914,13 +914,12 @@ ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/bla
 //     fontSize: 10,
 //     textColor: Color.TEXT_MEDIUM
 // });
-const blackholeMenuFrame = createActiveImageBtn
+const blackholeMenuFrame = createImageBtn
 ({
     row: 0, column: 0,
-    isVisible: false,
     horizontalOptions: LayoutOptions.START
 },
-() => createBlackholeMenu().show(), bhImage);
+() => createBlackholeMenu().show(), () => true, bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
