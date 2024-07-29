@@ -281,7 +281,7 @@ const locStrings =
         wip: '(TEP)\\\\{0}',
         pubTime: 'Tiempo desde publicación: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
-        blackhole: 'Desata un agujero negro',
+        blackhole: 'Desatar el agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
         menuBlackhole: 'Configuraciónes del Agujero Negro',
         blackholeThreshold: 'Desata el Agujero Negro en: ',
@@ -291,13 +291,13 @@ const locStrings =
             'Desbloquear gráfica',
             'Bloquear gráfica'
         ],
-        rotationLockInfo: 'Alterna la habilidad de rotar y acercar la gráfica 3D',
+        rotationLockInfo: 'Alternar la abilidad de rotar y acercar la gráfica 3D',
         overlay:
         [
             'Mostrar info',
             'Ocultar info',
         ],
-        overlayInfo: 'Alterna la presentación de los términos de Riemann-Siegel y tiempo desde publicación',
+        overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
     },
     vi:
     {
