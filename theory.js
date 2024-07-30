@@ -1255,7 +1255,7 @@ var tick = (elapsedTime, multiplier) =>
                 }
                 else
                 {
-                    t_dot = bhdt / elapsedTime;
+                    t_dot = -bhdt / elapsedTime;
                     t -= bhdt;
                     // log(bhdt.toExponential(2));
                     searchingRewind = false;
@@ -1298,6 +1298,7 @@ var getEquationOverlay = () =>
     let result = ui.createGrid
     ({
         inputTransparent: () => rotationLock.level ? true : false,
+        cascadeInputTransparent: false,
         children:
         [
             ui.createLatexLabel
