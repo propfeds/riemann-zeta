@@ -133,7 +133,7 @@ const scale = 4;
 const derivRes = 100000;
 
 const resolution = 1/4;
-const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
+// const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
 
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
@@ -202,13 +202,13 @@ const locStrings =
 {
     en:
     {
-        wip: '(WIP)\\\\{0}',
+        // wip: '(WIP)\\\\{0}',
         pubTime: 'Publication time: {0}',
         terms: 'Riemann-Siegel terms: {0}',
-        speed: '\\text{speed}',
-        zExp: '{{{0}}}\\text{{ exponent}}',
-        half: '\\text{half}',
-        condition: '\\text{{if }}{{{0}}}',
+        // speed: '\\text{speed}',
+        // zExp: '{{{0}}}\\text{{ exponent}}',
+        // half: '\\text{half}',
+        // condition: '\\text{{if }}{{{0}}}',
         blackhole: 'Unleash a black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
         menuBlackhole: 'Black Hole Settings',
@@ -227,14 +227,14 @@ const locStrings =
         ],
         overlayInfo: 'Toggles the display of Riemann-Siegel terms and ' +
         'publication time',
-        rewind: 'Rewinds {0} by 1. This can help with landing the black hole ' +
-        'at an earlier point.',
-        warpFive: 'Get 5 penny with consequences',
-        warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
+        rewind: 'Rewind t by 1.\nThis can help with landing the black hole ' +
+        'at an earlier zero.',
+        // warpFive: 'Get 5 penny with consequences',
+        // warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
     },
     'zh-Hans':
     {
-        wip: '(正在进行中)\n{0}',
+        // wip: '(正在进行中)\n{0}',
         pubTime: '出版时间：{0}',
         terms: '黎曼-西格尔项：{0}',
         blackhole: '释放一个黑洞',
@@ -257,7 +257,7 @@ const locStrings =
     },
     'zh-Hant':
     {
-        wip: '(正在進行中)\n{0}',
+        // wip: '(正在進行中)\n{0}',
         pubTime: '出版時間：{0}',
         terms: '黎曼-西格爾項：{0}',
         blackhole: '釋放一個黑洞',
@@ -280,7 +280,7 @@ const locStrings =
     },
     es:
     {
-        wip: '(TEP)\\\\{0}',
+        // wip: '(TEP)\\\\{0}',
         pubTime: 'Tiempo desde publicación: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desatar el agujero negro',
@@ -303,13 +303,13 @@ const locStrings =
     },
     vi:
     {
-        wip: '(Đang dở)\\\\{0}',
+        // wip: '(Đang dở)\\\\{0}',
         pubTime: 'Thời gian xuất bản: {0}',
         terms: 'Riemann-Siegel: {0} số hạng',
-        speed: '\\text{tốc độ}',
-        zExp: '{{{0}}}\\text{{ số mũ}}',
-        half: '\\text{một nửa}',
-        condition: '\\text{{khi }}{{{0}}}',
+        // speed: '\\text{tốc độ}',
+        // zExp: '{{{0}}}\\text{{ số mũ}}',
+        // half: '\\text{một nửa}',
+        // condition: '\\text{{khi }}{{{0}}}',
         blackhole: 'Giải phóng hố đen',
         blackholeInfo: 'Kéo {0} ngược lại tới không điểm gần nhất của {1}',
         menuBlackhole: 'Cài đặt hố đen',
@@ -327,8 +327,9 @@ const locStrings =
             'Giấu thông tin',
         ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
-        warpFive: 'Nhận 5 đồng nhưng có hậu quả',
-        warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
+        rewind: 'Kéo ngược t lại 1 đơn vị.\nViệc này có thể giúp ngắm hố đen trúng vào các không điểm đã qua.'
+        // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
+        // warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
 };
 
@@ -1256,9 +1257,13 @@ var tick = (elapsedTime, multiplier) =>
                 {
                     t_dot = bhdt / elapsedTime;
                     t -= bhdt;
+                    // log(bhdt.toExponential(2));
                     searchingRewind = false;
-                    if(Math.abs(bhdt) < 1e-8)
-                        foundZero = true;
+                    if(Math.abs(bhdt) < 1e-9)
+                    {
+                        foundZero = true;    
+                        // log(`found zero, bhdt = ${bhdt.toExponential(2)}`);
+                    }
                 }
             }
         }
@@ -1469,6 +1474,7 @@ let getCommaNumString = (str) =>
 
 var getQuaternaryEntries = () =>
 {
+    // let tmpValue = t_dot < 0.1 ? t_dot.toExponential(2) : t_dot.toFixed(2);
     quaternaryEntries[1].value = t_dot.toFixed(2);
     quaternaryEntries[2].value = t >= 1000 ? getCommaNumString(t.toFixed(2)) :
     t.toFixed(2);
@@ -1513,7 +1519,7 @@ var postPublish = () =>
 
 var canResetStage = () => blackholeMs.isAvailable;
 
-var getResetStageMessage = () => Localization.format(getLoc('rewind'), '\$t\$');
+var getResetStageMessage = () => getLoc('rewind');
 
 var resetStage = () =>
 {
