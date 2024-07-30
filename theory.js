@@ -227,6 +227,8 @@ const locStrings =
         ],
         overlayInfo: 'Toggles the display of Riemann-Siegel terms and ' +
         'publication time',
+        rewind: 'Rewinds {0} by 1. This can help with landing the black hole ' +
+        'at an earlier point.',
         warpFive: 'Get 5 penny with consequences',
         warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
     },
@@ -1507,6 +1509,18 @@ var postPublish = () =>
     theory.invalidateTertiaryEquation();
     theory.invalidateQuaternaryValues();
     updateAvailability();
+}
+
+var canResetStage = () => blackholeMs.isAvailable;
+
+var getResetStageMessage = () => Localization.format(getLoc('rewind'), '\$t\$');
+
+var resetStage = () =>
+{
+    t -= 1;
+    blackholeMs.refund(1);
+    // This points lastZero to a non-zero, but it is a necessary sacrifice.
+    lastZero = 0;
 }
 
 var getInternalState = () => JSON.stringify
