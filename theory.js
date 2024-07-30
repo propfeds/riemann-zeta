@@ -225,10 +225,8 @@ const locStrings =
             'Display info',
             'Hide info',
         ],
-        overlayInfo: 'Toggles the display of Riemann-Siegel terms and ' +
-        'publication time',
-        rewind: 'Rewind t by 1.\nThis can help with landing the black hole ' +
-        'at an earlier zero.',
+        overlayInfo: 'Toggles the display of Riemann-Siegel terms and publication time',
+        rewind: 'Rewind t by 1.\nThis can help with landing at previous zeroes when using the black hole.',
         // warpFive: 'Get 5 penny with consequences',
         // warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
     },
@@ -327,7 +325,7 @@ const locStrings =
             'Giấu thông tin',
         ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
-        rewind: 'Kéo ngược t lại 1 đơn vị.\nViệc này có thể giúp ngắm hố đen trúng vào các không điểm đã qua.'
+        rewind: 'Kéo ngược t lại 1 đơn vị.\nViệc này có thể giúp ngắm trúng vào các không điểm đã qua khi dùng hố đen.'
         // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
         // warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
