@@ -1460,7 +1460,7 @@ var getSecondaryEquation = () =>
 var getTertiaryEquation = () =>
 {
     return `|\\zeta(\\textstyle\\frac{1}{2}+it)|=
-    ${(bhzTerm ?? zTerm).toString(3)}`;
+    ${foundZero ? 0 : (bhzTerm ?? zTerm).toString(3)}`;
 }
 
 /**
