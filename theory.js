@@ -1475,7 +1475,7 @@ let getCommaNumString = (str) =>
 var getQuaternaryEntries = () =>
 {
     // let tmpValue = t_dot < 0.1 ? t_dot.toExponential(2) : t_dot.toFixed(2);
-    quaternaryEntries[1].value = t_dot.toFixed(2);
+    quaternaryEntries[1].value = foundZero ? 0 : t_dot.toFixed(2);
     quaternaryEntries[2].value = t >= 1000 ? getCommaNumString(t.toFixed(2)) :
     t.toFixed(2);
     if(derivMs.level)
