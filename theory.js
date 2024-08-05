@@ -283,7 +283,7 @@ const locStrings =
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desatar el agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
-        menuBlackhole: 'Configuraciónes del Agujero Negro',
+        menuBlackhole: 'Configuraciones del Agujero Negro',
         blackholeThreshold: 'Desata el Agujero Negro en: ',
         blackholeCopyt: 'Usar t actual',
         rotationLock:
@@ -298,6 +298,7 @@ const locStrings =
             'Ocultar info',
         ],
         overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
+        rewind: 'Regresa t en 1.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
     },
     vi:
     {
@@ -325,7 +326,7 @@ const locStrings =
             'Giấu thông tin',
         ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
-        rewind: 'Kéo ngược t lại 1 đơn vị.\nViệc này có thể giúp ngắm trúng vào các không điểm đã qua khi dùng hố đen.'
+        rewind: 'Kéo ngược t lại 1 đơn vị.\nViệc này có thể giúp nhắm trúng vào các không điểm đã qua khi dùng hố đen.'
         // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
         // warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
