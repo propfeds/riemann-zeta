@@ -242,7 +242,7 @@ const locStrings =
         pubTime: '出版時間：{0}',
         terms: '黎曼-西格爾項：{0}',
         blackhole: '釋放黑洞',
-        blackholeInfo: '將 {0} 移到和{1} 最接近的零點',
+        blackholeInfo: '將 {0} 移到和 {1} 最接近的零點',
         menuBlackhole: '黑洞設定',
         blackholeThreshold: '黑洞釋放的條件:',
         blackholeCopyt: '利用現在的t值',
