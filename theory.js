@@ -43,12 +43,12 @@ In this theory, we will be examining the zeta function on the line perpendicular
 
 在这个理论中，我们将探索在 x = 0.5 处垂直于 x 轴的直线（称为临界线）上的 zeta 函数。 1859 年，黎曼自己假设，除了位于负偶数 -2、-4、-6、... 处的所谓“平凡零点”之外，函数的所有其他根都位于这条临界线上。`,
         'zh-Hant':
-`黎曼ζ函數首次由歐拉定義的，將大於 1 的整數定義為無限系列：
+`黎曼ζ函數由歐拉首次提出，其對任何大於 1 的整數定義下方的無窮級數：
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-這個定義後來被切比雪夫擴展到實數，又被黎曼擴展到複數(a+bi)。然而，由於它在實數小於 1 的所有 s 上等於∞，因此要在此處改變函數的定義以使函數完全連續。這被稱為解析開拓。這也造成了一個臭名的笑話:
+這個定義後來先由切比雪夫擴展到實數，再被黎曼擴展到複數(a+bi)。然而，由於它在實數部分小於等於 1 的所有 s 上皆發散至∞，因此要在這個區間改變函數的定義以使函數完全連續。這被稱為解析延拓。這也造成了一個著名的迷因:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上的 zeta 函數。 1859 年，黎曼自己假設，除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，函數的所有其他根都位於這條臨界線上。`,
+在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上 zeta 函數的行為。 1859 年，黎曼假設：除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，ζ函數的所有其他根都位於這條臨界線上。`,
         es:
 `La función conocida como Función Zeta de Riemann fue definida por Euler para los números enteros mayores a 1 como una serie infinita:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -217,7 +217,7 @@ const locStrings =
         // wip: '(正在进行中)\n{0}',
         pubTime: '出版时间：{0}',
         terms: '黎曼-西格尔项：{0}',
-        blackhole: '释放一个黑洞',
+        blackhole: '释放黑洞',
         blackholeInfo: '将 {0} 拉至于离 {1} 最接近的零',
         menuBlackhole: '黑洞设置',
         blackholeThreshold: '黑洞释放的条件:',
@@ -234,29 +234,31 @@ const locStrings =
             '隐藏信息',
         ],
         overlayInfo: '切换 黎曼-西格尔项和出版时间的显示',
+        rewind: '将 t 倒回 1。\n在使用黑洞时,这有助于击中之前的零点。'
     },
     'zh-Hant':
     {
         // wip: '(正在進行中)\n{0}',
         pubTime: '出版時間：{0}',
         terms: '黎曼-西格爾項：{0}',
-        blackhole: '釋放一個黑洞',
-        blackholeInfo: '將 {0} 拉至於離 {1} 最接近的零',
-        menuBlackhole: '黑洞設置',
+        blackhole: '釋放黑洞',
+        blackholeInfo: '將 {0} 移到和{1} 最接近的零點',
+        menuBlackhole: '黑洞設定',
         blackholeThreshold: '黑洞釋放的條件:',
-        blackholeCopyt: '利用現時的t值',
+        blackholeCopyt: '利用現在的t值',
         rotationLock:
         [
             '解鎖圖形',
             '鎖定圖形'
         ],
-        rotationLockInfo: '切換旋轉和縮放 3D 圖形的能力',
+        rotationLockInfo: '開啟/關閉 3D 圖形的旋轉和縮放',
         overlay:
         [
-            '顯示信息',
-            '隱藏信息',
+            '顯示資訊',
+            '隱藏資訊',
         ],
-        overlayInfo: '切換 黎曼-西格爾項和出版時間的顯示',
+        overlayInfo: '顯示/隱藏 黎曼-西格爾項和出版時間',
+        rewind: '將 t 重新設為 1。\n在使用黑洞時有助於通過之前的零點。'
     },
     es:
     {
