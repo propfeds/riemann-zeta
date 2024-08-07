@@ -29,21 +29,12 @@ var getDescription = (language) =>
     const descs =
     {
         en:
-`The function now known as the Riemann zeta function was first defined by ` +
-`Euler for integers greater than 1 as an infinite series:
+`The function now known as the Riemann zeta function was first defined by Euler for integers greater than 1 as an infinite series:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-The definition was later extended to real numbers by Chebyshev, and to the ` +
-`complex plane by Riemann. However, as it diverges on all s with a real ` +
-`component less than 1, a special version of the function was to be defined ` +
-`there in order to make the function continuous. This is known as an ` +
-`analytic continuation, and it is related to this infamous meme:
+The definition was later extended to real numbers by Chebyshev, and to the complex plane by Riemann. However, as it diverged on all s with a real component less than or equal to 1, a special version of the function had to be defined in order to preserve the continuity of its derivatives. This is known as an analytic continuation, and the zeta function's analytic continuation relates to this infamous meme:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-In this theory, we will be examining the zeta function on the line ` +
-`perpendicular to the x-axis at x = 0.5, known as the critical line. In ` +
-`1859, it was hypothesised by Riemann himself that, other than the so-called ` +
-`'trivial zeroes' lying at negative even integers -2, -4, -6, ..., every ` +
-`other root of the function lies on this critical line.`,
+In this theory, we will be examining the zeta function on the line perpendicular to the x-axis at x = 0.5, known as the critical line. In 1859, it was hypothesised by Riemann himself that, other than the so-called 'trivial zeroes' lying at negative even integers -2, -4, -6, ..., every other root of the function lies on this critical line.`,
         'zh-Hans':
 `黎曼ζ函数首次由欧拉定义的，将大于 1 的整数定义为无限系列。
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -66,21 +57,12 @@ Luego, su definición fue extendida a los números reales por Chebyshev, y al pl
 
 En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen en los enteros negativos pares -2, -4, -6, ..., toda raíz de la función yace sobre la ruta crítica.`,
         vi:
-`Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới ` +
-`dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
+`Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-Định nghĩa hàm zeta được mở rộng tới các số thực bởi Chebyshev, và sau đó ` +
-`đến số phức bởi Riemann. Tuy nhiên, do chuỗi này phân kì đối với các giá ` +
-`trị s với phần thực nhỏ hơn 1, một "phiên bản" khác của hàm zeta được định ` +
-`nghĩa trên vùng này để hàm được liên thông trên toàn mặt phẳng số phức. Đây ` +
-`được gọi là thác triển giải tích, và thác triển giải tích của hàm zeta có ` +
-`mối liên hệ đến một meme nổi tiếng:
+Định nghĩa hàm zeta được mở rộng tới các số thực bởi Chebyshev, và sau đó đến số phức bởi Riemann. Tuy nhiên, do chuỗi này phân kì đối với các giá trị s với phần thực nhỏ hơn hoặc bằng 1, một "phiên bản" khác của hàm zeta được định nghĩa để các đạo hàm của zeta được liên thông trên toàn mặt phẳng số phức. Đây được gọi là thác triển giải tích, và thác triển giải tích của hàm zeta có mối liên hệ đến một meme nổi tiếng:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường thẳng x = 0.5, ` +
-`gọi là đường tới hạn. Vào năm 1859, Riemann đã giả thuyết rằng, ngoài những ` +
-`"không điểm tầm thường" nằm trên các số âm chẵn -2, -4, -6, ..., tất cả các ` +
-`nghiệm của hàm đều nằm trên đường tới hạn này.`
+Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường thẳng x = 0.5, gọi là đường tới hạn. Vào năm 1859, Riemann đã giả thuyết rằng, ngoài những "không điểm tầm thường" nằm trên các số âm chẵn -2, -4, -6, ..., tất cả các nghiệm của hàm đều nằm trên đường tới hạn này.`
     };
 
     return descs[language] || descs.en;
@@ -93,8 +75,8 @@ var authors = 'propfeds, Eylanding\n' +
 'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
 'game-icons.net\n\n' +
 'Translations:\n' +
-'Omega_3301 - 简体中文、繁體中文\n' +
-'Jooo#0529 & Warzen User - Español\n' +
+'Omega_3301 & pacowoc - 简体中文、繁體中文\n' +
+'Jooo & Warzen User - Español\n' +
 'propfeds - Tiếng Việt';
 var version = 0.5;
 
