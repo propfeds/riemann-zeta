@@ -15,8 +15,8 @@ var getName = (language) =>
     const names =
     {
         en: 'Riemann Zeta Function',
-        'zh-Hans': '黎曼ζ函数',
-        'zh-Hant': '黎曼ζ函数',
+        'zh-Hans': '黎曼 ζ 函数',
+        'zh-Hant': '黎曼 ζ 函数',
         es: 'Función Zeta de Riemann',
         es: 'Función Zeta de Riemann',
         vi: 'Hàm zeta Riemann'
@@ -36,19 +36,19 @@ The definition was later extended to real numbers by Chebyshev, and to the compl
 
 In this theory, we will be examining the zeta function on the line perpendicular to the x-axis at x = 0.5, known as the critical line. In 1859, it was hypothesised by Riemann himself that, other than the so-called 'trivial zeroes' lying at negative even integers -2, -4, -6, ..., every other root of the function lies on this critical line.`,
         'zh-Hans':
-`黎曼ζ函数首次由欧拉定义的，将大于 1 的整数定义为无限系列。
+`黎曼 ζ 函数最早由欧拉提出，在大于 1 的整数上定义为以下无穷级数：
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-这个定义后来被切比雪夫扩展到实数，又被黎曼扩展到複數(a+bi)。然而，由于它在实数小于 1 的所有 s 上等于∞，因此要在此处改变函数的定义以使函数完全连续。这被称为解析开拓.这也造成了一个臭名的笑话:
+后来，这个定义被切比雪夫拓展到实数上，再被黎曼拓展到复数上。然而，由于它在所有实部不超过 1 的 s 上发散，函数必须被重新定义，以在拓展定义域的同时保持各阶导数连续。这被称之为解析延拓。黎曼函数的解析延拓还衍生出了一个著名的梗：
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-在这个理论中，我们将探索在 x = 0.5 处垂直于 x 轴的直线（称为临界线）上的 zeta 函数。 1859 年，黎曼自己假设，除了位于负偶数 -2、-4、-6、... 处的所谓“平凡零点”之外，函数的所有其他根都位于这条临界线上。`,
+在这个理论中，我们将研究黎曼 ζ 函数在 x = 0.5 处垂直于 x 轴的直线上的行为，这条线又被称为临界线。1859 年，黎曼本人猜想，除了位于负偶数 -2、-4、-6、…… 处的“平凡零点”之外，黎曼 ζ 函数的其它零点都位于这条临界线上。`,
         'zh-Hant':
-`黎曼ζ函數由歐拉首次提出，其對任何大於 1 的整數定義下方的無窮級數：
+`黎曼 ζ 函數由歐拉首次提出，其原始定義是於s為任何大於 1 的整數時的無窮級數：
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-這個定義後來先由切比雪夫擴展到實數，再被黎曼擴展到複數(a+bi)。然而，由於它在實數部分小於等於 1 的所有 s 上皆發散至∞，因此要在這個區間改變函數的定義以使函數完全連續。這被稱為解析延拓。這也造成了一個著名的迷因:
+這個原始定義在後來先由切比雪夫擴展到實數，再被黎曼擴展到複數。然而，由於它在實部小於等於 1 的所有複數 s 上皆發散，為了保證該函數處處連續，數學家定義了另一個行為相同且定義域更廣的ζ函數。這被稱為解析延拓。這也造成了一個著名的迷因:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上 zeta 函數的行為。 1859 年，黎曼假設：除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，ζ函數的所有其他根都位於這條臨界線上。`,
+在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上 zeta 函數的行為。 1859 年，黎曼臆測：除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，ζ函數的所有其他根都位於這條臨界線上。`,
         es:
 `La función conocida como Función Zeta de Riemann fue definida por Euler para los números enteros mayores a 1 como una serie infinita:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -75,7 +75,8 @@ var authors = 'propfeds, Eylanding\n' +
 'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
 'game-icons.net\n\n' +
 'Translations:\n' +
-'Omega_3301 & pacowoc - 简体中文、繁體中文\n' +
+'Omega_3301 & WYXkk - 简体中文\n' +
+'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
 'propfeds - Tiếng Việt';
 var version = 0.5;
@@ -218,23 +219,23 @@ const locStrings =
         pubTime: '出版时间：{0}',
         terms: '黎曼-西格尔项：{0}',
         blackhole: '释放黑洞',
-        blackholeInfo: '将 {0} 拉至于离 {1} 最接近的零',
+        blackholeInfo: '将 {0} 拉回至 {1} 的最近的零点',
         menuBlackhole: '黑洞设置',
         blackholeThreshold: '黑洞释放的条件:',
-        blackholeCopyt: '利用现时的t值',
+        blackholeCopyt: '使用现在的 t 值',
         rotationLock:
         [
             '解锁图形',
             '锁定图形'
         ],
-        rotationLockInfo: '切换旋转和缩放 3D 图形的能力',
+        rotationLockInfo: '切换能否旋转和缩放 3D 图像',
         overlay:
         [
             '显示信息',
             '隐藏信息',
         ],
-        overlayInfo: '切换 黎曼-西格尔项和出版时间的显示',
-        rewind: '将 t 倒回 1。\n在使用黑洞时,这有助于击中之前的零点。'
+        overlayInfo: '切换显示黎曼-西格尔项或出版时间',
+        rewind: '将 t 减少 1。\n这有助于在使用黑洞时击中之前的零点。'
     },
     'zh-Hant':
     {
