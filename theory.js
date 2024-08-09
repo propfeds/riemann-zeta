@@ -118,6 +118,8 @@ const derivRes = 100000;
 const resolution = 1/4;
 // const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
 
+const bhRewindLength = 1;
+
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
 const c1ExpTable =
@@ -209,7 +211,7 @@ const locStrings =
             'Hide info',
         ],
         overlayInfo: 'Toggles the display of Riemann-Siegel terms and publication time',
-        rewind: 'Rewind t by 1.\nThis can help with landing at previous zeroes when using the black hole.',
+        rewind: 'Rewind t by {0}.\nThis can help with landing at previous zeroes when using the black hole.',
         // warpFive: 'Get 5 penny with consequences',
         // warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
     },
@@ -235,7 +237,7 @@ const locStrings =
             '隐藏信息',
         ],
         overlayInfo: '切换显示黎曼-西格尔项或出版时间',
-        rewind: '将 t 减少 1。\n这有助于在使用黑洞时击中之前的零点。'
+        rewind: '将 t 减少 {0}。\n这有助于在使用黑洞时击中之前的零点。'
     },
     'zh-Hant':
     {
@@ -259,7 +261,7 @@ const locStrings =
             '隱藏資訊',
         ],
         overlayInfo: '顯示/隱藏 黎曼-西格爾項和出版時間',
-        rewind: '將 t 回溯 1。\n在使用黑洞時有助於通過之前的零點。'
+        rewind: '將 t 回溯 {0}。\n在使用黑洞時有助於通過之前的零點。'
     },
     es:
     {
@@ -283,7 +285,7 @@ const locStrings =
             'Ocultar info',
         ],
         overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
-        rewind: 'Regresa t en 1.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
+        rewind: 'Regresa t en {0}.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
     },
     vi:
     {
@@ -311,7 +313,7 @@ const locStrings =
             'Giấu thông tin',
         ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
-        rewind: 'Kéo ngược t lại 1 đơn vị.\nViệc này có thể giúp nhắm trúng vào các không điểm đã qua khi dùng hố đen.'
+        rewind: 'Kéo ngược t lại {0} đơn vị.\nViệc này có thể giúp nhắm trúng vào các không điểm đã qua khi dùng hố đen.'
         // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
         // warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
@@ -1504,14 +1506,20 @@ var postPublish = () =>
 
 var canResetStage = () => blackholeMs.isAvailable;
 
-var getResetStageMessage = () => getLoc('rewind');
+var getResetStageMessage = () => Localization.format(getLoc('rewind'),
+bhRewindLength);
 
 var resetStage = () =>
 {
-    t -= 1;
-    blackholeMs.refund(1);
-    // This points lastZero to a non-zero, but it is a necessary sacrifice.
-    lastZero = 0;
+    t -= bhRewindLength;
+    if(blackholeMs.level)
+    {
+        blackholeMs.refund(1);
+        blackholeMs.buy(1);
+    }
+    // This points lastZero to 0 (not a zeta zero), necessary sacrifice.
+    if(t < lastZero)
+        lastZero = 0;
 }
 
 var getInternalState = () => JSON.stringify
