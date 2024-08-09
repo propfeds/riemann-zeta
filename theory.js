@@ -1519,7 +1519,7 @@ var resetStage = () =>
     }
     // This points lastZero to a non-zero, necessary sacrifice.
     if(t < lastZero)
-        lastZero = t;
+        lastZero = 0;
 }
 
 var getInternalState = () => JSON.stringify
