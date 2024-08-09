@@ -1517,9 +1517,9 @@ var resetStage = () =>
         blackholeMs.refund(1);
         blackholeMs.buy(1);
     }
-    // This points lastZero to 0 (not a zeta zero), necessary sacrifice.
+    // This points lastZero to a non-zero, necessary sacrifice.
     if(t < lastZero)
-        lastZero = 0;
+        lastZero = t;
 }
 
 var getInternalState = () => JSON.stringify
