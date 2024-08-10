@@ -1512,14 +1512,14 @@ bhRewindLength);
 var resetStage = () =>
 {
     t -= bhRewindLength;
+    // This points lastZero to a non-zero, necessary sacrifice.
+    lastZero = 0;
+
     if(blackholeMs.level)
     {
         blackholeMs.refund(1);
         blackholeMs.buy(1);
     }
-    // This points lastZero to a non-zero, necessary sacrifice.
-    if(t < lastZero)
-        lastZero = 0;
 }
 
 var getInternalState = () => JSON.stringify
