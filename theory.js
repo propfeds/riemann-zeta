@@ -118,7 +118,7 @@ const derivRes = 100000;
 const resolution = 1/4;
 // const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
 
-const bhRewindLength = 1;
+const bhRewindLength = 1.5;
 
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
