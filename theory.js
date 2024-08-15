@@ -165,12 +165,13 @@ const permaCosts =
     BigNumber.from('1e1000')
 ];
 
+const pubPower = 0.2102;
 const tauRate = 0.4;
-const pubExp = 0.2102 / tauRate;
+const pubExp = pubPower / tauRate;
 const pubMult = BigNumber.TWO;
 var getPublicationMultiplier = (tau) => tau.pow(pubExp) * pubMult;
 var getPublicationMultiplierFormula = (symbol) =>
-`${pubMult.toString(0)}\\times{${symbol}}^{${pubExp}}`;
+`${pubMult.toString(0)}\\times{${symbol}}^{${pubPower}\\times${1 / tauRate}}`;
 
 const milestoneCost = new CustomCost((level) =>
 {
