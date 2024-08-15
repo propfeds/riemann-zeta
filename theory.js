@@ -1,14 +1,9 @@
 import { BigNumber } from '../api/BigNumber';
-import { ConstantCost, CustomCost, ExponentialCost, FirstFreeCost, FreeCost, StepwiseCost } from '../api/Costs';
+import { ConstantCost, ExponentialCost, FirstFreeCost, StepwiseCost } from '../api/Costs';
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
-import { ui } from '../api/ui/UI';
-import { Color } from '../api/ui/properties/Color';
-import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
-import { TextAlignment } from '../api/ui/properties/TextAlignment';
-import { Thickness } from '../api/ui/properties/Thickness';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -172,7 +167,8 @@ const pubExp = pubPower / tauRate;
 const pubMult = BigNumber.TWO;
 var getPublicationMultiplier = (tau) => tau.pow(pubExp) * pubMult;
 var getPublicationMultiplierFormula = (symbol) =>
-`${pubMult.toString(0)}\\times{${symbol}}^{${pubPower}\\times${1 / tauRate}}`;
+`${pubMult.toString(0)}\\times{${symbol}}^{{${pubPower * 100}}/
+{${100 * tauRate}}}`;
 
 const milestoneCost = new CustomCost((level) =>
 {
