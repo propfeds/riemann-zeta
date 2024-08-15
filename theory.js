@@ -1350,7 +1350,7 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 1,
         text: tmpThreshold.toString(),
-        fontSize: 14,
+        // fontSize: 14,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
