@@ -8,6 +8,7 @@ import { ui } from '../api/ui/UI';
 import { Color } from '../api/ui/properties/Color';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
 import { TextAlignment } from '../api/ui/properties/TextAlignment';
+import { Thickness } from '../api/ui/properties/Thickness';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -79,9 +80,9 @@ var authors = 'propfeds, Eylanding\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
 'propfeds - Tiếng Việt';
-var version = 0.5;
+var version = 0.51;
 
-const versionName = 'v0.5';
+const versionName = 'v0.5.1';
 
 let pubTime = 0;
 
@@ -200,6 +201,7 @@ const locStrings =
         menuBlackhole: 'Black Hole Settings',
         blackholeThreshold: 'Unleash black hole at: ',
         blackholeCopyt: 'Take current t',
+        save: 'Save',
         rotationLock:
         [
             'Unlock graph',
@@ -302,6 +304,7 @@ const locStrings =
         menuBlackhole: 'Cài đặt hố đen',
         blackholeThreshold: 'Giải phóng hố đen tại: ',
         blackholeCopyt: 'Lấy t hiện tại',
+        save: 'Lưu',
         rotationLock:
         [
             'Mở khoá đồ thị',
@@ -893,8 +896,8 @@ let createHesitantSwitch = (params, callback, isToggled) =>
 }
 
 const bhImage = game.settings.theme == Theme.LIGHT ?
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/black-hole-bolas.png') :
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/black-hole-bolas.png');
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/dark/black-hole-bolas.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/light/black-hole-bolas.png');
 // const mainMenuLabel = ui.createLatexLabel
 // ({
 //     row: 0, column: 1,
@@ -1157,7 +1160,7 @@ var init = () =>
             foundZero = false;
             bhzTerm = null;
             bhdTerm = null;
-            if(lastZero >= 14)
+            if(lastZero >= 14 && lastZero > t - 10)
                 t = lastZero;
         }
         blackholeMs.refunded = (_) =>
@@ -1325,9 +1328,11 @@ var getEquationOverlay = () =>
 
 let createBlackholeMenu = () =>
 {
+    let tmpThreshold = tClipThreshold;
+
     let clippingSwitch = createHesitantSwitch
     ({
-        row: 0, column: 1,
+        row: 0, column: 2,
         horizontalOptions: LayoutOptions.END
     }, () =>
     {
@@ -1344,7 +1349,7 @@ let createBlackholeMenu = () =>
     let thresholdEntry = ui.createEntry
     ({
         row: 0, column: 1,
-        text: tClipThreshold.toString(),
+        text: tmpThreshold.toString(),
         fontSize: 14,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
@@ -1352,23 +1357,33 @@ let createBlackholeMenu = () =>
         {
             if(!actuallyEditing)
                 return;
-            let tmpML = parseFloat(nt) ?? tClipThreshold;
+            let tmpML = parseFloat(nt) ?? tmpThreshold;
             if(isNaN(tmpML))
-                tmpML = tClipThreshold;
-            tClipThreshold = tmpML;
+                tmpML = tmpThreshold;
+            tmpThreshold = tmpML;
         }
     });
     let copytBtn = ui.createButton
     ({
-        row: 0, column: 2,
+        row: 0, column: 0,
         text: getLoc('blackholeCopyt'),
         onClicked: () =>
         {
             Sound.playClick();
             actuallyEditing = false;
-            tClipThreshold = t;
-            thresholdEntry.text = tClipThreshold.toString();
+            tmpThreshold = t;
+            thresholdEntry.text = tmpThreshold.toString();
             actuallyEditing = true;
+        }
+    })
+    let saveBtn = ui.createButton
+    ({
+        row: 0, column: 1,
+        text: getLoc('save'),
+        onClicked: () =>
+        {
+            Sound.playClick();
+            tClipThreshold = tmpThreshold;
         }
     })
 
@@ -1382,37 +1397,42 @@ let createBlackholeMenu = () =>
         ({
             children:
             [
-                ui.createGrid
+                ui.createLatexLabel
                 ({
-                    heightRequest: getImageSize(ui.screenWidth),
-                    columnDefinitions: ['1*', 'auto'],
-                    children:
-                    [
-                        ui.createLatexLabel
-                        ({
-                            row: 0, column: 0,
-                            text: getLoc('blackholeThreshold'),
-                            verticalTextAlignment: TextAlignment.CENTER
-                        }),
-                        clippingSwitch
-                    ]
+                    margin: new Thickness(0, 0, 0, 6),
+                    text: getLoc('blackholeThreshold'),
+                    verticalTextAlignment: TextAlignment.CENTER
                 }),
                 ui.createGrid
                 ({
-                    columnDefinitions: ['auto', '1*', '1*'],
+                    columnDefinitions: ['auto', '1*', 'auto'],
                     children:
                     [
                         ui.createLatexLabel
                         ({
-                            text: '\$t\\ge\$',
                             row: 0, column: 0,
+                            margin: new Thickness(0, 0, 6, 0),
+                            text: '\$t\\ge\$',
                             horizontalTextAlignment: TextAlignment.START,
                             verticalTextAlignment: TextAlignment.CENTER
                         }),
                         thresholdEntry,
-                        copytBtn
+                        clippingSwitch
                     ]
                 }),
+                ui.createBox
+                ({
+                    heightRequest: 1,
+                    margin: new Thickness(0, 6)
+                }),
+                ui.createGrid
+                ({
+                    children:
+                    [
+                        copytBtn,
+                        saveBtn
+                    ]
+                })
             ]
         })
     });
