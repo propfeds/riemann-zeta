@@ -5,6 +5,9 @@ import { QuaternaryEntry, theory } from '../api/Theory';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
 import { ui } from '../api/ui/UI';
+import { Color } from '../api/ui/properties/Color';
+import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
+import { TextAlignment } from '../api/ui/properties/TextAlignment';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -12,8 +15,8 @@ var getName = (language) =>
     const names =
     {
         en: 'Riemann Zeta Function',
-        'zh-Hans': '黎曼ζ函数',
-        'zh-Hant': '黎曼ζ函数',
+        'zh-Hans': '黎曼 ζ 函数',
+        'zh-Hant': '黎曼 ζ 函数',
         es: 'Función Zeta de Riemann',
         es: 'Función Zeta de Riemann',
         vi: 'Hàm zeta Riemann'
@@ -26,83 +29,77 @@ var getDescription = (language) =>
     const descs =
     {
         en:
-`The function now known as the Riemann zeta function was first defined by ` +
-`Euler for integers greater than 1 as an infinite series:
+`The function now known as the Riemann zeta function was first defined by Euler for integers greater than 1 as an infinite series:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-The definition was later extended to real numbers by Chebyshev, and to the ` +
-`complex plane by Riemann. However, as it diverges on all s with a real ` +
-`component less than 1, a special version of the function was to be defined ` +
-`there in order to make the function continuous. This is known as an ` +
-`analytic continuation, and it is related to this infamous meme:
+The definition was later extended to real numbers by Chebyshev, and to the complex plane by Riemann. However, as it diverged on all s with a real component less than or equal to 1, a special version of the function had to be defined in order to preserve the continuity of its derivatives. This is known as an analytic continuation, and the zeta function's analytic continuation relates to this infamous meme:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-In this theory, we will be examining the zeta function on the line ` +
-`perpendicular to the x-axis at x = 0.5, known as the critical line. In ` +
-`1859, it was hypothesised by Riemann himself that, other than the so-called ` +
-`'trivial zeroes' lying at negative even integers -2, -4, -6, ..., every ` +
-`other root of the function lies on this critical line.`,
+In this theory, we will be examining the zeta function on the line perpendicular to the x-axis at x = 0.5, known as the critical line. In 1859, it was hypothesised by Riemann himself that, other than the so-called 'trivial zeroes' lying at negative even integers -2, -4, -6, ..., every other root of the function lies on this critical line.`,
         'zh-Hans':
-`黎曼ζ函数首次由欧拉定义的，将大于 1 的整数定义为无限系列。
+`黎曼 ζ 函数最早由欧拉提出，在大于 1 的整数上定义为以下无穷级数：
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-这个定义后来被切比雪夫扩展到实数，又被黎曼扩展到複數(a+bi)。然而，由于它在实数小于 1 的所有 s 上等于∞，因此要在此处改变函数的定义以使函数完全连续。这被称为解析开拓.这也造成了一个臭名的笑话:
+后来，这个定义被切比雪夫拓展到实数上，再被黎曼拓展到复数上。然而，由于它在所有实部不超过 1 的 s 上发散，函数必须被重新定义，以在拓展定义域的同时保持各阶导数连续。这被称之为解析延拓。黎曼函数的解析延拓还衍生出了一个著名的梗：
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-在这个理论中，我们将探索在 x = 0.5 处垂直于 x 轴的直线（称为临界线）上的 zeta 函数。 1859 年，黎曼自己假设，除了位于负偶数 -2、-4、-6、... 处的所谓“平凡零点”之外，函数的所有其他根都位于这条临界线上。`,
+在这个理论中，我们将研究黎曼 ζ 函数在 x = 0.5 处垂直于 x 轴的直线上的行为，这条线又被称为临界线。1859 年，黎曼本人猜想，除了位于负偶数 -2、-4、-6、... 处的“平凡零点”之外，黎曼 ζ 函数的其它零点都位于这条临界线上。`,
         'zh-Hant':
-`黎曼ζ函數首次由歐拉定義的，將大於 1 的整數定義為無限系列：
+`黎曼 ζ 函數由歐拉首次提出，其原始定義是於 s 為任何大於 1 的整數時的無窮級數：
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-這個定義後來被切比雪夫擴展到實數，又被黎曼擴展到複數(a+bi)。然而，由於它在實數小於 1 的所有 s 上等於∞，因此要在此處改變函數的定義以使函數完全連續。這被稱為解析開拓。這也造成了一個臭名的笑話:
+這個原始定義在後來先由切比雪夫擴展到實數，再被黎曼擴展到複數。然而，由於它在實部小於等於 1 的所有複數 s 上皆發散，為了保證該函數處處連續，數學家定義了另一個行為相同且定義域更廣的ζ函數。這被稱為解析延拓。這也造成了一個著名的迷因:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上的 zeta 函數。 1859 年，黎曼自己假設，除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，函數的所有其他根都位於這條臨界線上。`,
+在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上 zeta 函數的行為。 1859 年，黎曼臆測：除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，ζ 函數的所有其他根都位於這條臨界線上。`,
         es:
-`La función conocida como Función Zeta de Riemann fue definida por Euler para los números enteros mayores a 1 como una serie infinita:
+`Esta función conocida como la función de Riemann Zeta fue definida por Euler para los números enteros mayores a 1 como una serie de infinitos:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-Luego, su definición fue extendida a los números reales por Chebyshev, y al plano complejo por Riemann. Sin embargo, a medida que la función diverge para todo s con un componente real menor a 1, una versión especial de la misma habría que definirse para hacer la función continua. A esta se le conoce como la continuación analítica, y está relacionada al infame meme:
+Su definición fue extendida a los números reales gracias a Chebyshev, y luego al plano complejo gracias a Riemann. Sin embargo, a medida que diverge para todo s con un componente real menor o igual a 1, una versión especial de la función fue definida para preservar la continuidad de sus valores derivados. Esta se le conoce como la continuación analítica, y la misma función analítica de la función zeta está relacionada a su infame meme:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen en los enteros negativos pares -2, -4, -6, ..., toda raíz de la función yace sobre la ruta crítica.`,
+En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos pares integros -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
         vi:
-`Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới ` +
-`dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
+`Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-Định nghĩa hàm zeta được mở rộng tới các số thực bởi Chebyshev, và sau đó ` +
-`đến số phức bởi Riemann. Tuy nhiên, do chuỗi này phân kì đối với các giá ` +
-`trị s với phần thực nhỏ hơn 1, một "phiên bản" khác của hàm zeta được định ` +
-`nghĩa trên vùng này để hàm được liên thông trên toàn mặt phẳng số phức. Đây ` +
-`được gọi là thác triển giải tích, và thác triển giải tích của hàm zeta có ` +
-`mối liên hệ đến một meme nổi tiếng:
+Định nghĩa hàm zeta được mở rộng tới các số thực bởi Chebyshev, và sau đó đến số phức bởi Riemann. Tuy nhiên, do chuỗi này phân kì đối với các giá trị s với phần thực nhỏ hơn hoặc bằng 1, một "phiên bản" khác của hàm zeta được định nghĩa để các đạo hàm của zeta được liên thông trên toàn mặt phẳng số phức. Đây được gọi là thác triển giải tích, và thác triển giải tích của hàm zeta có mối liên hệ đến một meme nổi tiếng:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường thẳng x = 0.5, ` +
-`gọi là đường tới hạn. Vào năm 1859, Riemann đã giả thuyết rằng, ngoài những ` +
-`"không điểm tầm thường" nằm trên các số âm chẵn -2, -4, -6, ..., tất cả các ` +
-`nghiệm của hàm đều nằm trên đường tới hạn này.`
+Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường thẳng x = 0.5, gọi là đường tới hạn. Vào năm 1859, Riemann đã giả thuyết rằng, ngoài những "không điểm tầm thường" nằm trên các số âm chẵn -2, -4, -6, ..., tất cả các nghiệm của hàm đều nằm trên đường tới hạn này.`
     };
 
     return descs[language] || descs.en;
 }
-var authors = 'propfeds, Eylanding\nMartin_mc, original idea\n\n' +
-'Thanks to:\nGlen Pugh, for the Riemann-Siegel formula implementation\nXLII, ' +
-'for teaching the ancient Sim language\nSneaky, Gen & Gaunter, for maths ' +
-'consultation & other suggestions\n\nTranslations:\nOmega_3301 - 简体中文、' +
-'繁體中文\nJooo#0529 & Warzen User - Español\npropfeds - Tiếng Việt';
-var version = 0.42;
+var authors = 'propfeds, Eylanding\n' +
+'Martin_mc, original idea\n\n' +
+'Thanks to:\n' +
+'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
+'XLII, for teaching the ancient Sim language\n' +
+'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
+'game-icons.net\n\n' +
+'Translations:\n' +
+'Omega_3301 & WYXkk - 简体中文\n' +
+'Omega_3301 & pacowoc - 繁體中文\n' +
+'Jooo & Warzen User - Español\n' +
+'propfeds - Tiếng Việt';
+var version = 0.5;
 
-const versionName = 'v0.4.2';
+const versionName = 'v0.5';
 
-let terms = 0;
 let pubTime = 0;
+
 let t = 0;
 let t_dot = 0;
 let zResult = [-1.4603545088095868, 0, 1.4603545088095868];
 let zTerm = BigNumber.from(zResult[2]);
 let dTerm = BigNumber.ZERO;
+
 let lastZero = 0;
 let searchingRewind = false;
 let foundZero = false;
 let bhzTerm = null;
 let bhdTerm = null;
+
+let clipping_t = false;
+let tClipThreshold = 0;
+
 let quaternaryEntries =
 [
     new QuaternaryEntry(null, ''),
@@ -119,7 +116,9 @@ const scale = 4;
 const derivRes = 100000;
 
 const resolution = 1/4;
-const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
+// const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
+
+const bhRewindLength = 1.5;
 
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
@@ -188,15 +187,18 @@ const locStrings =
 {
     en:
     {
-        wip: '(WIP)\\\\{0}',
+        // wip: '(WIP)\\\\{0}',
         pubTime: 'Publication time: {0}',
         terms: 'Riemann-Siegel terms: {0}',
-        speed: '\\text{speed}',
-        zExp: '{{{0}}}\\text{{ exponent}}',
-        half: '\\text{half}',
-        condition: '\\text{{if }}{{{0}}}',
+        // speed: '\\text{speed}',
+        // zExp: '{{{0}}}\\text{{ exponent}}',
+        // half: '\\text{half}',
+        // condition: '\\text{{if }}{{{0}}}',
         blackhole: 'Unleash a black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
+        menuBlackhole: 'Black Hole Settings',
+        blackholeThreshold: 'Unleash black hole at: ',
+        blackholeCopyt: 'Take current t',
         rotationLock:
         [
             'Unlock graph',
@@ -208,82 +210,97 @@ const locStrings =
             'Display info',
             'Hide info',
         ],
-        overlayInfo: 'Toggles the display of Riemann-Siegel terms and ' +
-        'publication time',
-        warpFive: 'Get 5 penny with consequences',
-        warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
+        overlayInfo: 'Toggles the display of Riemann-Siegel terms and publication time',
+        rewind: 'Rewind t by {0}.\nThis can help with landing at previous zeroes when using the black hole.',
+        // warpFive: 'Get 5 penny with consequences',
+        // warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
     },
     'zh-Hans':
     {
-        wip: '(正在进行中)\n{0}',
+        // wip: '(正在进行中)\n{0}',
         pubTime: '出版时间：{0}',
         terms: '黎曼-西格尔项：{0}',
-        blackhole: '释放一个黑洞',
-        blackholeInfo: '将 {0} 拉至于离 {1} 最接近的零',
+        blackhole: '释放黑洞',
+        blackholeInfo: '将 {0} 拉回至 {1} 的最近的零点',
+        menuBlackhole: '黑洞设置',
+        blackholeThreshold: '释放黑洞的条件：',
+        blackholeCopyt: '使用现在的 t 值',
         rotationLock:
         [
             '解锁图形',
             '锁定图形'
         ],
-        rotationLockInfo: '切换旋转和缩放 3D 图形的能力',
+        rotationLockInfo: '切换能否旋转和缩放 3D 图像',
         overlay:
         [
             '显示信息',
             '隐藏信息',
         ],
-        overlayInfo: '切换 黎曼-西格尔项和出版时间的显示',
+        overlayInfo: '切换显示黎曼-西格尔项或出版时间',
+        rewind: '将 t 减少 {0}。\n这有助于在使用黑洞时击中之前的零点。'
     },
     'zh-Hant':
     {
-        wip: '(正在進行中)\n{0}',
+        // wip: '(正在進行中)\n{0}',
         pubTime: '出版時間：{0}',
         terms: '黎曼-西格爾項：{0}',
-        blackhole: '釋放一個黑洞',
-        blackholeInfo: '將 {0} 拉至於離 {1} 最接近的零',
+        blackhole: '釋放黑洞',
+        blackholeInfo: '將 {0} 移到和 {1} 最接近的零點',
+        menuBlackhole: '黑洞設定',
+        blackholeThreshold: '釋放黑洞的條件：',
+        blackholeCopyt: '利用現在的 t 值',
         rotationLock:
         [
             '解鎖圖形',
             '鎖定圖形'
         ],
-        rotationLockInfo: '切換旋轉和縮放 3D 圖形的能力',
+        rotationLockInfo: '開啟/關閉 3D 圖形的旋轉和縮放',
         overlay:
         [
-            '顯示信息',
-            '隱藏信息',
+            '顯示資訊',
+            '隱藏資訊',
         ],
-        overlayInfo: '切換 黎曼-西格爾項和出版時間的顯示',
+        overlayInfo: '顯示/隱藏 黎曼-西格爾項和出版時間',
+        rewind: '將 t 回溯 {0}。\n在使用黑洞時有助於通過之前的零點。'
     },
     es:
     {
-        wip: '(TEP)\\\\{0}',
+        // wip: '(TEP)\\\\{0}',
         pubTime: 'Tiempo desde publicación: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
-        blackhole: 'Desata un agujero negro',
+        blackhole: 'Desatar el agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
+        menuBlackhole: 'Configuraciones del Agujero Negro',
+        blackholeThreshold: 'Desata el Agujero Negro en: ',
+        blackholeCopyt: 'Usar t actual',
         rotationLock:
         [
             'Desbloquear gráfica',
             'Bloquear gráfica'
         ],
-        rotationLockInfo: 'Alterna la habilidad de rotar y acercar la gráfica 3D',
+        rotationLockInfo: 'Alternar la abilidad de rotar y acercar la gráfica 3D',
         overlay:
         [
             'Mostrar info',
             'Ocultar info',
         ],
-        overlayInfo: 'Alterna la presentación de los términos de Riemann-Siegel y tiempo desde publicación',
+        overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
+        rewind: 'Regresa t en {0}.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
     },
     vi:
     {
-        wip: '(Đang dở)\\\\{0}',
+        // wip: '(Đang dở)\\\\{0}',
         pubTime: 'Thời gian xuất bản: {0}',
         terms: 'Riemann-Siegel: {0} số hạng',
-        speed: '\\text{tốc độ}',
-        zExp: '{{{0}}}\\text{{ số mũ}}',
-        half: '\\text{một nửa}',
-        condition: '\\text{{khi }}{{{0}}}',
+        // speed: '\\text{tốc độ}',
+        // zExp: '{{{0}}}\\text{{ số mũ}}',
+        // half: '\\text{một nửa}',
+        // condition: '\\text{{khi }}{{{0}}}',
         blackhole: 'Giải phóng hố đen',
         blackholeInfo: 'Kéo {0} ngược lại tới không điểm gần nhất của {1}',
+        menuBlackhole: 'Cài đặt hố đen',
+        blackholeThreshold: 'Giải phóng hố đen tại: ',
+        blackholeCopyt: 'Lấy t hiện tại',
         rotationLock:
         [
             'Mở khoá đồ thị',
@@ -296,8 +313,9 @@ const locStrings =
             'Giấu thông tin',
         ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
-        warpFive: 'Nhận 5 đồng nhưng có hậu quả',
-        warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
+        rewind: 'Kéo ngược t lại {0} đơn vị.\nViệc này có thể giúp nhắm trúng vào các không điểm đã qua khi dùng hố đen.'
+        // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
+        // warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
 };
 
@@ -647,12 +665,7 @@ let C = (n, z) =>
 
 let logLookup = [];
 let sqrtLookup = [];
-
-for(let i = 1; i <= 50000; ++i)
-{
-    logLookup[i] = Math.log(i);
-    sqrtLookup[i] = Math.sqrt(i);
-}
+let terms = 0;
 
 /**
  * Returns the Riemann zeta function evaluated at 0.5+it, with n layers of
@@ -670,6 +683,12 @@ let riemannSiegelZeta = (t, n) =>
     let N = Math.floor(fullN);
     let p = fullN - N;
     let th = theta(t);
+
+    for(let j = terms + 1; j <= N; ++j)
+    {
+        logLookup[j] = Math.log(j);
+        sqrtLookup[j] = Math.sqrt(j);
+    }
     terms = N;
 
     for(let j = 1; j <= N; ++j)
@@ -724,6 +743,172 @@ let getCoordString = (x) => x.toFixed(x >= -0.01 ?
     (x <= 9.999 ? 3 : (x <= 99.99 ? 2 : 1)) :
     (x < -9.99 ? (x < -99.9 ? 0 : 1) : 2)
 );
+
+let getImageSize = (width) =>
+{
+    if(width >= 1080)
+        return 48;
+    if(width >= 720)
+        return 36;
+    if(width >= 360)
+        return 24;
+
+    return 20;
+}
+
+// let createImageBtn = (params: {[x: string]: any}, callback: () => void,
+// isAvailable: () => boolean, image: ImageSource): Frame
+let createImageBtn = (params, callback, isAvailable, image) =>
+{
+    let triggerable = true;
+    let borderColor = () => isAvailable() ? Color.BORDER : Color.TRANSPARENT;
+    let frame = ui.createFrame
+    ({
+        cornerRadius: 1,
+        margin: new Thickness(2),
+        padding: new Thickness(1),
+        hasShadow: isAvailable,
+        heightRequest: getImageSize(ui.screenWidth),
+        widthRequest: getImageSize(ui.screenWidth),
+        content: ui.createImage
+        ({
+            source: image,
+            aspect: Aspect.ASPECT_FIT,
+            useTint: true
+        }),
+        borderColor,
+        ...params
+    });
+    frame.onTouched = (e) =>
+    {
+        if(e.type == TouchType.PRESSED)
+        {
+            frame.borderColor = Color.TRANSPARENT;
+            // frame.hasShadow = false;
+        }
+        else if(e.type.isReleased())
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            if(triggerable && isAvailable())
+            {
+                Sound.playClick();
+                callback();
+            }
+            else
+                triggerable = true;
+        }
+        else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
+        e.x > frame.width || e.y > frame.height))
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            triggerable = false;
+        }
+    };
+    return frame;
+}
+
+let createActiveImageBtn = (params, callback, image) =>
+{
+    let triggerable = true;
+    let borderColor = Color.BORDER;
+    let frame = ui.createFrame
+    ({
+        cornerRadius: 1,
+        margin: new Thickness(2),
+        padding: new Thickness(1),
+        hasShadow: true,
+        heightRequest: getImageSize(ui.screenWidth),
+        widthRequest: getImageSize(ui.screenWidth),
+        content: ui.createImage
+        ({
+            source: image,
+            aspect: Aspect.ASPECT_FIT,
+            useTint: true
+        }),
+        borderColor,
+        ...params
+    });
+    frame.onTouched = (e) =>
+    {
+        if(e.type == TouchType.PRESSED)
+        {
+            frame.borderColor = Color.TRANSPARENT;
+            // frame.hasShadow = false;
+        }
+        else if(e.type.isReleased())
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            if(triggerable)
+            {
+                Sound.playClick();
+                callback();
+            }
+            else
+                triggerable = true;
+        }
+        else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
+        e.x > frame.width || e.y > frame.height))
+        {
+            frame.borderColor = borderColor;
+            // frame.hasShadow = true;
+            triggerable = false;
+        }
+    };
+    return frame;
+}
+
+// params: {[x: string]: any}, callback: () => void,
+// isToggled: boolean | (() => boolean)
+let createHesitantSwitch = (params, callback, isToggled) =>
+{
+    let triggerable = true;
+    let element = ui.createSwitch
+    ({
+        horizontalOptions: LayoutOptions.CENTER,
+        onColor: Color.BORDER,
+        isToggled,
+        onTouched: (e) =>
+        {
+            if(e.type.isReleased())
+            {
+                if(triggerable)
+                {
+                    Sound.playClick();
+                    callback();
+                }
+                else
+                    triggerable = true;
+            }
+            else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
+            e.x > element.width || e.y > element.height))
+                triggerable = false;
+        },
+        ...params
+    });
+    return element;
+}
+
+const bhImage = game.settings.theme == Theme.LIGHT ?
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/black-hole-bolas.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/black-hole-bolas.png');
+// const mainMenuLabel = ui.createLatexLabel
+// ({
+//     row: 0, column: 1,
+//     verticalTextAlignment: TextAlignment.START,
+//     margin: new Thickness(0, 9),
+//     text: getLoc('blackholeSettingsLabel'),
+//     fontSize: 10,
+//     textColor: Color.TEXT_MEDIUM
+// });
+const blackholeMenuFrame = createImageBtn
+({
+    row: 0, column: 0,
+    horizontalOptions: LayoutOptions.START
+},
+() => createBlackholeMenu().show(), () => true, bhImage);
 
 var c1, c2, b, w1, w2, w3;
 var c1ExpMs, derivMs, w2Ms, blackholeMs;
@@ -999,6 +1184,7 @@ var updateAvailability = () =>
     w2.isAvailable = w2Ms.level > 0;
     w3.isAvailable = w3Perma.level > 0;
     blackholeMs.isAvailable = c1ExpMs.level == c1ExpMaxLevel && w2Ms.level > 0;
+    blackholeMenuFrame.isVisible = blackholeMs.isAvailable;
 }
 
 var isCurrencyVisible = (index) => (index && derivMs.level > 0) || !index;
@@ -1029,8 +1215,12 @@ var tick = (elapsedTime, multiplier) =>
     {
         let prevZ = zResult[2];
         zResult = zeta(t);
-        if(zResult[2] * prevZ <= 0 && !game.isCalculatingOfflineProgress)
+        if(zResult[2] * prevZ <= 0)
             lastZero = t;
+        // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
+        if(clipping_t && t >= lastZero && t >= tClipThreshold)
+            blackholeMs.buy(1);
+
         if(derivMs.level)
         {
             let tmpZ = zeta(t + 1 / derivRes);
@@ -1051,11 +1241,15 @@ var tick = (elapsedTime, multiplier) =>
                 }
                 else
                 {
-                    t_dot = bhdt / elapsedTime;
+                    t_dot = -bhdt / elapsedTime;
                     t -= bhdt;
+                    // log(bhdt.toExponential(2));
                     searchingRewind = false;
-                    if(Math.abs(bhdt) < 1e-8)
-                        foundZero = true;
+                    if(Math.abs(bhdt) < 1e-9)
+                    {
+                        foundZero = true;    
+                        // log(`found zero, bhdt = ${bhdt.toExponential(2)}`);
+                    }
                 }
             }
         }
@@ -1090,6 +1284,7 @@ var getEquationOverlay = () =>
     let result = ui.createGrid
     ({
         inputTransparent: () => rotationLock.level ? true : false,
+        cascadeInputTransparent: false,
         children:
         [
             ui.createLatexLabel
@@ -1100,9 +1295,127 @@ var getEquationOverlay = () =>
                 fontSize: 9,
                 textColor: Color.TEXT_MEDIUM
             }),
+            ui.createGrid
+            ({
+                row: 0, column: 0,
+                margin: new Thickness(4),
+                horizontalOptions: LayoutOptions.END,
+                verticalOptions: LayoutOptions.END,
+                // rowDefinitions:
+                // [
+                //     'auto', 'auto'
+                // ],
+                // columnDefinitions:
+                // [
+                //     'auto', 'auto'
+                // ],
+                inputTransparent: true,
+                cascadeInputTransparent: false,
+                children:
+                [
+                    blackholeMenuFrame
+                ]
+            }),
         ]
     });
     return result;
+}
+
+
+let createBlackholeMenu = () =>
+{
+    let clippingSwitch = createHesitantSwitch
+    ({
+        row: 0, column: 1,
+        horizontalOptions: LayoutOptions.END
+    }, () =>
+    {
+        clipping_t = !clipping_t;
+        clippingSwitch.isToggled = clipping_t;
+        // paramSwitch.isToggled = !paramSwitch.isToggled;
+        // clipping_t = paramSwitch.isToggled;
+        if(!clipping_t)
+            blackholeMs.refund(1);
+    }, clipping_t);
+
+    let actuallyEditing = false;
+
+    let thresholdEntry = ui.createEntry
+    ({
+        row: 0, column: 1,
+        text: tClipThreshold.toString(),
+        fontSize: 14,
+        keyboard: Keyboard.NUMERIC,
+        horizontalTextAlignment: TextAlignment.END,
+        onTextChanged: (ot, nt) =>
+        {
+            if(!actuallyEditing)
+                return;
+            let tmpML = parseFloat(nt) ?? tClipThreshold;
+            if(isNaN(tmpML))
+                tmpML = tClipThreshold;
+            tClipThreshold = tmpML;
+        }
+    });
+    let copytBtn = ui.createButton
+    ({
+        row: 0, column: 2,
+        text: getLoc('blackholeCopyt'),
+        onClicked: () =>
+        {
+            Sound.playClick();
+            actuallyEditing = false;
+            tClipThreshold = t;
+            thresholdEntry.text = tClipThreshold.toString();
+            actuallyEditing = true;
+        }
+    })
+
+    actuallyEditing = true;
+
+    let menu = ui.createPopup
+    ({
+        isPeekable: true,
+        title: getLoc('menuBlackhole'),
+        content: ui.createStackLayout
+        ({
+            children:
+            [
+                ui.createGrid
+                ({
+                    heightRequest: getImageSize(ui.screenWidth),
+                    columnDefinitions: ['1*', 'auto'],
+                    children:
+                    [
+                        ui.createLatexLabel
+                        ({
+                            row: 0, column: 0,
+                            text: getLoc('blackholeThreshold'),
+                            verticalTextAlignment: TextAlignment.CENTER
+                        }),
+                        clippingSwitch
+                    ]
+                }),
+                ui.createGrid
+                ({
+                    columnDefinitions: ['auto', '1*', '1*'],
+                    children:
+                    [
+                        ui.createLatexLabel
+                        ({
+                            text: '\$t\\ge\$',
+                            row: 0, column: 0,
+                            horizontalTextAlignment: TextAlignment.START,
+                            verticalTextAlignment: TextAlignment.CENTER
+                        }),
+                        thresholdEntry,
+                        copytBtn
+                    ]
+                }),
+            ]
+        })
+    });
+    return menu;
 }
 
 var getPrimaryEquation = () =>
@@ -1113,14 +1426,14 @@ var getPrimaryEquation = () =>
     if(!derivMs.level)
     {
         theory.primaryEquationScale = 0.96;
-        theory.primaryEquationHeight = 63;
+        theory.primaryEquationHeight = 60;
         return rhoPart;
     }
     let omegaPart = `\\,\\dot{\\delta}=w_1
     ${w2Ms.level ? 'w_2' : ''}${w3Perma.level ? 'w_3' : ''}\\times
     |\\zeta '(\\textstyle\\frac{1}{2}+it)|^b`;
     theory.primaryEquationScale = 0.92;
-    theory.primaryEquationHeight = 75;
+    theory.primaryEquationHeight = 72;
     return `\\begin{array}{c}${rhoPart}\\\\${omegaPart}\\end{array}`;
 }
 
@@ -1134,7 +1447,7 @@ var getSecondaryEquation = () =>
 var getTertiaryEquation = () =>
 {
     return `|\\zeta(\\textstyle\\frac{1}{2}+it)|=
-    ${(bhzTerm ?? zTerm).toString(3)}`;
+    ${foundZero ? 0 : (bhzTerm ?? zTerm).toString(3)}`;
 }
 
 /**
@@ -1148,8 +1461,10 @@ let getCommaNumString = (str) =>
 
 var getQuaternaryEntries = () =>
 {
-    quaternaryEntries[1].value = t_dot.toFixed(2);
-    quaternaryEntries[2].value = getCommaNumString(t.toFixed(2));
+    // let tmpValue = t_dot < 0.1 ? t_dot.toExponential(2) : t_dot.toFixed(2);
+    quaternaryEntries[1].value = foundZero ? 0 : t_dot.toFixed(2);
+    quaternaryEntries[2].value = t >= 1000 ? getCommaNumString(t.toFixed(2)) :
+    t.toFixed(2);
     if(derivMs.level)
         quaternaryEntries[3].value = (bhdTerm ?? dTerm).toString(3);
     else
@@ -1180,6 +1495,8 @@ var postPublish = () =>
     bhzTerm = null;
     bhdTerm = null;
 
+    blackholeMs.refund(1);
+
     theory.invalidatePrimaryEquation();
     theory.invalidateSecondaryEquation();
     theory.invalidateTertiaryEquation();
@@ -1187,11 +1504,32 @@ var postPublish = () =>
     updateAvailability();
 }
 
+var canResetStage = () => blackholeMs.isAvailable;
+
+var getResetStageMessage = () => Localization.format(getLoc('rewind'),
+bhRewindLength);
+
+var resetStage = () =>
+{
+    t -= bhRewindLength;
+    // This points lastZero to a non-zero, necessary sacrifice.
+    lastZero = 0;
+
+    if(blackholeMs.level)
+    {
+        blackholeMs.refund(1);
+        blackholeMs.buy(1);
+    }
+}
+
 var getInternalState = () => JSON.stringify
 ({
-    version: version,
-    t: t,
-    pubTime: pubTime
+    version,
+    t,
+    pubTime,
+    lastZero,
+    clipping_t,
+    tClipThreshold
 })
 
 var setInternalState = (stateStr) =>
@@ -1200,10 +1538,11 @@ var setInternalState = (stateStr) =>
         return;
 
     let state = JSON.parse(stateStr);
-    if('t' in state)
-        t = state.t;
-    if('pubTime' in state)
-        pubTime = state.pubTime;
+    t = state.t ?? t;
+    pubTime = state.pubTime ?? pubTime;
+    lastZero = state.lastZero ?? lastZero;
+    clipping_t = state.clipping_t ?? clipping_t;
+    tClipThreshold = state.tClipThreshold ?? tClipThreshold;
 
     theory.invalidatePrimaryEquation();
     theory.invalidateTertiaryEquation();
