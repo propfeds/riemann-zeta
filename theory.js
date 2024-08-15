@@ -1248,8 +1248,17 @@ var tick = (elapsedTime, multiplier) =>
                     searchingRewind = false;
                     if(Math.abs(bhdt) < 1e-9)
                     {
-                        foundZero = true;    
+                        foundZero = true;
                         // log(`found zero, bhdt = ${bhdt.toExponential(2)}`);
+
+                        // Calculate bhzTerm
+                        zResult = zeta(t);
+                        let tmpZ = zeta(t + 1 / derivRes);
+                        let dr = tmpZ[0] - zResult[0];
+                        let di = tmpZ[1] - zResult[1];
+                        bhdTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) *
+                        derivRes);
+                        bhzTerm = BigNumber.from(zResult[2]).abs();
                     }
                 }
             }
@@ -1261,15 +1270,6 @@ var tick = (elapsedTime, multiplier) =>
     }
     else
     {
-        if(!bhzTerm || !bhdTerm)
-        {
-            zResult = zeta(t);
-            let tmpZ = zeta(t + 1 / derivRes);
-            let dr = tmpZ[0] - zResult[0];
-            let di = tmpZ[1] - zResult[1];
-            bhdTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) * derivRes);
-            bhzTerm = BigNumber.from(zResult[2]).abs();
-        }
         derivCurrency.value += bhdTerm.pow(bTerm) * w1Term * w2Term * w3Term *
         bonus;
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
