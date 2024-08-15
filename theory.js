@@ -50,12 +50,12 @@ In this theory, we will be examining the zeta function on the line perpendicular
 
 在這個理論中，我們將探索在 x = 0.5 處垂直於 x 軸的直線（稱為臨界線）上 zeta 函數的行為。 1859 年，黎曼臆測：除了位於負偶數 -2、-4、-6、... 處的所謂“平凡零點”之外，ζ 函數的所有其他根都位於這條臨界線上。`,
         es:
-`Esta función conocida como Riemann Zeta fue definida por Euler para los números enteros mayores a 1 como una serie de infinitos:
+`Esta función conocida como la función de Riemann Zeta fue definida por Euler para los números enteros mayores a 1 como una serie de infinitos:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
-Su definición fue extendida a los números reales gracias a Chebyshev, y luego al plano complejo gracias a Riemann. Sin embargo, a medida que diverge para todo s con un componente real menor a 1, una versión especial de la función fue definida para hacer la función continua. Esta se le conoce como la continuación analítica, y está relacionada al infame meme:
+Su definición fue extendida a los números reales gracias a Chebyshev, y luego al plano complejo gracias a Riemann. Sin embargo, a medida que diverge para todo s con un componente real menor o igual a 1, una versión especial de la función fue definida para preservar la continuidad de sus valores derivados. Esta se le conoce como la continuación analítica, y la misma función analítica de la función zeta está relacionada a su infame meme:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos enteros pares -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
+En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos pares integros -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
         vi:
 `Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
