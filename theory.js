@@ -224,6 +224,7 @@ const locStrings =
         menuBlackhole: '黑洞设置',
         blackholeThreshold: '释放黑洞的条件：',
         blackholeCopyt: '使用现在的 t 值',
+        save: '保存',
         rotationLock:
         [
             '解锁图形',
@@ -248,6 +249,7 @@ const locStrings =
         menuBlackhole: '黑洞設定',
         blackholeThreshold: '釋放黑洞的條件：',
         blackholeCopyt: '利用現在的 t 值',
+        save: '儲存',
         rotationLock:
         [
             '解鎖圖形',
@@ -272,6 +274,7 @@ const locStrings =
         menuBlackhole: 'Configuraciones del Agujero Negro',
         blackholeThreshold: 'Desata el Agujero Negro en: ',
         blackholeCopyt: 'Usar t actual',
+        save: 'Guardar',
         rotationLock:
         [
             'Desbloquear gráfica',
