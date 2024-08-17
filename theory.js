@@ -701,11 +701,12 @@ let riemannSiegelZeta = (t, n) =>
     }
     Z *= 2;
 
+    let tpot = 2*Math.PI/t;
     for(let k = 0; k <= n; ++k)
     {
-        R += C(k, 2*p-1) * Math.pow(2*Math.PI/t, k*0.5);
+        R += C(k, 2*p-1) * Math.pow(tpot, k*0.5);
     }
-    R *= even(N-1) * Math.pow(2*Math.PI/t, 0.25);
+    R *= even(N-1) * Math.pow(tpot, 0.25);
 
     Z += R;
     // log(`N=${N}, Z=${Z}`);
