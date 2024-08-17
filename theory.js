@@ -1,13 +1,9 @@
 import { BigNumber } from '../api/BigNumber';
-import { ConstantCost, CustomCost, ExponentialCost, FirstFreeCost, FreeCost, StepwiseCost } from '../api/Costs';
+import { ConstantCost, ExponentialCost, FirstFreeCost, StepwiseCost } from '../api/Costs';
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
 import { Utils } from '../api/Utils';
 import { Vector3 } from '../api/Vector3';
-import { ui } from '../api/ui/UI';
-import { Color } from '../api/ui/properties/Color';
-import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
-import { TextAlignment } from '../api/ui/properties/TextAlignment';
 
 var id = 'riemann_zeta_f';
 var getName = (language) =>
@@ -79,9 +75,9 @@ var authors = 'propfeds, Eylanding\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
 'propfeds - Tiếng Việt';
-var version = 0.5;
+var version = 0.51;
 
-const versionName = 'v0.5';
+const versionName = 'v0.5.1';
 
 let pubTime = 0;
 
@@ -114,6 +110,7 @@ const scale = 4;
 // All balance parameters are aggregated for ease of access
 
 const derivRes = 100000;
+const derivResInv = 1 / derivRes;
 
 const resolution = 1/4;
 // const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
@@ -165,12 +162,14 @@ const permaCosts =
     BigNumber.from('1e1000')
 ];
 
+const pubPower = 0.2102;
 const tauRate = 0.4;
-const pubExp = 0.2102 / tauRate;
+const pubExp = pubPower / tauRate;
 const pubMult = BigNumber.TWO;
 var getPublicationMultiplier = (tau) => tau.pow(pubExp) * pubMult;
 var getPublicationMultiplierFormula = (symbol) =>
-`${pubMult.toString(0)}\\times{${symbol}}^{${pubExp}}`;
+`${pubMult.toString(0)}\\times{${symbol}}^{{${pubPower * 100}}/
+{${100 * tauRate}}}`;
 
 const milestoneCost = new CustomCost((level) =>
 {
@@ -199,6 +198,7 @@ const locStrings =
         menuBlackhole: 'Black Hole Settings',
         blackholeThreshold: 'Unleash black hole at: ',
         blackholeCopyt: 'Take current t',
+        save: 'Save',
         rotationLock:
         [
             'Unlock graph',
@@ -225,6 +225,7 @@ const locStrings =
         menuBlackhole: '黑洞设置',
         blackholeThreshold: '释放黑洞的条件：',
         blackholeCopyt: '使用现在的 t 值',
+        save: '保存',
         rotationLock:
         [
             '解锁图形',
@@ -249,6 +250,7 @@ const locStrings =
         menuBlackhole: '黑洞設定',
         blackholeThreshold: '釋放黑洞的條件：',
         blackholeCopyt: '利用現在的 t 值',
+        save: '儲存',
         rotationLock:
         [
             '解鎖圖形',
@@ -273,6 +275,7 @@ const locStrings =
         menuBlackhole: 'Configuraciones del Agujero Negro',
         blackholeThreshold: 'Desata el Agujero Negro en: ',
         blackholeCopyt: 'Usar t actual',
+        save: 'Guardar',
         rotationLock:
         [
             'Desbloquear gráfica',
@@ -301,6 +304,7 @@ const locStrings =
         menuBlackhole: 'Cài đặt hố đen',
         blackholeThreshold: 'Giải phóng hố đen tại: ',
         blackholeCopyt: 'Lấy t hiện tại',
+        save: 'Lưu',
         rotationLock:
         [
             'Mở khoá đồ thị',
@@ -892,8 +896,8 @@ let createHesitantSwitch = (params, callback, isToggled) =>
 }
 
 const bhImage = game.settings.theme == Theme.LIGHT ?
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/dark/black-hole-bolas.png') :
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/black-hole-automation/icons/light/black-hole-bolas.png');
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/dark/black-hole-bolas.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/light/black-hole-bolas.png');
 // const mainMenuLabel = ui.createLatexLabel
 // ({
 //     row: 0, column: 1,
@@ -1156,7 +1160,7 @@ var init = () =>
             foundZero = false;
             bhzTerm = null;
             bhdTerm = null;
-            if(lastZero >= 14)
+            if(lastZero >= 14 && lastZero > t - 10)
                 t = lastZero;
         }
         blackholeMs.refunded = (_) =>
@@ -1223,7 +1227,7 @@ var tick = (elapsedTime, multiplier) =>
 
         if(derivMs.level)
         {
-            let tmpZ = zeta(t + 1 / derivRes);
+            let tmpZ = zeta(t + derivResInv);
             let dr = tmpZ[0] - zResult[0];
             let di = tmpZ[1] - zResult[1];
             dTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) * derivRes);
@@ -1247,8 +1251,17 @@ var tick = (elapsedTime, multiplier) =>
                     searchingRewind = false;
                     if(Math.abs(bhdt) < 1e-9)
                     {
-                        foundZero = true;    
+                        foundZero = true;
                         // log(`found zero, bhdt = ${bhdt.toExponential(2)}`);
+
+                        // Calculate bhzTerm
+                        zResult = zeta(t);
+                        let tmpZ = zeta(t + derivResInv);
+                        let dr = tmpZ[0] - zResult[0];
+                        let di = tmpZ[1] - zResult[1];
+                        bhdTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) *
+                        derivRes);
+                        bhzTerm = BigNumber.from(zResult[2]).abs();
                     }
                 }
             }
@@ -1260,15 +1273,6 @@ var tick = (elapsedTime, multiplier) =>
     }
     else
     {
-        if(!bhzTerm || !bhdTerm)
-        {
-            zResult = zeta(t);
-            let tmpZ = zeta(t + 1 / derivRes);
-            let dr = tmpZ[0] - zResult[0];
-            let di = tmpZ[1] - zResult[1];
-            bhdTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) * derivRes);
-            bhzTerm = BigNumber.from(zResult[2]).abs();
-        }
         derivCurrency.value += bhdTerm.pow(bTerm) * w1Term * w2Term * w3Term *
         bonus;
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
@@ -1324,9 +1328,11 @@ var getEquationOverlay = () =>
 
 let createBlackholeMenu = () =>
 {
+    let tmpThreshold = tClipThreshold;
+
     let clippingSwitch = createHesitantSwitch
     ({
-        row: 0, column: 1,
+        row: 0, column: 2,
         horizontalOptions: LayoutOptions.END
     }, () =>
     {
@@ -1343,31 +1349,41 @@ let createBlackholeMenu = () =>
     let thresholdEntry = ui.createEntry
     ({
         row: 0, column: 1,
-        text: tClipThreshold.toString(),
-        fontSize: 14,
+        text: tmpThreshold.toString(),
+        // fontSize: 14,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
         {
             if(!actuallyEditing)
                 return;
-            let tmpML = parseFloat(nt) ?? tClipThreshold;
+            let tmpML = parseFloat(nt) ?? tmpThreshold;
             if(isNaN(tmpML))
-                tmpML = tClipThreshold;
-            tClipThreshold = tmpML;
+                tmpML = tmpThreshold;
+            tmpThreshold = tmpML;
         }
     });
     let copytBtn = ui.createButton
     ({
-        row: 0, column: 2,
+        row: 0, column: 0,
         text: getLoc('blackholeCopyt'),
         onClicked: () =>
         {
             Sound.playClick();
             actuallyEditing = false;
-            tClipThreshold = t;
-            thresholdEntry.text = tClipThreshold.toString();
+            tmpThreshold = t;
+            thresholdEntry.text = tmpThreshold.toString();
             actuallyEditing = true;
+        }
+    })
+    let saveBtn = ui.createButton
+    ({
+        row: 0, column: 1,
+        text: getLoc('save'),
+        onClicked: () =>
+        {
+            Sound.playClick();
+            tClipThreshold = tmpThreshold;
         }
     })
 
@@ -1381,37 +1397,42 @@ let createBlackholeMenu = () =>
         ({
             children:
             [
-                ui.createGrid
+                ui.createLatexLabel
                 ({
-                    heightRequest: getImageSize(ui.screenWidth),
-                    columnDefinitions: ['1*', 'auto'],
-                    children:
-                    [
-                        ui.createLatexLabel
-                        ({
-                            row: 0, column: 0,
-                            text: getLoc('blackholeThreshold'),
-                            verticalTextAlignment: TextAlignment.CENTER
-                        }),
-                        clippingSwitch
-                    ]
+                    margin: new Thickness(0, 0, 0, 6),
+                    text: getLoc('blackholeThreshold'),
+                    verticalTextAlignment: TextAlignment.CENTER
                 }),
                 ui.createGrid
                 ({
-                    columnDefinitions: ['auto', '1*', '1*'],
+                    columnDefinitions: ['auto', '1*', 'auto'],
                     children:
                     [
                         ui.createLatexLabel
                         ({
-                            text: '\$t\\ge\$',
                             row: 0, column: 0,
+                            margin: new Thickness(0, 0, 6, 0),
+                            text: '\$t\\ge\$',
                             horizontalTextAlignment: TextAlignment.START,
                             verticalTextAlignment: TextAlignment.CENTER
                         }),
                         thresholdEntry,
-                        copytBtn
+                        clippingSwitch
                     ]
                 }),
+                ui.createBox
+                ({
+                    heightRequest: 1,
+                    margin: new Thickness(0, 6)
+                }),
+                ui.createGrid
+                ({
+                    children:
+                    [
+                        copytBtn,
+                        saveBtn
+                    ]
+                })
             ]
         })
     });
