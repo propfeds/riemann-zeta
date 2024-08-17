@@ -110,6 +110,7 @@ const scale = 4;
 // All balance parameters are aggregated for ease of access
 
 const derivRes = 100000;
+const derivResInv = 1 / derivRes;
 
 const resolution = 1/4;
 // const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
@@ -1226,7 +1227,7 @@ var tick = (elapsedTime, multiplier) =>
 
         if(derivMs.level)
         {
-            let tmpZ = zeta(t + 1 / derivRes);
+            let tmpZ = zeta(t + derivResInv);
             let dr = tmpZ[0] - zResult[0];
             let di = tmpZ[1] - zResult[1];
             dTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) * derivRes);
@@ -1255,7 +1256,7 @@ var tick = (elapsedTime, multiplier) =>
 
                         // Calculate bhzTerm
                         zResult = zeta(t);
-                        let tmpZ = zeta(t + 1 / derivRes);
+                        let tmpZ = zeta(t + derivResInv);
                         let dr = tmpZ[0] - zResult[0];
                         let di = tmpZ[1] - zResult[1];
                         bhdTerm = BigNumber.from(Math.sqrt(dr*dr + di*di) *
