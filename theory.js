@@ -14,7 +14,7 @@ var getName = (language) =>
         'zh-Hans': '黎曼 ζ 函数',
         'zh-Hant': '黎曼 ζ 函数',
         es: 'Función Zeta de Riemann',
-        es: 'Función Zeta de Riemann',
+        ru: 'Дзета-функция Римана',
         vi: 'Hàm zeta Riemann'
     };
 
@@ -52,6 +52,13 @@ Su definición fue extendida a los números reales gracias a Chebyshev, y luego 
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
 En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos pares integros -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
+        ru:
+`Функция, известная сейчас как дзета-функция Римана, была впервые определена Эйлером для целых чисел больше 1, как бесконечный ряд: 
+ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ... 
+Позднее определение было расширено Чебышевым на вещественные числа и Риманом на комплексную плоскость. Однако, поскольку ряд расходился при всех значениях s с вещественной частью меньше или равной 1, пришлось определить специальную версию функции, чтобы сохранить непрерывность её производных. Это называется аналитическим продолжением, и аналитическое продолжение дзета-функции связано с этим (печально) известным мемом: 
+1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
+
+В данной теории мы будем рассматривать дзета-функцию на прямой, перпендикулярной оси x при x = 0.5, известной как критическая прямая. В 1859 году сам Риман предположил, что, за исключением так называемых ""тривиальных нулей"", расположенных в отрицательных чётных целых числах -2, -4, -6, ..., все остальные корни функции лежат на этой критической прямой.`,
         vi:
 `Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -75,9 +82,9 @@ var authors = 'propfeds, Eylanding\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
 'propfeds - Tiếng Việt';
-var version = 0.51;
+var version = 0.52;
 
-const versionName = 'v0.5.1';
+const versionName = 'v0.5.2 (WIP)';
 
 let pubTime = 0;
 
@@ -184,6 +191,30 @@ const milestoneCost = new CustomCost((level) =>
 
 const locStrings =
 {
+    example:
+    {
+        pubTime: '{0}',
+        terms: '{0}',
+        blackhole: '',
+        blackholeInfo: 'Pulls {0} to {1}',
+        menuBlackhole: '',
+        blackholeThreshold: '',
+        blackholeCopyt: '',
+        save: '',
+        rotationLock:
+        [
+            '',
+            ''
+        ],
+        rotationLockInfo: '',
+        overlay:
+        [
+            '',
+            '',
+        ],
+        overlayInfo: '',
+        rewind: '{0}',
+    },
     en:
     {
         // wip: '(WIP)\\\\{0}',
@@ -289,6 +320,30 @@ const locStrings =
         ],
         overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
         rewind: 'Regresa t en {0}.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
+    },
+    ru:
+    {
+        pubTime: 'Время: {0}',
+        terms: 'Члены Римана-Зигеля: {0}',
+        blackhole: 'Высвободить чёрную дыру',
+        blackholeInfo: 'Оттягивает {0} назад к ближайшему нулю {1}',
+        menuBlackhole: 'Настройки Чёрной Дыры',
+        blackholeThreshold: 'Высвободить чёрную дыру при:',
+        blackholeCopyt: 'Скопировать текущее значение t',
+        save: 'Сохранить',
+        rotationLock:
+        [
+            'Разблокировать график',
+            'Заблокировать график'
+        ],
+        rotationLockInfo: 'Переключает возможность вращать и масштабировать 3D-график',
+        overlay:
+        [
+            'Показать информацию',
+            'Скрыть информацию',
+        ],
+        overlayInfo: 'Переключает показ членов Римана-Зигеля и времени публикации',
+        rewind: 'Отмотать t на {0}.\nЭто может помочь попасть на предыдущие нули когда используется чёрная дыра.',
     },
     vi:
     {
