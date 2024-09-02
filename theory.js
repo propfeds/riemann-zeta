@@ -15,6 +15,7 @@ var getName = (language) =>
         'zh-Hant': '黎曼 ζ 函数',
         es: 'Función Zeta de Riemann',
         ru: 'Дзета-функция Римана',
+        tl: 'Punsiyong Riemann Zeta',
         vi: 'Hàm zeta Riemann'
     };
 
@@ -59,6 +60,13 @@ En esta teoría, examinaremos la función de zeta en la línea perpendicular al 
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
 В данной теории мы будем рассматривать дзета-функцию на прямой, перпендикулярной оси x при x = 0.5, известной как критическая прямая. В 1859 году сам Риман предположил, что, за исключением так называемых ""тривиальных нулей"", расположенных в отрицательных чётных целых числах -2, -4, -6, ..., все остальные корни функции лежат на этой критической прямой.`,
+        tl:
+`Ang punsiyong ito ay kinikilala bilang Rienmann zeta function na siyang unang tinukoy ni Euler para sa mga buong numero na higit sa 1 – bilang isang seryeng walang katiyakan:
+ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
+Ang depinisyon nito ay 'di katagalang pinayabong sa mga tunay na numero ni Chebyshev, at sa mga komplikadong katam ni Riemann. Ngunit, habang ito ay humihiwalay sa lahat ng s na may totoong bahagi na mas mababa o kapantay ng 1, isang namumukod tanging punsiyon ang kinakailangang ilarawan upang mapreserba ang pagpapatuloy ng mga derivatives nito. Ito ay kilala bilang isang analitikal na pagpapatuloy, at ang analitikal na pagpapatuloy ng punsiyong zeta ay ini-ugnay sa kilalang meme na ito:
+1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
+
+Sa teoryang ito, susuriin natin ang punsiyong zeta sa linyang perpendikular sa x-axis o x = 0.5, na siya ring kilala bilang kritikal na linya. Noong 1859, inihipotisa ni Riemann, maliban sa mga tinatawag na ""walang kwentang zeros"" na siyang nasa negatibong even na numero ng -2, -2, -6, ..., at bawat ibang root ng punsiyong nakalatag sa kritikal na linya.`,
         vi:
 `Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -344,6 +352,30 @@ const locStrings =
         ],
         overlayInfo: 'Переключает показ членов Римана-Зигеля и времени публикации',
         rewind: 'Отмотать t на {0}.\nЭто может помочь попасть на предыдущие нули когда используется чёрная дыра.',
+    },
+    tl:
+    {
+        pubTime: 'Oras: {0}',
+        terms: 'Mga terminolohiya ng Reimann-Siegel: {0}',
+        blackhole: 'Pakawalan ang black hole',
+        blackholeInfo: 'Hilain ang {0} patalikod patungo sa pinakamalapit na {1}',
+        menuBlackhole: 'Settings ng Black Hole',
+        blackholeThreshold: 'Pakawalan ang black hole sa:',
+        blackholeCopyt: 'Kuhanin ang Kasalukuyang t',
+        save: 'I-save',
+        rotationLock:
+        [
+            'Buksan ang Graph',
+            'Isara ang Graph'
+        ],
+        rotationLockInfo: 'Para sa abilidad na maikot o mai-zoom ang 3D graph.',
+        overlay:
+        [
+            'Ipakita ang detalye',
+            'Itago ang Detalye',
+        ],
+        overlayInfo: 'Ipakita ang mga terminolohiya ni Riemann-Siegel at ang oras ng publikasyon',
+        rewind: 'Ibalik ang t ng {0}.\nNakatutulong ito sa paglapag sa mga naunang zero kapag gumagamit ng black hole.',
     },
     vi:
     {
