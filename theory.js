@@ -89,6 +89,8 @@ var authors = 'propfeds, Eylanding\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
+'hotab - Русский\n' +
+'66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
 var version = 0.52;
 
