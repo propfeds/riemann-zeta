@@ -1194,6 +1194,7 @@ var init = () =>
             theory.invalidatePrimaryEquation();
             updateAvailability();
         }
+        c1ExpMs.canBeRefunded = () => blackholeMs.level == 0;
     }
     /* Speed/exp
     Tradeoff.
@@ -1235,6 +1236,7 @@ var init = () =>
             updateAvailability();
         }
         w2Ms.isAvailable = false;
+        w2Ms.canBeRefunded = () => blackholeMs.level == 0;
     }
     /* Blackhole
     Tradeoff. Use for coasting.
