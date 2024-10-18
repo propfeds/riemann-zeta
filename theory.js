@@ -94,7 +94,7 @@ var authors = 'propfeds, Eylanding\n' +
 'propfeds - Tiếng Việt';
 var version = 0.52;
 
-const versionName = 'v0.5.2 (WIP)';
+const versionName = 'v0.5.2';
 
 let pubTime = 0;
 
@@ -1383,14 +1383,14 @@ var getEquationOverlay = () =>
         cascadeInputTransparent: false,
         children:
         [
-            ui.createLatexLabel
-            ({
-                verticalOptions: LayoutOptions.END,
-                margin: new Thickness(6, 4),
-                text: versionName,
-                fontSize: 9,
-                textColor: Color.TEXT_MEDIUM
-            }),
+            // ui.createLatexLabel
+            // ({
+            //     verticalOptions: LayoutOptions.END,
+            //     margin: new Thickness(6, 4),
+            //     text: versionName,
+            //     fontSize: 9,
+            //     textColor: Color.TEXT_MEDIUM
+            // }),
             ui.createGrid
             ({
                 row: 0, column: 0,
