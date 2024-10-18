@@ -14,7 +14,8 @@ var getName = (language) =>
         'zh-Hans': '黎曼 ζ 函数',
         'zh-Hant': '黎曼 ζ 函数',
         es: 'Función Zeta de Riemann',
-        es: 'Función Zeta de Riemann',
+        ru: 'Дзета-функция Римана',
+        tl: 'Punsiyong Riemann Zeta',
         vi: 'Hàm zeta Riemann'
     };
 
@@ -52,6 +53,20 @@ Su definición fue extendida a los números reales gracias a Chebyshev, y luego 
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
 En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos pares integros -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
+        ru:
+`Функция, известная сейчас как дзета-функция Римана, была впервые определена Эйлером для целых чисел больше 1, как бесконечный ряд: 
+ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ... 
+Позднее определение было расширено Чебышевым на вещественные числа и Риманом на комплексную плоскость. Однако, поскольку ряд расходился при всех значениях s с вещественной частью меньше или равной 1, пришлось определить специальную версию функции, чтобы сохранить непрерывность её производных. Это называется аналитическим продолжением, и аналитическое продолжение дзета-функции связано с этим (печально) известным мемом: 
+1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
+
+В данной теории мы будем рассматривать дзета-функцию на прямой, перпендикулярной оси x при x = 0.5, известной как критическая прямая. В 1859 году сам Риман предположил, что, за исключением так называемых ""тривиальных нулей"", расположенных в отрицательных чётных целых числах -2, -4, -6, ..., все остальные корни функции лежат на этой критической прямой.`,
+        tl:
+`Ang punsiyong ito ay kinikilala bilang Rienmann zeta function na siyang unang tinukoy ni Euler para sa mga buong numero na higit sa 1 – bilang isang seryeng walang katiyakan:
+ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
+Ang depinisyon nito ay 'di katagalang pinayabong sa mga tunay na numero ni Chebyshev, at sa mga komplikadong katam ni Riemann. Ngunit, habang ito ay humihiwalay sa lahat ng s na may totoong bahagi na mas mababa o kapantay ng 1, isang namumukod tanging punsiyon ang kinakailangang ilarawan upang mapreserba ang pagpapatuloy ng mga derivatives nito. Ito ay kilala bilang isang analitikal na pagpapatuloy, at ang analitikal na pagpapatuloy ng punsiyong zeta ay ini-ugnay sa kilalang meme na ito:
+1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
+
+Sa teoryang ito, susuriin natin ang punsiyong zeta sa linyang perpendikular sa x-axis o x = 0.5, na siya ring kilala bilang kritikal na linya. Noong 1859, inihipotisa ni Riemann, maliban sa mga tinatawag na ""walang kwentang zeros"" na siyang nasa negatibong even na numero ng -2, -2, -6, ..., at bawat ibang root ng punsiyong nakalatag sa kritikal na linya.`,
         vi:
 `Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -74,10 +89,12 @@ var authors = 'propfeds, Eylanding\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
+'hotab - Русский\n' +
+'66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
-var version = 0.51;
+var version = 0.52;
 
-const versionName = 'v0.5.1';
+const versionName = 'v0.5.2';
 
 let pubTime = 0;
 
@@ -184,6 +201,30 @@ const milestoneCost = new CustomCost((level) =>
 
 const locStrings =
 {
+    example:
+    {
+        pubTime: '{0}',
+        terms: '{0}',
+        blackhole: '',
+        blackholeInfo: 'Pulls {0} to {1}',
+        menuBlackhole: '',
+        blackholeThreshold: '',
+        blackholeCopyt: '',
+        save: '',
+        rotationLock:
+        [
+            '',
+            ''
+        ],
+        rotationLockInfo: '',
+        overlay:
+        [
+            '',
+            '',
+        ],
+        overlayInfo: '',
+        rewind: '{0}',
+    },
     en:
     {
         // wip: '(WIP)\\\\{0}',
@@ -238,7 +279,7 @@ const locStrings =
             '隐藏信息',
         ],
         overlayInfo: '切换显示黎曼-西格尔项或出版时间',
-        rewind: '将 t 减少 {0}。\n这有助于在使用黑洞时击中之前的零点。'
+        rewind: '释放黑洞来将 t 减少 {0}。\n这有助于击中之前的零点。'
     },
     'zh-Hant':
     {
@@ -289,6 +330,54 @@ const locStrings =
         ],
         overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
         rewind: 'Regresa t en {0}.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
+    },
+    ru:
+    {
+        pubTime: 'Время: {0}',
+        terms: 'Члены Римана-Зигеля: {0}',
+        blackhole: 'Высвободить чёрную дыру',
+        blackholeInfo: 'Оттягивает {0} назад к ближайшему нулю {1}',
+        menuBlackhole: 'Настройки Чёрной Дыры',
+        blackholeThreshold: 'Высвободить чёрную дыру при:',
+        blackholeCopyt: 'Скопировать текущее значение t',
+        save: 'Сохранить',
+        rotationLock:
+        [
+            'Разблокировать график',
+            'Заблокировать график'
+        ],
+        rotationLockInfo: 'Переключает возможность вращать и масштабировать 3D-график',
+        overlay:
+        [
+            'Показать информацию',
+            'Скрыть информацию',
+        ],
+        overlayInfo: 'Переключает показ членов Римана-Зигеля и времени публикации',
+        rewind: 'Отмотать t на {0}.\nЭто может помочь попасть на предыдущие нули когда используется чёрная дыра.',
+    },
+    tl:
+    {
+        pubTime: 'Oras: {0}',
+        terms: 'Mga terminolohiya ng Reimann-Siegel: {0}',
+        blackhole: 'Pakawalan ang black hole',
+        blackholeInfo: 'Hilain ang {0} patalikod patungo sa pinakamalapit na {1}',
+        menuBlackhole: 'Settings ng Black Hole',
+        blackholeThreshold: 'Pakawalan ang black hole sa:',
+        blackholeCopyt: 'Kuhanin ang Kasalukuyang t',
+        save: 'I-save',
+        rotationLock:
+        [
+            'Buksan ang Graph',
+            'Isara ang Graph'
+        ],
+        rotationLockInfo: 'Para sa abilidad na maikot o mai-zoom ang 3D graph.',
+        overlay:
+        [
+            'Ipakita ang detalye',
+            'Itago ang Detalye',
+        ],
+        overlayInfo: 'Ipakita ang mga terminolohiya ni Riemann-Siegel at ang oras ng publikasyon',
+        rewind: 'Ibalik ang t ng {0}.\nNakatutulong ito sa paglapag sa mga naunang zero kapag gumagamit ng black hole.',
     },
     vi:
     {
@@ -1105,6 +1194,7 @@ var init = () =>
             theory.invalidatePrimaryEquation();
             updateAvailability();
         }
+        c1ExpMs.canBeRefunded = () => blackholeMs.level == 0;
     }
     /* Speed/exp
     Tradeoff.
@@ -1146,6 +1236,7 @@ var init = () =>
             updateAvailability();
         }
         w2Ms.isAvailable = false;
+        w2Ms.canBeRefunded = () => blackholeMs.level == 0;
     }
     /* Blackhole
     Tradeoff. Use for coasting.
@@ -1292,14 +1383,14 @@ var getEquationOverlay = () =>
         cascadeInputTransparent: false,
         children:
         [
-            ui.createLatexLabel
-            ({
-                verticalOptions: LayoutOptions.END,
-                margin: new Thickness(6, 4),
-                text: versionName,
-                fontSize: 9,
-                textColor: Color.TEXT_MEDIUM
-            }),
+            // ui.createLatexLabel
+            // ({
+            //     verticalOptions: LayoutOptions.END,
+            //     margin: new Thickness(6, 4),
+            //     text: versionName,
+            //     fontSize: 9,
+            //     textColor: Color.TEXT_MEDIUM
+            // }),
             ui.createGrid
             ({
                 row: 0, column: 0,
