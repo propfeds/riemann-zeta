@@ -14,6 +14,7 @@ var getName = (language) =>
         'zh-Hans': '黎曼 ζ 函数',
         'zh-Hant': '黎曼 ζ 函数',
         es: 'Función Zeta de Riemann',
+        fr: 'Fonction Zêta de Riemann',
         ru: 'Дзета-функция Римана',
         tl: 'Punsiyong Riemann Zeta',
         vi: 'Hàm zeta Riemann'
@@ -53,6 +54,13 @@ Su definición fue extendida a los números reales gracias a Chebyshev, y luego 
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
 En esta teoría, examinaremos la función de zeta en la línea perpendicular al eje X cuando x = 0.5, conocido como la ruta crítica. En 1859, fue hipotetizado por el mismo Riemann que, excluyendo a los conocidos "ceros triviales" que permanecen con negativos pares integros -2, -4, -6, ... cada otra raíz de la función yace en esta ruta crítica.`,
+        fr:
+`Cette fonction, aujourd'hui connue sous le nom de fonction zêta de Riemann, a d'abord été définie par Euler pour les entiers supérieurs à 1 comme une série infinie :
+ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
+Cette définition a été ensuite étendue aux nombres réels par Tchebychev, et au plan complexe par Riemann. Cependant, comme elle divergeait pour tout s avec une partie réelle inférieure ou égale à 1, une version spéciale de la fonction a dû être définie afin de préserver la continuité de ses dérivées. Ceci est appelé prolongement analytique, et le prolongement analytique de la fonction zêta est lié à cet infâme mème :
+1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
+
+Dans cette théorie, nous examinerons la fonction zêta sur la droite perpendiculaire à l'axe des x à x=0,5, appelée droite critique. En 1859, Riemann lui-même a émis l'hypothèse que, à part les « zéros triviaux » situés aux entiers négatifs pairs -2, -4, -6, ..., toutes les autres racines de la fonction sont situées sur la droite critique.`,
         ru:
 `Функция, известная сейчас как дзета-функция Римана, была впервые определена Эйлером для целых чисел больше 1, как бесконечный ряд: 
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ... 
@@ -89,6 +97,7 @@ var authors = 'propfeds, Eylanding\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
+'Mathis S - Français' +
 'hotab - Русский\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
@@ -217,11 +226,6 @@ const locStrings =
             ''
         ],
         rotationLockInfo: '',
-        overlay:
-        [
-            '',
-            '',
-        ],
         overlayInfo: '',
         rewind: '{0}',
     },
@@ -246,11 +250,11 @@ const locStrings =
             'Lock graph'
         ],
         rotationLockInfo: 'Toggles the ability to rotate and zoom the 3D graph',
-        overlay:
-        [
-            'Display info',
-            'Hide info',
-        ],
+        // overlay:
+        // [
+        //     'Display info',
+        //     'Hide info',
+        // ],
         overlayInfo: 'Toggles the display of Riemann-Siegel terms and publication time',
         rewind: 'Rewind t by {0}.\nThis can help with landing at previous zeroes when using the black hole.',
         // warpFive: 'Get 5 penny with consequences',
@@ -273,11 +277,11 @@ const locStrings =
             '锁定图形'
         ],
         rotationLockInfo: '切换能否旋转和缩放 3D 图像',
-        overlay:
-        [
-            '显示信息',
-            '隐藏信息',
-        ],
+        // overlay:
+        // [
+        //     '显示信息',
+        //     '隐藏信息',
+        // ],
         overlayInfo: '切换显示黎曼-西格尔项或出版时间',
         rewind: '释放黑洞来将 t 减少 {0}。\n这有助于击中之前的零点。'
     },
@@ -298,18 +302,18 @@ const locStrings =
             '鎖定圖形'
         ],
         rotationLockInfo: '開啟/關閉 3D 圖形的旋轉和縮放',
-        overlay:
-        [
-            '顯示資訊',
-            '隱藏資訊',
-        ],
+        // overlay:
+        // [
+        //     '顯示資訊',
+        //     '隱藏資訊',
+        // ],
         overlayInfo: '顯示/隱藏 黎曼-西格爾項和出版時間',
         rewind: '將 t 回溯 {0}。\n在使用黑洞時有助於通過之前的零點。'
     },
     es:
     {
         // wip: '(TEP)\\\\{0}',
-        pubTime: 'Tiempo desde publicación: {0}',
+        pubTime: 'Tiempo: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desatar el agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
@@ -323,13 +327,32 @@ const locStrings =
             'Bloquear gráfica'
         ],
         rotationLockInfo: 'Alternar la abilidad de rotar y acercar la gráfica 3D',
-        overlay:
-        [
-            'Mostrar info',
-            'Ocultar info',
-        ],
+        // overlay:
+        // [
+        //     'Mostrar info',
+        //     'Ocultar info',
+        // ],
         overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
         rewind: 'Regresa t en {0}.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
+    },
+    fr:
+    {
+        pubTime: 'Temps : {0}',
+        terms: 'Termes de Riemann-Siegel : {0}',
+        blackhole: 'Libérer un trou noir',
+        blackholeInfo: 'Renvoie {0} au dernier zéro de {1}',
+        menuBlackhole: 'Paramètres du trou noir',
+        blackholeThreshold: 'Libérer le trou noir à : ',
+        blackholeCopyt: 'Utiliser le t actuel',
+        save: 'Sauvegarder',
+        rotationLock:
+        [
+            'Débloquer le graphique',
+            'Bloquer le graphique'
+        ],
+        rotationLockInfo: 'Alterne la possibilité de tourner et agrandir le graphique 3D',
+        overlayInfo: 'Alterne entre l\'affichage des termes de Riemann-Siegel et le temps de publication',
+        rewind: 'Diminue t de {0}.\nCeci peut aider à atteindre des zéros précédents en utilisant le trou noir.'
     },
     ru:
     {
@@ -347,11 +370,11 @@ const locStrings =
             'Заблокировать график'
         ],
         rotationLockInfo: 'Переключает возможность вращать и масштабировать 3D-график',
-        overlay:
-        [
-            'Показать информацию',
-            'Скрыть информацию',
-        ],
+        // overlay:
+        // [
+        //     'Показать информацию',
+        //     'Скрыть информацию',
+        // ],
         overlayInfo: 'Переключает показ членов Римана-Зигеля и времени публикации',
         rewind: 'Отмотать t на {0}.\nЭто может помочь попасть на предыдущие нули когда используется чёрная дыра.',
     },
@@ -371,18 +394,18 @@ const locStrings =
             'Isara ang Graph'
         ],
         rotationLockInfo: 'Para sa abilidad na maikot o mai-zoom ang 3D graph.',
-        overlay:
-        [
-            'Ipakita ang detalye',
-            'Itago ang Detalye',
-        ],
+        // overlay:
+        // [
+        //     'Ipakita ang detalye',
+        //     'Itago ang Detalye',
+        // ],
         overlayInfo: 'Ipakita ang mga terminolohiya ni Riemann-Siegel at ang oras ng publikasyon',
         rewind: 'Ibalik ang t ng {0}.\nNakatutulong ito sa paglapag sa mga naunang zero kapag gumagamit ng black hole.',
     },
     vi:
     {
         // wip: '(Đang dở)\\\\{0}',
-        pubTime: 'Thời gian xuất bản: {0}',
+        pubTime: 'Thời gian: {0}',
         terms: 'Riemann-Siegel: {0} số hạng',
         // speed: '\\text{tốc độ}',
         // zExp: '{{{0}}}\\text{{ số mũ}}',
@@ -400,11 +423,11 @@ const locStrings =
             'Khoá đồ thị'
         ],
         rotationLockInfo: 'Bật tắt khả năng quay và phóng to đồ thị 3D',
-        overlay:
-        [
-            'Hiển thị thông tin',
-            'Giấu thông tin',
-        ],
+        // overlay:
+        // [
+        //     'Hiển thị thông tin',
+        //     'Giấu thông tin',
+        // ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
         rewind: 'Kéo ngược t lại {0} đơn vị.\nViệc này có thể giúp nhắm trúng vào các không điểm đã qua khi dùng hố đen.'
         // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
