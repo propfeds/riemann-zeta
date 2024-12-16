@@ -105,7 +105,7 @@ var authors = 'propfeds, Eylanding\n' +
 'Jooo & Warzen User - Español\n' +
 'Mathis S - Français\n' +
 'hotab - Русский\n' +
-'BotAn, hotab - українська\n' +
+'BotAn, hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
 var version = 0.53;
