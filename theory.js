@@ -16,6 +16,7 @@ var getName = (language) =>
         es: 'Función Zeta de Riemann',
         fr: 'Fonction Zêta de Riemann',
         ru: 'Дзета-функция Римана',
+        uk: 'Дзета-функція Рімана',
         tl: 'Punsiyong Riemann Zeta',
         vi: 'Hàm zeta Riemann'
     };
@@ -68,6 +69,11 @@ Dans cette théorie, nous examinerons la fonction zêta sur la droite perpendicu
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
 В данной теории мы будем рассматривать дзета-функцию на прямой, перпендикулярной оси x при x = 0.5, известной как критическая прямая. В 1859 году сам Риман предположил, что, за исключением так называемых ""тривиальных нулей"", расположенных в отрицательных чётных целых числах -2, -4, -6, ..., все остальные корни функции лежат на этой критической прямой.`,
+        uk:
+`Функція, наразі відома як дзета-функція Рімана, вперше була визначена Ейлером для цілих чисел, більших за 1, як нескінчений ряд: 
+ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
+Згодом Чебишов розширив її визначення на дійсні числа, а Ріман — на всю комплексну площину. Однак, оскільки ряд розбіжний при всіх s з дійсною частиною меншою або рівною 1, потрібно було визначити особливе розширення функції, яке б зберегло неперервність її похідних. Це розширення відомо як аналітичне продовження, і аналітичне продовження дзети-функції пов'язане з цим відомим мемом:
+1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)`,
         tl:
 `Ang punsiyong ito ay kinikilala bilang Rienmann zeta function na siyang unang tinukoy ni Euler para sa mga buong numero na higit sa 1 – bilang isang seryeng walang katiyakan:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -99,11 +105,10 @@ var authors = 'propfeds, Eylanding\n' +
 'Jooo & Warzen User - Español\n' +
 'Mathis S - Français\n' +
 'hotab - Русский\n' +
+'BotAn, hotab - українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
-var version = 0.52;
-
-const versionName = 'v0.5.2';
+var version = 0.53;
 
 let pubTime = 0;
 
@@ -137,10 +142,7 @@ const scale = 4;
 
 const derivRes = 100000;
 const derivResInv = 1 / derivRes;
-
-const resolution = 1/4;
-// const getBlackholeSpeed = (z) => Math.min(z**2 + 0.004, resolution);
-
+const t_resolution = 1/4;
 const bhRewindLength = 1.5;
 
 const c1ExpMaxLevel = 3;
@@ -231,13 +233,8 @@ const locStrings =
     },
     en:
     {
-        // wip: '(WIP)\\\\{0}',
         pubTime: 'Publication time: {0}',
         terms: 'Riemann-Siegel terms: {0}',
-        // speed: '\\text{speed}',
-        // zExp: '{{{0}}}\\text{{ exponent}}',
-        // half: '\\text{half}',
-        // condition: '\\text{{if }}{{{0}}}',
         blackhole: 'Unleash a black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
         menuBlackhole: 'Black Hole Settings',
@@ -250,19 +247,11 @@ const locStrings =
             'Lock graph'
         ],
         rotationLockInfo: 'Toggles the ability to rotate and zoom the 3D graph',
-        // overlay:
-        // [
-        //     'Display info',
-        //     'Hide info',
-        // ],
         overlayInfo: 'Toggles the display of Riemann-Siegel terms and publication time',
         rewind: 'Rewind t by {0}.\nThis can help with landing at previous zeroes when using the black hole.',
-        // warpFive: 'Get 5 penny with consequences',
-        // warpFiveInfo: 'Testing tool: {0}{1}\\ by {2}'
     },
     'zh-Hans':
     {
-        // wip: '(正在进行中)\n{0}',
         pubTime: '出版时间：{0}',
         terms: '黎曼-西格尔项：{0}',
         blackhole: '释放黑洞',
@@ -277,17 +266,11 @@ const locStrings =
             '锁定图形'
         ],
         rotationLockInfo: '切换能否旋转和缩放 3D 图像',
-        // overlay:
-        // [
-        //     '显示信息',
-        //     '隐藏信息',
-        // ],
         overlayInfo: '切换显示黎曼-西格尔项或出版时间',
         rewind: '释放黑洞来将 t 减少 {0}。\n这有助于击中之前的零点。'
     },
     'zh-Hant':
     {
-        // wip: '(正在進行中)\n{0}',
         pubTime: '出版時間：{0}',
         terms: '黎曼-西格爾項：{0}',
         blackhole: '釋放黑洞',
@@ -302,17 +285,11 @@ const locStrings =
             '鎖定圖形'
         ],
         rotationLockInfo: '開啟/關閉 3D 圖形的旋轉和縮放',
-        // overlay:
-        // [
-        //     '顯示資訊',
-        //     '隱藏資訊',
-        // ],
         overlayInfo: '顯示/隱藏 黎曼-西格爾項和出版時間',
         rewind: '將 t 回溯 {0}。\n在使用黑洞時有助於通過之前的零點。'
     },
     es:
     {
-        // wip: '(TEP)\\\\{0}',
         pubTime: 'Tiempo: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desatar el agujero negro',
@@ -327,11 +304,6 @@ const locStrings =
             'Bloquear gráfica'
         ],
         rotationLockInfo: 'Alternar la abilidad de rotar y acercar la gráfica 3D',
-        // overlay:
-        // [
-        //     'Mostrar info',
-        //     'Ocultar info',
-        // ],
         overlayInfo: 'Alternar la presentación de Riemann-Siegel en los términos y tiempo de publicación',
         rewind: 'Regresa t en {0}.\nEsto puede ayudar a llegar a ceros previos cuando se use el agujero negro.'
     },
@@ -370,13 +342,27 @@ const locStrings =
             'Заблокировать график'
         ],
         rotationLockInfo: 'Переключает возможность вращать и масштабировать 3D-график',
-        // overlay:
-        // [
-        //     'Показать информацию',
-        //     'Скрыть информацию',
-        // ],
         overlayInfo: 'Переключает показ членов Римана-Зигеля и времени публикации',
         rewind: 'Отмотать t на {0}.\nЭто может помочь попасть на предыдущие нули когда используется чёрная дыра.',
+    },
+    uk:
+    {
+        pubTime: 'Час: {0}',
+        terms: 'Члени Рімана-Зігеля: {0}',
+        blackhole: 'Вивільнити чорну діру',
+        blackholeInfo: 'Відтягує {0} назад до найближчого нуля {1}',
+        menuBlackhole: 'Налаштування Чорної Діри',
+        blackholeThreshold: 'Вивільнити чорну діру при:',
+        blackholeCopyt: 'Скопіювати поточне значення t',
+        save: 'Зберегти',
+        rotationLock:
+        [
+            'Розблокувати графік',
+            'Заблокувати графік'
+        ],
+        rotationLockInfo: 'Перемикає можливість обертати та масштабувати 3D-графік',
+        overlayInfo: 'Перемикає показ членів Рімана-Зігеля та часу публікації',
+        rewind: 'Відмотати t на {0}.\nЦе допоможе потрапити на попередні нулі при використанні чорної діри.',
     },
     tl:
     {
@@ -394,23 +380,13 @@ const locStrings =
             'Isara ang Graph'
         ],
         rotationLockInfo: 'Para sa abilidad na maikot o mai-zoom ang 3D graph.',
-        // overlay:
-        // [
-        //     'Ipakita ang detalye',
-        //     'Itago ang Detalye',
-        // ],
         overlayInfo: 'Ipakita ang mga terminolohiya ni Riemann-Siegel at ang oras ng publikasyon',
         rewind: 'Ibalik ang t ng {0}.\nNakatutulong ito sa paglapag sa mga naunang zero kapag gumagamit ng black hole.',
     },
     vi:
     {
-        // wip: '(Đang dở)\\\\{0}',
         pubTime: 'Thời gian: {0}',
         terms: 'Riemann-Siegel: {0} số hạng',
-        // speed: '\\text{tốc độ}',
-        // zExp: '{{{0}}}\\text{{ số mũ}}',
-        // half: '\\text{một nửa}',
-        // condition: '\\text{{khi }}{{{0}}}',
         blackhole: 'Giải phóng hố đen',
         blackholeInfo: 'Kéo {0} ngược lại tới không điểm gần nhất của {1}',
         menuBlackhole: 'Cài đặt hố đen',
@@ -423,15 +399,8 @@ const locStrings =
             'Khoá đồ thị'
         ],
         rotationLockInfo: 'Bật tắt khả năng quay và phóng to đồ thị 3D',
-        // overlay:
-        // [
-        //     'Hiển thị thông tin',
-        //     'Giấu thông tin',
-        // ],
         overlayInfo: 'Bật tắt số hạng hàm Riemann-Siegel và thời gian xuất bản',
         rewind: 'Kéo ngược t lại {0} đơn vị.\nViệc này có thể giúp nhắm trúng vào các không điểm đã qua khi dùng hố đen.'
-        // warpFive: 'Nhận 5 đồng nhưng có hậu quả',
-        // warpFiveInfo: 'Công cụ thử nghiệm: {0}{1}\\ với {2}'
     }
 };
 
@@ -821,7 +790,6 @@ let riemannSiegelZeta = (t, n) =>
     R *= even(N-1) * Math.pow(tpot, 0.25);
 
     Z += R;
-    // log(`N=${N}, Z=${Z}`);
     return [Z*Math.cos(th), -Z*Math.sin(th), Z];
 }
 /**
@@ -873,8 +841,6 @@ let getImageSize = (width) =>
     return 20;
 }
 
-// let createImageBtn = (params: {[x: string]: any}, callback: () => void,
-// isAvailable: () => boolean, image: ImageSource): Frame
 let createImageBtn = (params, callback, isAvailable, image) =>
 {
     let triggerable = true;
@@ -977,8 +943,6 @@ let createActiveImageBtn = (params, callback, image) =>
     return frame;
 }
 
-// params: {[x: string]: any}, callback: () => void,
-// isToggled: boolean | (() => boolean)
 let createHesitantSwitch = (params, callback, isToggled) =>
 {
     let triggerable = true;
@@ -1011,15 +975,6 @@ let createHesitantSwitch = (params, callback, isToggled) =>
 const bhImage = game.settings.theme == Theme.LIGHT ?
 ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/dark/black-hole-bolas.png') :
 ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/light/black-hole-bolas.png');
-// const mainMenuLabel = ui.createLatexLabel
-// ({
-//     row: 0, column: 1,
-//     verticalTextAlignment: TextAlignment.START,
-//     margin: new Thickness(0, 9),
-//     text: getLoc('blackholeSettingsLabel'),
-//     fontSize: 10,
-//     textColor: Color.TEXT_MEDIUM
-// });
 const blackholeMenuFrame = createImageBtn
 ({
     row: 0, column: 0,
@@ -1186,19 +1141,6 @@ var init = () =>
             overlayToggle.level &= 1;
         }
     }
-    /* Free penny
-    For testing purposes.
-    */
-    // {
-    //     warpFive = theory.createPermanentUpgrade(9001, normCurrency,
-    //     new FreeCost);
-    //     warpFive.description = getLoc('warpFive');
-    //     warpFive.info = Localization.format(getLoc('warpFiveInfo'),
-    //     Utils.getMath('\\times'), Utils.getMath('\\rho'),
-    //     Utils.getMath('1e5'));
-    //     warpFive.bought = (_) => normCurrency.value = BigNumber.from(1e5) *
-    //     (BigNumber.ONE + normCurrency.value);
-    // }
 
     theory.setMilestoneCost(milestoneCost);
     /* c1 exponent
@@ -1219,17 +1161,6 @@ var init = () =>
         }
         c1ExpMs.canBeRefunded = () => blackholeMs.level == 0;
     }
-    /* Speed/exp
-    Tradeoff.
-    */
-    // {
-    //     speedMs = theory.createMilestoneUpgrade(2, speedMaxLevel);
-    //     speedMs.description = Localization.getUpgradeIncCustomDesc(
-    //     getLoc('speed'), `${getSpeed(1)}`);
-    //     speedMs.info = Localization.getUpgradeIncCustomInfo(getLoc('speed'),
-    //     `${getSpeed(1)}`);
-    //     speedMs.isAvailable = false;
-    // }
     /* Unlock delta
     Based on the 'derivative' of zeta (roughly calculated).
     */
@@ -1316,7 +1247,7 @@ var tick = (elapsedTime, multiplier) =>
     pubTime += elapsedTime;
     if(!blackholeMs.level || t < 14)
     {
-        t_dot = resolution;
+        t_dot = t_resolution;
         t += t_dot * elapsedTime;
     }
 
@@ -1355,20 +1286,17 @@ var tick = (elapsedTime, multiplier) =>
                 // Not very accurate this way but eh (xdd)
                 if(searchingRewind && bhdt < 0)
                 {
-                    t_dot = resolution;
+                    t_dot = t_resolution;
                     t += t_dot * elapsedTime;
                 }
                 else
                 {
                     t_dot = -bhdt / elapsedTime;
                     t -= bhdt;
-                    // log(bhdt.toExponential(2));
                     searchingRewind = false;
                     if(Math.abs(bhdt) < 1e-9)
                     {
                         foundZero = true;
-                        // log(`found zero, bhdt = ${bhdt.toExponential(2)}`);
-
                         // Calculate bhzTerm
                         zResult = zeta(t);
                         let tmpZ = zeta(t + derivResInv);
@@ -1406,28 +1334,12 @@ var getEquationOverlay = () =>
         cascadeInputTransparent: false,
         children:
         [
-            // ui.createLatexLabel
-            // ({
-            //     verticalOptions: LayoutOptions.END,
-            //     margin: new Thickness(6, 4),
-            //     text: versionName,
-            //     fontSize: 9,
-            //     textColor: Color.TEXT_MEDIUM
-            // }),
             ui.createGrid
             ({
                 row: 0, column: 0,
                 margin: new Thickness(4),
                 horizontalOptions: LayoutOptions.END,
                 verticalOptions: LayoutOptions.END,
-                // rowDefinitions:
-                // [
-                //     'auto', 'auto'
-                // ],
-                // columnDefinitions:
-                // [
-                //     'auto', 'auto'
-                // ],
                 inputTransparent: true,
                 cascadeInputTransparent: false,
                 children:
@@ -1453,8 +1365,6 @@ let createBlackholeMenu = () =>
     {
         clipping_t = !clipping_t;
         clippingSwitch.isToggled = clipping_t;
-        // paramSwitch.isToggled = !paramSwitch.isToggled;
-        // clipping_t = paramSwitch.isToggled;
         if(!clipping_t)
             blackholeMs.refund(1);
     }, clipping_t);
@@ -1465,7 +1375,6 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 1,
         text: tmpThreshold.toString(),
-        // fontSize: 14,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
@@ -1597,7 +1506,6 @@ let getCommaNumString = (str) =>
 
 var getQuaternaryEntries = () =>
 {
-    // let tmpValue = t_dot < 0.1 ? t_dot.toExponential(2) : t_dot.toFixed(2);
     quaternaryEntries[1].value = foundZero ? 0 : t_dot.toFixed(2);
     quaternaryEntries[2].value = t >= 1000 ? getCommaNumString(t.toFixed(2)) :
     t.toFixed(2);
@@ -1606,7 +1514,6 @@ var getQuaternaryEntries = () =>
     else
         quaternaryEntries[3].value = null;
     return quaternaryEntries;
-    // return quaternaryEntries.slice(1, 4);
 }
 
 var getTau = () => normCurrency.value.pow(tauRate);
