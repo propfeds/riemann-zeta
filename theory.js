@@ -1208,6 +1208,8 @@ var init = () =>
             bhdTerm = null;
             if(lastZero >= 14 && lastZero > t - 10)
                 t = lastZero;
+            
+            updateAvailability();
         }
         blackholeMs.refunded = (_) =>
         {
@@ -1234,7 +1236,7 @@ var updateAvailability = () =>
     w2.isAvailable = w2Ms.level > 0;
     w3.isAvailable = w3Perma.level > 0;
     blackholeMs.isAvailable = c1ExpMs.level == c1ExpMaxLevel && w2Ms.level > 0;
-    blackholeMenuFrame.isVisible = blackholeMs.isAvailable;
+    blackholeMenuFrame.isVisible = theory.milestonesTotal > 5;
 }
 
 var isCurrencyVisible = (index) => (index && derivMs.level > 0) || !index;
@@ -1547,14 +1549,15 @@ var postPublish = () =>
     updateAvailability();
 }
 
-var canResetStage = () => blackholeMs.isAvailable;
+var canResetStage = () => theory.milestonesTotal > 5;
 
 var getResetStageMessage = () => Localization.format(getLoc('rewind'),
 bhRewindLength);
 
 var resetStage = () =>
 {
-    t -= bhRewindLength;
+    t = Math.max(0, t - bhRewindLength);
+    // t -= bhRewindLength;
     // This points lastZero to a non-zero, necessary sacrifice.
     lastZero = 0;
 
