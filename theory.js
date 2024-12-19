@@ -75,12 +75,12 @@ Dans cette théorie, nous examinerons la fonction zêta sur la droite perpendicu
 Згодом Чебишов розширив її визначення на дійсні числа, а Ріман — на всю комплексну площину. Однак, оскільки ряд розбіжний при всіх s з дійсною частиною меншою або рівною 1, потрібно було визначити особливе розширення функції, яке б зберегло неперервність її похідних. Це розширення відомо як аналітичне продовження, і аналітичне продовження дзети-функції пов'язане з цим відомим мемом:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)`,
         tl:
-`Ang punsiyong ito ay kinikilala bilang Rienmann zeta function na siyang unang tinukoy ni Euler para sa mga buong numero na higit sa 1 – bilang isang seryeng walang katiyakan:
+`Ang punsiyong ito ay kinikilala bilang Riemann zeta function na siyang unang tinukoy ni Euler para sa mga buong numero na higit sa 1 – bilang isang seryeng walang katiyakan:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
 Ang depinisyon nito ay 'di katagalang pinayabong sa mga tunay na numero ni Chebyshev, at sa mga komplikadong katam ni Riemann. Ngunit, habang ito ay humihiwalay sa lahat ng s na may totoong bahagi na mas mababa o kapantay ng 1, isang namumukod tanging punsiyon ang kinakailangang ilarawan upang mapreserba ang pagpapatuloy ng mga derivatives nito. Ito ay kilala bilang isang analitikal na pagpapatuloy, at ang analitikal na pagpapatuloy ng punsiyong zeta ay ini-ugnay sa kilalang meme na ito:
 1 + 2 + 3 + 4 + ... = -1/12 = ζ(-1)
 
-Sa teoryang ito, susuriin natin ang punsiyong zeta sa linyang perpendikular sa x-axis o x = 0.5, na siya ring kilala bilang kritikal na linya. Noong 1859, inihipotisa ni Riemann, maliban sa mga tinatawag na ""walang kwentang zeros"" na siyang nasa negatibong even na numero ng -2, -2, -6, ..., at bawat ibang root ng punsiyong nakalatag sa kritikal na linya.`,
+Sa teoryang ito, susuriin natin ang punsiyong zeta sa linyang perpendikular sa x-axis o x = 0.5, na siya ring kilala bilang kritikal na linya. Noong 1859, inihipotisa ni Riemann, maliban sa mga tinatawag na "walang kwentang zeros" na siyang nasa negatibong even na numero ng -2, -2, -6, ..., at bawat ibang root ng punsiyong nakalatag sa kritikal na linya.`,
         vi:
 `Trước khi được mang tên Riemann, hàm zeta được định nghĩa bởi Euler dưới dạng chuỗi vô hạn trên miền các số tự nhiên lớn hơn 1:
 ζ(s) = 1 + 1/(2^s) + 1/(3^s) + ...
@@ -108,7 +108,7 @@ var authors = 'propfeds, Eylanding\n' +
 'BotAn, hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
-var version = 0.53;
+var version = 0.54;
 
 let pubTime = 0;
 
@@ -238,7 +238,7 @@ const locStrings =
         blackhole: 'Unleash a black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
         menuBlackhole: 'Black Hole Settings',
-        blackholeThreshold: 'Unleash black hole at: ',
+        blackholeThreshold: 'Automatically unleash black hole at: ',
         blackholeCopyt: 'Take current t',
         save: 'Save',
         rotationLock:
@@ -257,7 +257,7 @@ const locStrings =
         blackhole: '释放黑洞',
         blackholeInfo: '将 {0} 拉回至 {1} 的最近的零点',
         menuBlackhole: '黑洞设置',
-        blackholeThreshold: '释放黑洞的条件：',
+        blackholeThreshold: '自动释放黑洞的条件：',
         blackholeCopyt: '使用现在的 t 值',
         save: '保存',
         rotationLock:
@@ -276,7 +276,7 @@ const locStrings =
         blackhole: '釋放黑洞',
         blackholeInfo: '將 {0} 移到和 {1} 最接近的零點',
         menuBlackhole: '黑洞設定',
-        blackholeThreshold: '釋放黑洞的條件：',
+        blackholeThreshold: '自動釋放黑洞的條件：',
         blackholeCopyt: '利用現在的 t 值',
         save: '儲存',
         rotationLock:
@@ -295,7 +295,7 @@ const locStrings =
         blackhole: 'Desatar el agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
         menuBlackhole: 'Configuraciones del Agujero Negro',
-        blackholeThreshold: 'Desata el Agujero Negro en: ',
+        blackholeThreshold: 'Automaticamente desata el Agujero Negro en: ',
         blackholeCopyt: 'Usar t actual',
         save: 'Guardar',
         rotationLock:
@@ -314,7 +314,7 @@ const locStrings =
         blackhole: 'Libérer un trou noir',
         blackholeInfo: 'Renvoie {0} au dernier zéro de {1}',
         menuBlackhole: 'Paramètres du trou noir',
-        blackholeThreshold: 'Libérer le trou noir à : ',
+        blackholeThreshold: 'Libérer automatiquement le trou noir à : ',
         blackholeCopyt: 'Utiliser le t actuel',
         save: 'Sauvegarder',
         rotationLock:
@@ -333,7 +333,7 @@ const locStrings =
         blackhole: 'Высвободить чёрную дыру',
         blackholeInfo: 'Оттягивает {0} назад к ближайшему нулю {1}',
         menuBlackhole: 'Настройки Чёрной Дыры',
-        blackholeThreshold: 'Высвободить чёрную дыру при:',
+        blackholeThreshold: 'Автоматически высвободить чёрную дыру при: ',
         blackholeCopyt: 'Скопировать текущее значение t',
         save: 'Сохранить',
         rotationLock:
@@ -352,7 +352,7 @@ const locStrings =
         blackhole: 'Вивільнити чорну діру',
         blackholeInfo: 'Відтягує {0} назад до найближчого нуля {1}',
         menuBlackhole: 'Налаштування Чорної Діри',
-        blackholeThreshold: 'Вивільнити чорну діру при:',
+        blackholeThreshold: 'Автоматично вивільнити чорну діру при: ',
         blackholeCopyt: 'Скопіювати поточне значення t',
         save: 'Зберегти',
         rotationLock:
@@ -367,11 +367,11 @@ const locStrings =
     tl:
     {
         pubTime: 'Oras: {0}',
-        terms: 'Mga terminolohiya ng Reimann-Siegel: {0}',
+        terms: 'Mga terminolohiya ng Riemann-Siegel: {0}',
         blackhole: 'Pakawalan ang black hole',
         blackholeInfo: 'Hilain ang {0} patalikod patungo sa pinakamalapit na {1}',
         menuBlackhole: 'Settings ng Black Hole',
-        blackholeThreshold: 'Pakawalan ang black hole sa:',
+        blackholeThreshold: 'Awtomatikong pakawalan ang black hole: ',
         blackholeCopyt: 'Kuhanin ang Kasalukuyang t',
         save: 'I-save',
         rotationLock:
@@ -390,7 +390,7 @@ const locStrings =
         blackhole: 'Giải phóng hố đen',
         blackholeInfo: 'Kéo {0} ngược lại tới không điểm gần nhất của {1}',
         menuBlackhole: 'Cài đặt hố đen',
-        blackholeThreshold: 'Giải phóng hố đen tại: ',
+        blackholeThreshold: 'Tự động giải phóng hố đen tại: ',
         blackholeCopyt: 'Lấy t hiện tại',
         save: 'Lưu',
         rotationLock:
