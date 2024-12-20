@@ -1269,9 +1269,6 @@ var tick = (elapsedTime, multiplier) =>
         zResult = zeta(t);
         if(zResult[2] * prevZ <= 0)
             lastZero = t;
-        // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
-        if(clipping_t && t >= lastZero && t >= tClipThreshold)
-            blackholeMs.buy(1);
 
         if(derivMs.level)
         {
@@ -1323,6 +1320,10 @@ var tick = (elapsedTime, multiplier) =>
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
         (bhzTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
     }
+
+    // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
+    if(blackholeMs.isAvailable && clipping_t && t >= lastZero && t >= tClipThreshold)
+        blackholeMs.buy(1);
 
     theory.invalidateTertiaryEquation();
     theory.invalidateQuaternaryValues();
