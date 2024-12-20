@@ -1558,15 +1558,10 @@ bhRewindLength);
 var resetStage = () =>
 {
     t = Math.max(0, t - bhRewindLength);
-    // t -= bhRewindLength;
     // This points lastZero to a non-zero, necessary sacrifice.
     lastZero = 0;
-
-    if(blackholeMs.level)
-    {
-        blackholeMs.refund(1);
-        blackholeMs.buy(1);
-    }
+    foundZero = false;
+    blackholeMs.refund(1);
 }
 
 var getInternalState = () => JSON.stringify
