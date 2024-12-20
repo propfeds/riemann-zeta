@@ -92,13 +92,14 @@ Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường th�
 
     return descs[language] || descs.en;
 }
-var authors = 'propfeds, Eylanding\n' +
-'Martin_mc, original idea\n\n' +
+var authors = 'propfeds, Eylanding\n\n' +
 'Thanks to:\n' +
+'Martin_mc, for the original idea\n' +
 'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
 'XLII, for teaching the ancient Sim language\n' +
 'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
-'game-icons.net\n\n' +
+'game-icons.net\n' +
+'Maimai & LLL333, for reporting bugs\n\n' +
 'Translations:\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
@@ -108,7 +109,7 @@ var authors = 'propfeds, Eylanding\n' +
 'BotAn, hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
-var version = 0.54;
+var version = 0.55;
 
 let pubTime = 0;
 
@@ -1269,9 +1270,6 @@ var tick = (elapsedTime, multiplier) =>
         zResult = zeta(t);
         if(zResult[2] * prevZ <= 0)
             lastZero = t;
-        // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
-        if(clipping_t && t >= lastZero && t >= tClipThreshold)
-            blackholeMs.buy(1);
 
         if(derivMs.level)
         {
@@ -1300,7 +1298,7 @@ var tick = (elapsedTime, multiplier) =>
                     {
                         foundZero = true;
                         // Calculate bhzTerm
-                        zResult = zeta(t);
+                        let zResult = zeta(t);
                         let tmpZ = zeta(t + derivResInv);
                         let dr = tmpZ[0] - zResult[0];
                         let di = tmpZ[1] - zResult[1];
@@ -1323,6 +1321,10 @@ var tick = (elapsedTime, multiplier) =>
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
         (bhzTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
     }
+
+    // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
+    if(blackholeMs.isAvailable && clipping_t && t >= lastZero && t >= tClipThreshold)
+        blackholeMs.buy(1);
 
     theory.invalidateTertiaryEquation();
     theory.invalidateQuaternaryValues();
@@ -1557,15 +1559,10 @@ bhRewindLength);
 var resetStage = () =>
 {
     t = Math.max(0, t - bhRewindLength);
-    // t -= bhRewindLength;
     // This points lastZero to a non-zero, necessary sacrifice.
     lastZero = 0;
-
-    if(blackholeMs.level)
-    {
-        blackholeMs.refund(1);
-        blackholeMs.buy(1);
-    }
+    foundZero = false;
+    blackholeMs.refund(1);
 }
 
 var getInternalState = () => JSON.stringify
