@@ -92,13 +92,14 @@ Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường th�
 
     return descs[language] || descs.en;
 }
-var authors = 'propfeds, Eylanding\n' +
-'Martin_mc, original idea\n\n' +
+var authors = 'propfeds, Eylanding\n\n' +
 'Thanks to:\n' +
+'Martin_mc, for the original idea\n' +
 'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
 'XLII, for teaching the ancient Sim language\n' +
 'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
-'game-icons.net\n\n' +
+'game-icons.net\n' +
+'Maimai & LLL333, for reporting bugs\n\n' +
 'Translations:\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
