@@ -97,7 +97,7 @@ var authors = 'propfeds, Eylanding\n\n' +
 'Martin_mc, for the original idea\n' +
 'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
 'XLII, for teaching the ancient Sim language\n' +
-'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
+'Sneaky, Gen & Gaunter, for maths & other consultation\n' +
 'Maimai & LLL333, for reporting bugs\n' +
 'game-icons.net\n\n' +
 'Translations:\n' +
@@ -106,7 +106,7 @@ var authors = 'propfeds, Eylanding\n\n' +
 'Jooo & Warzen User - Español\n' +
 'Mathis S - Français\n' +
 'hotab - Русский\n' +
-'BotAn, hotab - Українська\n' +
+'BotAn & hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
 var version = 0.55;
