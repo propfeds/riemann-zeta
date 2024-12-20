@@ -98,8 +98,8 @@ var authors = 'propfeds, Eylanding\n\n' +
 'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
 'XLII, for teaching the ancient Sim language\n' +
 'Sneaky, Gen & Gaunter, for maths consultation & other suggestions\n' +
-'game-icons.net\n' +
-'Maimai & LLL333, for reporting bugs\n\n' +
+'Maimai & LLL333, for reporting bugs\n' +
+'game-icons.net\n\n' +
 'Translations:\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
