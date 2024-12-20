@@ -108,7 +108,7 @@ var authors = 'propfeds, Eylanding\n' +
 'BotAn, hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
-var version = 0.54;
+var version = 0.55;
 
 let pubTime = 0;
 
@@ -1300,7 +1300,7 @@ var tick = (elapsedTime, multiplier) =>
                     {
                         foundZero = true;
                         // Calculate bhzTerm
-                        zResult = zeta(t);
+                        let zResult = zeta(t);
                         let tmpZ = zeta(t + derivResInv);
                         let dr = tmpZ[0] - zResult[0];
                         let di = tmpZ[1] - zResult[1];
