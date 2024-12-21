@@ -109,7 +109,8 @@ var authors = 'propfeds, Eylanding\n\n' +
 'BotAn & hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'propfeds - Tiếng Việt';
-var version = 0.55;
+var version = 2;
+var releaseOrder = '7';
 
 let pubTime = 0;
 
@@ -974,8 +975,8 @@ let createHesitantSwitch = (params, callback, isToggled) =>
 }
 
 const bhImage = game.settings.theme == Theme.LIGHT ?
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/dark/black-hole-bolas.png') :
-ImageSource.fromUri('https://raw.githubusercontent.com/propfeds/riemann-zeta/main/icons/light/black-hole-bolas.png');
+ImageSource.fromUri('https://raw.githubusercontent.com/conicgames/custom-theories/main/assets/RiemannZetaFunctionBlackHoleDark.png') :
+ImageSource.fromUri('https://raw.githubusercontent.com/conicgames/custom-theories/main/assets/RiemannZetaFunctionBlackHoleLight.png');
 const blackholeMenuFrame = createImageBtn
 ({
     row: 0, column: 0,
