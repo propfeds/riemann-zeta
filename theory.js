@@ -1373,8 +1373,8 @@ let createBlackholeMenu = () =>
     {
         clipping_t = !clipping_t;
         clippingSwitch.isToggled = clipping_t;
-        if(!clipping_t)
-            blackholeMs.refund(1);
+        // if(!clipping_t)
+        //     blackholeMs.refund(1);
     }, clipping_t);
 
     let actuallyEditing = false;
