@@ -813,8 +813,9 @@ let zeta = (T) =>
         z = [
             a[0]*(1-offset) + b[0]*offset,
             a[1]*(1-offset) + b[1]*offset,
-            a[2]*(1-offset) + b[2]*offset
+            0
         ];
+        z[2] = -Math.sqrt(z[0]*z[0] + z[1]*z[1]);
     }
     if(T < 0)
         z[1] = -z[1];
