@@ -839,6 +839,8 @@ let zeta = (T) =>
 
 let enableBlackhole = () =>
 {
+    if(blackhole)
+        return;
     blackhole = true;
 
     searchingRewind = true;
@@ -851,6 +853,8 @@ let enableBlackhole = () =>
 
 let disableBlackhole = () =>
 {
+    if(!blackhole)
+        return;
     blackhole = false;
 
     if(foundZero)
@@ -1405,14 +1409,18 @@ var getEquationOverlay = () =>
 let createBlackholeMenu = () =>
 {
     let tmpThreshold = tClipThreshold;
+    let actuallyEditing = false;
+
+    let getBHStr = () => `${blackhole ? '═' : '─'}${!searchingRewind ?
+    '═' : '─'}${foundZero ? '═' : '─'}`;
 
     let blackholeBtn = ui.createButton
     ({
         row: 0, column: 1,
         horizontalOptions: LayoutOptions.END,
         heightRequest: getSmallBtnSize(ui.screenWidth),
-        text: () => blackhole ? Localization.get('EnumOffProgEnabled') :
-        Localization.get('EnumOffProgDisabled'),
+        text: () => blackhole ? getBHStr() :
+        Localization.get('EnumSoundOff'),
         onClicked: () =>
         {
             Sound.playClick();
@@ -1434,8 +1442,6 @@ let createBlackholeMenu = () =>
         // if(!clipping_t)
         //     blackholeMs.refund(1);
     }, clipping_t);
-
-    let actuallyEditing = false;
 
     let thresholdEntry = ui.createEntry
     ({
