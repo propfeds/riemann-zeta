@@ -1619,10 +1619,10 @@ var postPublish = () =>
     zTerm = BigNumber.from(zResult[2]);
     dTerm = BigNumber.ZERO;
     lastZero = 0;
-    searchingRewind = false;
+    // searchingRewind = false;
     foundZero = false;
-    bhzTerm = null;
-    bhdTerm = null;
+    // bhzTerm = null;
+    // bhdTerm = null;
 
     disableBlackhole();
 
