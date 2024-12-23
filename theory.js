@@ -1410,7 +1410,6 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 1,
         horizontalOptions: LayoutOptions.END,
-        margin: new Thickness(0, 0, 0, 6),
         heightRequest: getSmallBtnSize(ui.screenWidth),
         text: () => blackhole ? Localization.get('EnumOffProgEnabled') :
         Localization.get('EnumOffProgDisabled'),
@@ -1490,14 +1489,14 @@ let createBlackholeMenu = () =>
             [
                 ui.createGrid
                 ({
+                    margin: new Thickness(0, 0, 0, 4),
                     columnDefinitions: ['auto', '1*'],
                     children:
                     [
                         ui.createLatexLabel
                         ({
                             row: 0, column: 0,
-                            margin: new Thickness(0, 0, 0, 6),
-                            text: getLoc('blackhole'),                   
+                            text: getLoc('blackhole'),
                             verticalTextAlignment: TextAlignment.CENTER
                         }),
                         blackholeBtn
