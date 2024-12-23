@@ -802,7 +802,7 @@ let zeta = (T) =>
     let t = Math.abs(T);
     let z;
     if(t >= 1)
-        z = riemannSiegelZeta(t, 1);
+        z = riemannSiegelZeta(t, 2);
     else if(t < 0.1)
         z = zetaSmall(t);
     else
