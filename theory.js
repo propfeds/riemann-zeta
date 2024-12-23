@@ -1439,8 +1439,6 @@ let createBlackholeMenu = () =>
     {
         clipping_t = !clipping_t;
         clippingSwitch.isToggled = clipping_t;
-        // if(!clipping_t)
-        //     blackholeMs.refund(1);
     }, clipping_t);
 
     let thresholdEntry = ui.createEntry
@@ -1626,7 +1624,7 @@ var postPublish = () =>
     bhzTerm = null;
     bhdTerm = null;
 
-    blackholeMs.refund(1);
+    disableBlackhole();
 
     theory.invalidatePrimaryEquation();
     theory.invalidateSecondaryEquation();
@@ -1646,7 +1644,7 @@ var resetStage = () =>
     // This points lastZero to a non-zero, necessary sacrifice.
     lastZero = 0;
     foundZero = false;
-    blackholeMs.refund(1);
+    disableBlackhole();
 }
 
 var getInternalState = () => JSON.stringify
