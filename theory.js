@@ -384,7 +384,7 @@ const locStrings =
         pubTime: 'Oras: {0}',
         terms: 'Mga terminolohiya ng Riemann-Siegel: {0}',
         blackhole: 'Pakawalan ang black hole: ',
-        blackholeUnlock: 'black hole',
+        blackholeUnlock: 'ang black hole',
         blackholeInfo: 'Hilain ang {0} patalikod patungo sa pinakamalapit na {1}',
         menuBlackhole: 'Settings ng Black Hole',
         blackholeThreshold: 'Awtomatikong pakawalan ang black hole: ',
