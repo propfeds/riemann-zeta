@@ -243,7 +243,7 @@ const locStrings =
     {
         pubTime: 'Publication time: {0}',
         terms: 'Riemann-Siegel terms: {0}',
-        blackhole: 'Unleash a black hole: ',
+        blackhole: 'Unleash the black hole: ',
         blackholeUnlock: 'the black hole',
         blackholeInfo: 'Pulls {0} backwards to the nearest zero of {1}',
         menuBlackhole: 'Black Hole Settings',
@@ -323,7 +323,7 @@ const locStrings =
     {
         pubTime: 'Temps : {0}',
         terms: 'Termes de Riemann-Siegel : {0}',
-        blackhole: 'Libérer un trou noir : ',
+        blackhole: 'Libérer le trou noir : ',
         blackholeUnlock: 'le trou noir',
         blackholeInfo: 'Renvoie {0} au dernier zéro de {1}',
         menuBlackhole: 'Paramètres du trou noir',
