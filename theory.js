@@ -304,7 +304,7 @@ const locStrings =
         pubTime: 'Tiempo: {0}',
         terms: 'Términos de Riemann-Siegel: {0}',
         blackhole: 'Desatar el agujero negro: ',
-        blackholeUnlock: 'agujero negro',
+        blackholeUnlock: 'el agujero negro',
         blackholeInfo: 'Jala {0} hacia atrás hasta el cero más cercano de {1}',
         menuBlackhole: 'Configuraciones del Agujero Negro',
         blackholeThreshold: 'Automaticamente desata el agujero negro en: ',
