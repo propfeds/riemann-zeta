@@ -2,6 +2,7 @@ import { BigNumber } from '../api/BigNumber';
 import { ConstantCost, ExponentialCost, FirstFreeCost, StepwiseCost } from '../api/Costs';
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
+import { Color } from '../api/ui/properties/Color';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
 import { TextAlignment } from '../api/ui/properties/TextAlignment';
 import { Thickness } from '../api/ui/properties/Thickness';
@@ -150,7 +151,7 @@ const scale = 4;
 const derivRes = 100000;
 const derivResInv = 1 / derivRes;
 const t_resolution = 1/4;
-const bhRewindLength = 1.5;
+const bhRewindLength = 5;
 
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
@@ -1330,9 +1331,9 @@ var tick = (elapsedTime, multiplier) =>
 
             if(blackhole && t >= 14 && !dTerm.isZero)
             {
-                let d = (tmpZ[2] - zResult[2]) * derivRes;
-                let bhdt = zResult[2] / d;
-                // Not very accurate this way but eh (xdd)
+                let dNewt = (tmpZ[2] - zResult[2]) * derivRes;
+                let bhdt = Math.min(Math.max(-1, zResult[2] / dNewt), 1);
+
                 if(searchingRewind && bhdt < 0)
                 {
                     t_dot = t_resolution;
@@ -1364,7 +1365,7 @@ var tick = (elapsedTime, multiplier) =>
         (zTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
 
         // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
-        if(blackholeMs.isAvailable && clipping_t &&
+        if(blackholeMs.level && clipping_t &&
         t >= lastZero && t >= tClipThreshold)
             enableBlackhole();
     }
@@ -1445,6 +1446,7 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 1,
         text: tmpThreshold.toString(),
+        textColor: () => clipping_t ? Color.TEXT : Color.TEXT_MEDIUM,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
