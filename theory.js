@@ -1608,7 +1608,7 @@ var getQuaternaryEntries = () =>
     return quaternaryEntries;
 }
 
-var getTau = () => normCurrency.value.pow(tauRate);
+var getTau = () => normCurrency.value.abs().pow(tauRate);
 
 var getCurrencyFromTau = (tau) =>
 [
