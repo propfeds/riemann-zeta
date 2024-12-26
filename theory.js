@@ -101,8 +101,8 @@ var authors = 'propfeds, Eylanding\n\n' +
 'Thanks to:\n' +
 'Martin_mc, for the original idea\n' +
 'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
-'XLII, for teaching the ancient Sim language\n' +
-'Sneaky, Gen & Gaunter, for maths & other consultation\n' +
+'Sneaky, Gen & Gaunter, for maths & other consultation during development\n' +
+'XLII, hotab & Mathis S., for developing testing tools\n' +
 'Maimai, LLL333 & Mathis S., for reporting bugs\n' +
 'game-icons.net\n\n' +
 'Translations:\n' +
@@ -1332,7 +1332,7 @@ var tick = (elapsedTime, multiplier) =>
             if(blackhole && t >= 14 && !dTerm.isZero)
             {
                 let dNewt = (tmpZ[2] - zResult[2]) * derivRes;
-                let bhdt = Math.max(-1, -zResult[2] / dNewt);
+                let bhdt = Math.min(Math.max(-1, -zResult[2] / dNewt), 0.75);
 
                 if(searchingRewind && bhdt > 0)
                 {
