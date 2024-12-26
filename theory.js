@@ -1364,7 +1364,6 @@ var tick = (elapsedTime, multiplier) =>
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
         (zTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
 
-        // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
         if(blackholeMs.level && clipping_t &&
         t >= lastZero && t >= tClipThreshold)
             enableBlackhole();
@@ -1621,10 +1620,7 @@ var postPublish = () =>
     zTerm = BigNumber.from(zResult[2]);
     dTerm = BigNumber.ZERO;
     lastZero = 0;
-    // searchingRewind = false;
     foundZero = false;
-    // bhzTerm = null;
-    // bhdTerm = null;
 
     disableBlackhole();
 
@@ -1646,6 +1642,7 @@ var resetStage = () =>
     // This points lastZero to a non-zero, necessary sacrifice.
     lastZero = 0;
     foundZero = false;
+    
     disableBlackhole();
     // Prevent lastZero from opening
     zResult[2] = NaN;
