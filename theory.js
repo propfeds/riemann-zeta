@@ -2,6 +2,8 @@ import { BigNumber } from '../api/BigNumber';
 import { ConstantCost, ExponentialCost, FirstFreeCost, StepwiseCost } from '../api/Costs';
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
+import { Color } from '../api/ui/properties/Color';
+import { Keyboard } from '../api/ui/properties/Keyboard';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
 import { TextAlignment } from '../api/ui/properties/TextAlignment';
 import { Thickness } from '../api/ui/properties/Thickness';
@@ -100,15 +102,15 @@ var authors = 'propfeds, Eylanding\n\n' +
 'Thanks to:\n' +
 'Martin_mc, for the original idea\n' +
 'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
-'XLII, for teaching the ancient Sim language\n' +
-'Sneaky, Gen & Gaunter, for maths & other consultation\n' +
-'Maimai & LLL333, for reporting bugs\n' +
+'Sneaky, Gen & Gaunter, for maths & other consultation during development\n' +
+'XLII, hotab & Mathis S., for developing testing tools\n' +
+'Maimai, LLL333 & Mathis S., for reporting bugs\n' +
 'game-icons.net\n\n' +
 'Translations:\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
 'Jooo & Warzen User - Español\n' +
-'Mathis S - Français\n' +
+'Mathis S. - Français\n' +
 'hotab - Русский\n' +
 'BotAn & hotab - Українська\n' +
 '66.69 - Filipino\n' +
@@ -150,7 +152,7 @@ const scale = 4;
 const derivRes = 100000;
 const derivResInv = 1 / derivRes;
 const t_resolution = 1/4;
-const bhRewindLength = 1.5;
+const bhRewindLength = 5;
 
 const c1ExpMaxLevel = 3;
 // The first 3 zeta zeroes lol
@@ -1330,18 +1332,18 @@ var tick = (elapsedTime, multiplier) =>
 
             if(blackhole && t >= 14 && !dTerm.isZero)
             {
-                let d = (tmpZ[2] - zResult[2]) * derivRes;
-                let bhdt = zResult[2] / d;
-                // Not very accurate this way but eh (xdd)
-                if(searchingRewind && bhdt < 0)
+                let dNewt = (tmpZ[2] - zResult[2]) * derivRes;
+                let bhdt = Math.min(Math.max(-1, -zResult[2] / dNewt), 0.75);
+
+                if(searchingRewind && bhdt > 0)
                 {
                     t_dot = t_resolution;
                     t += t_dot * elapsedTime;
                 }
                 else
                 {
-                    t_dot = -bhdt / elapsedTime;
-                    t -= bhdt;
+                    t_dot = bhdt / elapsedTime;
+                    t += bhdt;
                     searchingRewind = false;
                     if(Math.abs(bhdt) < 1e-9)
                     {
@@ -1363,8 +1365,7 @@ var tick = (elapsedTime, multiplier) =>
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
         (zTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
 
-        // when offline: lastZero is small (maybe even zero), if lastZero is smaller than t but t is greater than threshold then rewind
-        if(blackholeMs.isAvailable && clipping_t &&
+        if(blackholeMs.level && clipping_t &&
         t >= lastZero && t >= tClipThreshold)
             enableBlackhole();
     }
@@ -1409,7 +1410,7 @@ var getEquationOverlay = () =>
 let createBlackholeMenu = () =>
 {
     let tmpThreshold = tClipThreshold;
-    let actuallyEditing = false;
+    // let actuallyEditing = false;
 
     let getBHStr = () => `${blackhole ? '═' : '─'}${!searchingRewind ?
     '═' : '─'}${foundZero ? '═' : '─'}`;
@@ -1445,15 +1446,18 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 1,
         text: tmpThreshold.toString(),
+        textColor: () => clipping_t ? Color.TEXT : Color.TEXT_MEDIUM,
+        placeholder: '0',
+        placeholderColor: Color.TEXT_MEDIUM,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
         {
-            if(!actuallyEditing)
-                return;
+            // if(!actuallyEditing)
+            //     return;
             let tmpML = parseFloat(nt) ?? tmpThreshold;
             if(isNaN(tmpML))
-                tmpML = tmpThreshold;
+                tmpML = 0;
             tmpThreshold = tmpML;
         }
     });
@@ -1464,10 +1468,10 @@ let createBlackholeMenu = () =>
         onClicked: () =>
         {
             Sound.playClick();
-            actuallyEditing = false;
+            // actuallyEditing = false;
             tmpThreshold = t;
             thresholdEntry.text = tmpThreshold.toString();
-            actuallyEditing = true;
+            // actuallyEditing = true;
         }
     })
     let saveBtn = ui.createButton
@@ -1481,7 +1485,7 @@ let createBlackholeMenu = () =>
         }
     })
 
-    actuallyEditing = true;
+    // actuallyEditing = true;
 
     let menu = ui.createPopup
     ({
@@ -1523,6 +1527,8 @@ let createBlackholeMenu = () =>
                             row: 0, column: 0,
                             margin: new Thickness(0, 0, 6, 0),
                             text: '\$t\\ge\$',
+                            textColor: () => clipping_t ? Color.TEXT :
+                            Color.TEXT_MEDIUM,
                             horizontalTextAlignment: TextAlignment.START,
                             verticalTextAlignment: TextAlignment.CENTER
                         }),
@@ -1602,7 +1608,7 @@ var getQuaternaryEntries = () =>
     return quaternaryEntries;
 }
 
-var getTau = () => normCurrency.value.pow(tauRate);
+var getTau = () => normCurrency.value.abs().pow(tauRate);
 
 var getCurrencyFromTau = (tau) =>
 [
@@ -1619,10 +1625,7 @@ var postPublish = () =>
     zTerm = BigNumber.from(zResult[2]);
     dTerm = BigNumber.ZERO;
     lastZero = 0;
-    // searchingRewind = false;
     foundZero = false;
-    // bhzTerm = null;
-    // bhdTerm = null;
 
     disableBlackhole();
 
@@ -1644,7 +1647,10 @@ var resetStage = () =>
     // This points lastZero to a non-zero, necessary sacrifice.
     lastZero = 0;
     foundZero = false;
+
     disableBlackhole();
+    // Prevent lastZero from opening
+    zResult[2] = NaN;
 }
 
 var getInternalState = () => JSON.stringify
