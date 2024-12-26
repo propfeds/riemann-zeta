@@ -1647,6 +1647,8 @@ var resetStage = () =>
     lastZero = 0;
     foundZero = false;
     disableBlackhole();
+    // Prevent lastZero from opening
+    zResult[2] = NaN;
 }
 
 var getInternalState = () => JSON.stringify
