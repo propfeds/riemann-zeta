@@ -3,6 +3,7 @@ import { ConstantCost, ExponentialCost, FirstFreeCost, StepwiseCost } from '../a
 import { Localization } from '../api/Localization';
 import { QuaternaryEntry, theory } from '../api/Theory';
 import { Color } from '../api/ui/properties/Color';
+import { Keyboard } from '../api/ui/properties/Keyboard';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
 import { TextAlignment } from '../api/ui/properties/TextAlignment';
 import { Thickness } from '../api/ui/properties/Thickness';
@@ -1409,7 +1410,7 @@ var getEquationOverlay = () =>
 let createBlackholeMenu = () =>
 {
     let tmpThreshold = tClipThreshold;
-    let actuallyEditing = false;
+    // let actuallyEditing = false;
 
     let getBHStr = () => `${blackhole ? '═' : '─'}${!searchingRewind ?
     '═' : '─'}${foundZero ? '═' : '─'}`;
@@ -1446,15 +1447,17 @@ let createBlackholeMenu = () =>
         row: 0, column: 1,
         text: tmpThreshold.toString(),
         textColor: () => clipping_t ? Color.TEXT : Color.TEXT_MEDIUM,
+        placeholder: '0',
+        placeholderColor: Color.TEXT_MEDIUM,
         keyboard: Keyboard.NUMERIC,
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
         {
-            if(!actuallyEditing)
-                return;
+            // if(!actuallyEditing)
+            //     return;
             let tmpML = parseFloat(nt) ?? tmpThreshold;
             if(isNaN(tmpML))
-                tmpML = tmpThreshold;
+                tmpML = 0;
             tmpThreshold = tmpML;
         }
     });
@@ -1465,10 +1468,10 @@ let createBlackholeMenu = () =>
         onClicked: () =>
         {
             Sound.playClick();
-            actuallyEditing = false;
+            // actuallyEditing = false;
             tmpThreshold = t;
             thresholdEntry.text = tmpThreshold.toString();
-            actuallyEditing = true;
+            // actuallyEditing = true;
         }
     })
     let saveBtn = ui.createButton
@@ -1482,7 +1485,7 @@ let createBlackholeMenu = () =>
         }
     })
 
-    actuallyEditing = true;
+    // actuallyEditing = true;
 
     let menu = ui.createPopup
     ({
@@ -1524,6 +1527,8 @@ let createBlackholeMenu = () =>
                             row: 0, column: 0,
                             margin: new Thickness(0, 0, 6, 0),
                             text: '\$t\\ge\$',
+                            textColor: () => clipping_t ? Color.TEXT :
+                            Color.TEXT_MEDIUM,
                             horizontalTextAlignment: TextAlignment.START,
                             verticalTextAlignment: TextAlignment.CENTER
                         }),
