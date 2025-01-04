@@ -98,7 +98,7 @@ Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường th�
 
     return descs[language] || descs.en;
 }
-var authors = 'prop\n\n' +
+var authors = 'prop (Minh)\n\n' +
 'Thanks to:\n' +
 'Prof. Glen Pugh, for the implementation of the Riemann-Siegel formula\n' +
 'Martin_mc & Eylanding, original developers of the concept\n' +
