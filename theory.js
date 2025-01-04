@@ -98,12 +98,12 @@ Trong lí thuyết này, chúng ta sẽ khám phá hàm zeta trên đường th�
 
     return descs[language] || descs.en;
 }
-var authors = 'propfeds, Eylanding\n\n' +
+var authors = 'prop\n\n' +
 'Thanks to:\n' +
-'Martin_mc, for the original idea\n' +
-'Glen Pugh, for the Riemann-Siegel formula implementation\n' +
-'Sneaky, Gen & Gaunter, for maths & other consultation during development\n' +
-'XLII, hotab & Mathis S., for developing testing tools\n' +
+'Prof. Glen Pugh, for the implementation of the Riemann-Siegel formula\n' +
+'Martin_mc & Eylanding, original developers of the concept\n' +
+'Sneaky, Gen & Gaunter, for maths & other consultations during development\n' +
+'XLII, hotab & Mathis S., for the development of testing tools\n' +
 'Maimai, LLL333 & Mathis S., for reporting bugs\n' +
 'game-icons.net\n\n' +
 'Translations:\n' +
@@ -114,7 +114,7 @@ var authors = 'propfeds, Eylanding\n\n' +
 'hotab - Русский\n' +
 'BotAn & hotab - Українська\n' +
 '66.69 - Filipino\n' +
-'propfeds - Tiếng Việt';
+'prop - Tiếng Việt';
 var version = 3;
 var releaseOrder = '7';
 
