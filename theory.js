@@ -955,81 +955,13 @@ let createImageBtn = (params, callback, isAvailable, image) =>
     return frame;
 }
 
-let createActiveImageBtn = (params, callback, image) =>
-{
-    let triggerable = true;
-    let borderColor = Color.BORDER;
-    let frame = ui.createFrame
-    ({
-        cornerRadius: 1,
-        margin: new Thickness(2),
-        padding: new Thickness(2),
-        hasShadow: true,
-        heightRequest: getImageSize(ui.screenWidth),
-        widthRequest: getImageSize(ui.screenWidth),
-        content: ui.createImage
-        ({
-            source: image,
-            aspect: Aspect.ASPECT_FIT,
-            useTint: false
-        }),
-        borderColor,
-        ...params
-    });
-    frame.onTouched = (e) =>
-    {
-        if(e.type == TouchType.PRESSED)
-        {
-            frame.borderColor = Color.TRANSPARENT;
-            // frame.hasShadow = false;
-        }
-        else if(e.type.isReleased())
-        {
-            frame.borderColor = borderColor;
-            // frame.hasShadow = true;
-            if(triggerable)
-            {
-                Sound.playClick();
-                callback();
-            }
-            else
-                triggerable = true;
-        }
-        else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
-        e.x > frame.width || e.y > frame.height))
-        {
-            frame.borderColor = borderColor;
-            // frame.hasShadow = true;
-            triggerable = false;
-        }
-    };
-    return frame;
-}
-
 let createHesitantSwitch = (params, callback, isToggled) =>
 {
-    let triggerable = true;
     let element = ui.createSwitch
     ({
-        horizontalOptions: LayoutOptions.CENTER,
         onColor: Color.BORDER,
         isToggled,
-        onTouched: (e) =>
-        {
-            if(e.type.isReleased())
-            {
-                if(triggerable)
-                {
-                    Sound.playClick();
-                    callback();
-                }
-                else
-                    triggerable = true;
-            }
-            else if(e.type == TouchType.MOVED && (e.x < 0 || e.y < 0 ||
-            e.x > element.width || e.y > element.height))
-                triggerable = false;
-        },
+        onToggled: callback,
         ...params
     });
     return element;
@@ -1442,8 +1374,8 @@ let createBlackholeMenu = () =>
         horizontalOptions: LayoutOptions.END
     }, () =>
     {
-        clipping_t = !clipping_t;
-        clippingSwitch.isToggled = clipping_t;
+        Sound.playClick();
+        clipping_t = clippingSwitch.isToggled;
     }, clipping_t);
 
     let thresholdEntry = ui.createEntry
