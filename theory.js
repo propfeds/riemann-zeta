@@ -1172,7 +1172,7 @@ var init = () =>
         w2Ms.isAvailable = false;
         w2Ms.canBeRefunded = () => blackholeMs.level == 0;
     }
-    /* Blackhole
+    /* Black hole
     Tradeoff. Use for coasting.
     */
     {
@@ -1356,7 +1356,6 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 2,
         horizontalOptions: LayoutOptions.END,
-        thumbColor: () => clipping_t ? Color.TEXT : Color.TEXT_MEDIUM,
         isToggled: clipping_t,
         onToggled: () =>
         {
@@ -1369,7 +1368,6 @@ let createBlackholeMenu = () =>
     ({
         row: 0, column: 1,
         text: tmpThreshold.toString(),
-        textColor: () => clipping_t ? Color.TEXT : Color.TEXT_MEDIUM,
         placeholder: '0',
         placeholderColor: Color.TEXT_MEDIUM,
         keyboard: Keyboard.NUMERIC,
@@ -1429,6 +1427,7 @@ let createBlackholeMenu = () =>
                 }),
                 ui.createLatexLabel
                 ({
+                    opacity: () => clipping_t ? 1 : 0.4,
                     margin: new Thickness(0, 0, 0, 6),
                     text: getLoc('blackholeThreshold'),
                     horizontalTextAlignment: TextAlignment.CENTER,
@@ -1436,6 +1435,7 @@ let createBlackholeMenu = () =>
                 }),
                 ui.createGrid
                 ({
+                    opacity: () => clipping_t ? 1 : 0.4,
                     columnDefinitions: ['auto', '1*', 'auto'],
                     children:
                     [
@@ -1444,8 +1444,6 @@ let createBlackholeMenu = () =>
                             row: 0, column: 0,
                             margin: new Thickness(0, 0, 6, 0),
                             text: '\$t\\ge\$',
-                            textColor: () => clipping_t ? Color.TEXT :
-                            Color.TEXT_MEDIUM,
                             horizontalTextAlignment: TextAlignment.START,
                             verticalTextAlignment: TextAlignment.CENTER
                         }),
