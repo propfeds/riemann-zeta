@@ -930,12 +930,10 @@ let createImageBtn = (params, callback, isAvailable, image) =>
         if(e.type == TouchType.PRESSED)
         {
             frame.borderColor = Color.TRANSPARENT;
-            // frame.hasShadow = false;
         }
         else if(e.type.isReleased())
         {
             frame.borderColor = borderColor;
-            // frame.hasShadow = true;
             if(triggerable && isAvailable())
             {
                 Sound.playClick();
@@ -948,23 +946,10 @@ let createImageBtn = (params, callback, isAvailable, image) =>
         e.x > frame.width || e.y > frame.height))
         {
             frame.borderColor = borderColor;
-            // frame.hasShadow = true;
             triggerable = false;
         }
     };
     return frame;
-}
-
-let createHesitantSwitch = (params, callback, isToggled) =>
-{
-    let element = ui.createSwitch
-    ({
-        onColor: Color.BORDER,
-        isToggled,
-        onToggled: callback,
-        ...params
-    });
-    return element;
 }
 
 const bhImage = game.settings.theme == Theme.LIGHT ?
@@ -1346,7 +1331,6 @@ var getEquationOverlay = () =>
 let createBlackholeMenu = () =>
 {
     let tmpThreshold = tClipThreshold;
-    // let actuallyEditing = false;
 
     let getBHStr = () => `${blackhole ? '═' : '─'}${!searchingRewind ?
     '═' : '─'}${foundZero ? '═' : '─'}`;
@@ -1368,15 +1352,18 @@ let createBlackholeMenu = () =>
         }
     });
 
-    let clippingSwitch = createHesitantSwitch
+    let clippingSwitch = ui.createSwitch
     ({
         row: 0, column: 2,
-        horizontalOptions: LayoutOptions.END
-    }, () =>
-    {
-        Sound.playClick();
-        clipping_t = clippingSwitch.isToggled;
-    }, clipping_t);
+        horizontalOptions: LayoutOptions.END,
+        thumbColor: () => clipping_t ? Color.TEXT : Color.TEXT_MEDIUM,
+        isToggled: clipping_t,
+        onToggled: () =>
+        {
+            Sound.playClick();
+            clipping_t = clippingSwitch.isToggled;
+        }
+    });
 
     let thresholdEntry = ui.createEntry
     ({
@@ -1389,8 +1376,6 @@ let createBlackholeMenu = () =>
         horizontalTextAlignment: TextAlignment.END,
         onTextChanged: (ot, nt) =>
         {
-            // if(!actuallyEditing)
-            //     return;
             let tmpML = parseFloat(nt) ?? tmpThreshold;
             if(isNaN(tmpML))
                 tmpML = 0;
@@ -1404,10 +1389,8 @@ let createBlackholeMenu = () =>
         onClicked: () =>
         {
             Sound.playClick();
-            // actuallyEditing = false;
             tmpThreshold = t;
             thresholdEntry.text = tmpThreshold.toString();
-            // actuallyEditing = true;
         }
     })
     let saveBtn = ui.createButton
@@ -1420,8 +1403,6 @@ let createBlackholeMenu = () =>
             tClipThreshold = tmpThreshold;
         }
     })
-
-    // actuallyEditing = true;
 
     let menu = ui.createPopup
     ({
