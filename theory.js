@@ -1456,7 +1456,7 @@ let createBlackholeMenu = () =>
                 ui.createBox
                 ({
                     heightRequest: 1,
-                    margin: new Thickness(0, 6)
+                    margin: new Thickness(0, 0, 0, 2)
                 }),
                 ui.createGrid
                 ({
