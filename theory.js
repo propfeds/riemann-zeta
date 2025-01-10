@@ -1399,7 +1399,7 @@ let createBlackholeMenu = () =>
         {
             Sound.playClick();
             tClipThreshold = tmpThreshold;
-            if(t < tClipThreshold)
+            if(clipping_t && t < tClipThreshold)
                 disableBlackhole();
         }
     })
