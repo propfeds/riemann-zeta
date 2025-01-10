@@ -115,7 +115,7 @@ var authors = 'prop (Minh)\n\n' +
 'BotAn & hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'prop - Tiếng Việt';
-var version = 3;
+var version = 4;
 var releaseOrder = '7';
 
 let pubTime = 0;
@@ -849,7 +849,7 @@ let enableBlackhole = () =>
     foundZero = false;
     bhzTerm = null;
     bhdTerm = null;
-    if(lastZero >= 14 && lastZero > t - 10)
+    if(lastZero > Math.max(0, t - 10))
     {
         t = lastZero;
         searchingRewind = false;
@@ -1255,7 +1255,7 @@ var tick = (elapsedTime, multiplier) =>
                 let dNewt = (tmpZ[2] - zResult[2]) * derivRes;
                 let bhdt = Math.min(Math.max(-0.5, -zResult[2] / dNewt), 0.375);
 
-                if(searchingRewind && bhdt > 0)
+                if(searchingRewind && t > 14.5 && bhdt > 0)
                 {
                     let srdt = -Math.min(0.125 / bhdt, 0.125);
                     t_dot = srdt / elapsedTime;
@@ -1399,6 +1399,8 @@ let createBlackholeMenu = () =>
         {
             Sound.playClick();
             tClipThreshold = tmpThreshold;
+            if(t < tClipThreshold)
+                disableBlackhole();
         }
     })
 
@@ -1454,7 +1456,7 @@ let createBlackholeMenu = () =>
                 ui.createBox
                 ({
                     heightRequest: 1,
-                    margin: new Thickness(0, 6)
+                    margin: new Thickness(0, 0, 0, 2)
                 }),
                 ui.createGrid
                 ({
