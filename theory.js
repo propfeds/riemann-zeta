@@ -1218,7 +1218,7 @@ var tick = (elapsedTime, multiplier) =>
         return;
 
     pubTime += elapsedTime;
-    if(!blackhole || t < 14.14)
+    if(!blackhole || t < 14)
     {
         t_dot = t_resolution;
         t += t_dot * elapsedTime;
@@ -1250,12 +1250,12 @@ var tick = (elapsedTime, multiplier) =>
             derivCurrency.value += dTerm.pow(bTerm) * w1Term * w2Term * w3Term *
             bonus;
 
-            if(blackhole && t >= 14.14)
+            if(blackhole && t >= 14)
             {
                 let dNewt = (tmpZ[2] - zResult[2]) * derivRes;
                 let bhdt = Math.min(Math.max(-0.5, -zResult[2] / dNewt), 0.375);
 
-                if(searchingRewind && bhdt > 0)
+                if(searchingRewind && t > 14.5 && bhdt > 0)
                 {
                     let srdt = -Math.min(0.125 / bhdt, 0.125);
                     t_dot = srdt / elapsedTime;
