@@ -849,7 +849,7 @@ let enableBlackhole = () =>
     foundZero = false;
     bhzTerm = null;
     bhdTerm = null;
-    if(lastZero > Math.max(0, t - 10))
+    if(t > lastZero && lastZero > Math.max(0, t - 10))
     {
         t = lastZero;
         searchingRewind = false;
@@ -1286,10 +1286,9 @@ var tick = (elapsedTime, multiplier) =>
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
         (zTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
 
-        if(blackholeMs.level && clipping_t && !blackhole &&
-        t >= lastZero && t >= tClipThreshold)
+        if(blackholeMs.level && clipping_t && !blackhole && t >= tClipThreshold)
         {
-            if(t - t_dot * elapsedTime < tClipThreshold)
+            if(t - t_resolution * elapsedTime < tClipThreshold)
                 t = tClipThreshold;
             enableBlackhole();
         }
