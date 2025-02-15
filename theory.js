@@ -852,7 +852,7 @@ let enableBlackhole = () =>
     if(t > lastZero && lastZero > Math.max(0, t - 10))
     {
         t = lastZero;
-        searchingRewind = false;
+        // searchingRewind = false;
     }
 }
 
