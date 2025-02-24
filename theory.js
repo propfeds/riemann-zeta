@@ -849,10 +849,10 @@ let enableBlackhole = () =>
     foundZero = false;
     bhzTerm = null;
     bhdTerm = null;
-    if(lastZero > Math.max(0, t - 10))
+    if(t > lastZero && lastZero > Math.max(0, t - 10))
     {
         t = lastZero;
-        searchingRewind = false;
+        // searchingRewind = false;
     }
 }
 
@@ -1269,6 +1269,7 @@ var tick = (elapsedTime, multiplier) =>
                     if(Math.abs(bhdt) < 1e-9)
                     {
                         foundZero = true;
+                        // lastZero = t;
                         // Calculate bhzTerm
                         let zResult = zeta(t);
                         let tmpZ = zeta(t + derivResInv);
@@ -1286,9 +1287,12 @@ var tick = (elapsedTime, multiplier) =>
         normCurrency.value += tTerm * c1Term * c2Term * w1Term * bonus /
         (zTerm / BigNumber.TWO.pow(bTerm) + bMarginTerm);
 
-        if(blackholeMs.level && clipping_t &&
-        t >= lastZero && t >= tClipThreshold)
+        if(blackholeMs.level && clipping_t && !blackhole && t >= tClipThreshold)
+        {
             enableBlackhole();
+            if(t - t_resolution * elapsedTime < tClipThreshold)
+                t = tClipThreshold;
+        }
     }
     else
     {
