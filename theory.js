@@ -1269,6 +1269,7 @@ var tick = (elapsedTime, multiplier) =>
                     if(Math.abs(bhdt) < 1e-9)
                     {
                         foundZero = true;
+                        // lastZero = t;
                         // Calculate bhzTerm
                         let zResult = zeta(t);
                         let tmpZ = zeta(t + derivResInv);
@@ -1288,9 +1289,9 @@ var tick = (elapsedTime, multiplier) =>
 
         if(blackholeMs.level && clipping_t && !blackhole && t >= tClipThreshold)
         {
+            enableBlackhole();
             if(t - t_resolution * elapsedTime < tClipThreshold)
                 t = tClipThreshold;
-            enableBlackhole();
         }
     }
     else
