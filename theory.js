@@ -116,7 +116,7 @@ var authors = 'prop (Minh)\n\n' +
 'Translations:\n' +
 'Omega_3301 & WYXkk - 简体中文\n' +
 'Omega_3301 & pacowoc - 繁體中文\n' +
-'aervnu - Deutsch\n'
+'aervnu - Deutsch\n' +
 'Jooo & Warzen User - Español\n' +
 'Mathis S. - Français\n' +
 'hotab - Русский\n' +
