@@ -1431,8 +1431,9 @@ let createBlackholeMenu = () =>
         {
             Sound.playClick();
             tClipThreshold = tmpThreshold;
-            if(clipping_t && t < tClipThreshold)
-                disableBlackhole();
+            // 0.6.7: Disabled save button QoL due to exploit
+            // if(clipping_t && t < tClipThreshold)
+            //     disableBlackhole();
         }
     })
 
