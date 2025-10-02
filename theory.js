@@ -5,6 +5,7 @@ import { QuaternaryEntry, theory } from '../api/Theory';
 import { Color } from '../api/ui/properties/Color';
 import { Keyboard } from '../api/ui/properties/Keyboard';
 import { LayoutOptions } from '../api/ui/properties/LayoutOptions';
+import { StackOrientation } from '../api/ui/properties/StackOrientation';
 import { TextAlignment } from '../api/ui/properties/TextAlignment';
 import { Thickness } from '../api/ui/properties/Thickness';
 import { ui } from '../api/ui/UI';
@@ -123,7 +124,7 @@ var authors = 'prop (Minh)\n\n' +
 'BotAn & hotab - Українська\n' +
 '66.69 - Filipino\n' +
 'prop - Tiếng Việt';
-var version = 5;
+var version = 6;
 var releaseOrder = '7';
 
 let pubTime = 0;
@@ -1460,13 +1461,29 @@ let createBlackholeMenu = () =>
                         blackholeBtn
                     ]
                 }),
-                ui.createLatexLabel
+                ui.createStackLayout
                 ({
-                    opacity: () => clipping_t ? 1 : 0.4,
-                    margin: new Thickness(0, 0, 0, 6),
-                    text: getLoc('blackholeThreshold'),
-                    horizontalTextAlignment: TextAlignment.CENTER,
-                    verticalTextAlignment: TextAlignment.CENTER
+                    orientation: StackOrientation.HORIZONTAL,
+                    children:
+                    [
+                        ui.createLatexLabel
+                        ({
+                            isVisible: () => tmpThreshold != tClipThreshold,
+                            opacity: () => clipping_t ? 1 : 0.4,
+                            margin: new Thickness(0, 0, 0, 6),
+                            text: '*',
+                            horizontalTextAlignment: TextAlignment.START,
+                            verticalTextAlignment: TextAlignment.CENTER
+                        }),
+                        ui.createLatexLabel
+                        ({
+                            opacity: () => clipping_t ? 1 : 0.4,
+                            margin: new Thickness(0, 0, 0, 6),
+                            text: getLoc('blackholeThreshold'),
+                            horizontalTextAlignment: TextAlignment.START,
+                            verticalTextAlignment: TextAlignment.CENTER
+                        })
+                    ]
                 }),
                 ui.createGrid
                 ({
